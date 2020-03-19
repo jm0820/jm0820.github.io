@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jm0820.github.io</id>
     <title>小王同学</title>
-    <updated>2020-03-19T15:44:27.111Z</updated>
+    <updated>2020-03-19T15:46:56.977Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jm0820.github.io"/>
     <link rel="self" href="https://jm0820.github.io/atom.xml"/>
@@ -26,7 +26,7 @@
 <li>第一个到达服务器的 HTTP 请求被委派到 Servlet 容器。</li>
 <li>Servlet 容器在调用 service() 方法之前加载 Servlet。</li>
 <li>然后 Servlet 容器处理由多个线程产生的多个请求，每个线程执行一个单一的 Servlet 实例的 service() 方法。<br>
-[!https://img-blog.csdnimg.cn/20200319220625302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70]</li>
+<img src="https://img-blog.csdnimg.cn/20200319220625302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70" alt="servlet 架构图" loading="lazy"></li>
 </ul>
 <h3 id="servlet-任务">Servlet 任务</h3>
 <ul>
