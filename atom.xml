@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jm0820.github.io</id>
     <title>小王同学</title>
-    <updated>2020-03-19T15:47:11.252Z</updated>
+    <updated>2020-03-25T07:01:36.576Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jm0820.github.io"/>
     <link rel="self" href="https://jm0820.github.io/atom.xml"/>
@@ -17,26 +17,24 @@
         </link>
         <updated>2020-03-19T15:40:33.000Z</updated>
         <content type="html"><![CDATA[<p>[TOC]</p>
-<h1 id="简介">简介</h1>
-<h3 id="什么是servlet">什么是Servlet</h3>
-<p>Java Servlet 是运行在 Web 服务器或应用服务器上的程序，也就是一个java  类，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
+<h1 id="servlet-简介">Servlet 简介</h1>
+<p><strong>什么是Servlet</strong><br>
+Java Servlet 是运行在 Web 服务器或应用服务器上的程序，也就是一个java  类，它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
 <p>使用 Servlet，您可以收集来自网页表单的用户输入，呈现来自数据库或者其他源的记录，还可以动态创建网页。</p>
-<h3 id="servlet-架构">Servlet 架构</h3>
+<p><strong>Servlet 架构</strong></p>
 <ul>
 <li>第一个到达服务器的 HTTP 请求被委派到 Servlet 容器。</li>
 <li>Servlet 容器在调用 service() 方法之前加载 Servlet。</li>
 <li>然后 Servlet 容器处理由多个线程产生的多个请求，每个线程执行一个单一的 Servlet 实例的 service() 方法。<br>
-<img src="https://img-blog.csdnimg.cn/20200319220625302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70" alt="servlet 架构图" loading="lazy"></li>
-</ul>
-<h3 id="servlet-任务">Servlet 任务</h3>
-<ul>
-<li>读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户端程序的表单。</li>
+<img src="https://img-blog.csdnimg.cn/20200319220625302.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70" alt="servlet 架构图" loading="lazy"><br>
+<strong>Servlet 任务</strong></li>
+<li>读取客户端（浏览器）发送的显式的数据。这包括网页上的 HTML 表单，或者也可以是来自 applet 或自定义的 HTTP 客户s端程序的表单。</li>
 <li>读取客户端（浏览器）发送的隐式的 HTTP 请求数据。这包括 cookies、媒体类型和浏览器能理解的压缩格式等等。</li>
 <li>处理数据并生成结果。这个过程可能需要访问数据库，执行 RMI 或 CORBA 调用，调用 Web 服务，或者直接计算得出对应的响应。</li>
 <li>发送显式的数据（即文档）到客户端（浏览器）。该文档的格式可以是多种多样的，包括文本文件（HTML 或 XML）、二进制文件（GIF 图像）、Excel 等。</li>
 <li>发送隐式的 HTTP 响应到客户端（浏览器）。这包括告诉浏览器或其他客户端被返回的文档类型（例如 HTML），设置 cookies 和缓存参数，以及其他类似的任务。</li>
 </ul>
-<h3 id="生命周期">生命周期</h3>
+<p><strong>生命周期</strong></p>
 <p>Servlet 的生命周期是由Web 容器来管理的。</p>
 <ul>
 <li>Servlet 通过调用 init () 方法进行初始化。</li>
@@ -59,7 +57,7 @@
 <ul>
 <li>最后，Servlet 是由 JVM 的垃圾回收器进行垃圾回收的。</li>
 </ul>
-<h3 id="servlet-容器相应客户请求的过程">Servlet 容器相应客户请求的过程</h3>
+<p><strong>Servlet 容器响应客户请求的过程</strong></p>
 <ol>
 <li>Servlet 引擎检查是否已经装载并创建了该Servlet 的实例对象，如果是，则执行第④步，否则执行第②步。</li>
 <li>装载并创建该Servlet 的一个实例对象：调用该Servlet 的构造器。</li>
@@ -342,9 +340,9 @@ while(ns.hasMoreElements()){
 </li>
 </ul>
 <h1 id="servlet-的转发和重定向">Servlet 的转发和重定向</h1>
-<p>请求的转发和跳转都是为了实现页面的跳转.</p>
-<h3 id="转发">转发</h3>
-<p>假设浏览器访问servlet1，而servlet1想让servlet2为客户端服务。此时servlet1调用forward（）方法，将请求转发给servlet2。但是调用forward()方法，对于浏览器来说是透明的，浏览器并不知道为其服务的Servlet已经换成Servlet2，它只知道发出了一个请求，获得了一个响应。浏览器URL的地址栏不变。<br>
+<p>请求的转发和跳转都是为了实现页面的跳转.<br>
+<strong>转发</strong><br>
+假设浏览器访问servlet1，而servlet1想让servlet2为客户端服务。此时servlet1调用forward（）方法，将请求转发给servlet2。但是调用forward()方法，对于浏览器来说是透明的，浏览器并不知道为其服务的Servlet已经换成Servlet2，它只知道发出了一个请求，获得了一个响应。浏览器URL的地址栏不变。<br>
 转发的对象是RequestDispatcher,有两种方式可以获取到这个对象</p>
 <ul>
 <li>HttpservletRequest的getRequestDispatcher()</li>
@@ -357,14 +355,14 @@ RequestDispatcher requestDispatcher = req.getRequestDispatcher(&quot;/&quot; + p
 //2.调用HttpServletRequest 的forward(request,response)进行请求的转发
 requestDispatcher.forward(req,resp);
 </code></pre>
-<h3 id="重定向">重定向</h3>
-<p>浏览器访问servlet1,而servlet1 想让servlet2 为客户端服务，此时servlet1 调用sendRedirect()将请求重定向到Servlet2.接着浏览器访问servlet2,servlet2 对客户段请求做出反应，浏览器的URL地址改变</p>
+<p><strong>重定向</strong><br>
+浏览器访问servlet1,而servlet1 想让servlet2 为客户端服务，此时servlet1 调用sendRedirect()将请求重定向到Servlet2.接着浏览器访问servlet2,servlet2 对客户段请求做出反应，浏览器的URL地址改变</p>
 <pre><code>//执行请求的重定向，直接调用response.sendRedirect(path)方法
 //path 为要重定向的地址
 String path = &quot;testServlet1&quot;;
 resp.sendRedirect(path);
 </code></pre>
-<h3 id="转发和重定向的区别">转发和重定向的区别</h3>
+<p><strong>转发和重定向的区别</strong></p>
 <p><strong>本质区别</strong><br>
 请求的转发是只发出了一次请求，而重定向则发出了两次请求。</p>
 <p><strong>具体区别</strong><br>
@@ -376,6 +374,168 @@ resp.sendRedirect(path);
 请求重定向：可以重定向到任何资源</p>
 <p>请求转发：/代表的是当前WEB应用的根目录   <code>http://localhost:8080/project/</code><br>
 请求重定向：/代表的是当前WEB站点的根目录<code>http://localhost:8080/</code></p>
+<h1 id="genericservlet-和-httpservlet">GenericServlet 和 HttpServlet</h1>
+<h3 id="genericservelt">GenericServelt</h3>
+<p>GenericServelt 是Servlet 接口的实现类，但它是一个抽象类</p>
+<pre><code>public abstract class GenericServlet implements Servlet, ServletConfig, Serializable {
+</code></pre>
+<p>它实现了Servlet、ServletConfig、Serializable 这几个接口。</p>
+<ul>
+<li>ServletConfig 接口</li>
+</ul>
+<pre><code>public interface ServletConfig {
+    //得到Servlet的名字
+    String getServletName();   
+    
+    //获取ServletContext对象
+    ServletContext getServletContext();
+
+    //获取初始化参数
+    String getInitParameter(String var1);
+    
+    //获取初始化参数的Enumeration 对象
+    Enumeration&lt;String&gt; getInitParameterNames();
+}
+</code></pre>
+<p>GenericServlet内部有一个私有的ServletConfig 对象。</p>
+<pre><code>private transient ServletConfig config;
+
+</code></pre>
+<p>通过这个对象实现了ServletConfig 的方法。</p>
+<ul>
+<li>Servlet<br>
+GenericServelt 实现了 Servlet 的除service()外所有的方法，GenericServelt这个抽象类只有一个抽象方法就是service()，我们继承GenericServlet 去实现Servlet 的时候只需要实现service()就可以了。</li>
+</ul>
+<p><strong>init()和init(ServletConfig config)</strong></p>
+<pre><code>    //这个方法是Serevlet 接口的方法。
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config;
+        this.init();
+    }
+
+    public void init() throws ServletException {
+    }
+</code></pre>
+<p>init(ServletConfig coonfig) 方法是 Servlete 自带的方法，在初次访问这个方法时自动调用，我们如果想自己实现这个方法只需要实现init()方法就可以了。<br>
+如果我们覆盖了init(ServletConfig coonfig)方法，那么config 就不会被初始化，调用ServletConfig 的时候就会出现空指针异常。</p>
+<ul>
+<li>自己实现的一个GenericServlet</li>
+</ul>
+<pre><code>public  abstract class MyGenericServlet implements Servlet,ServletConfig{
+    private ServletConfig servletConfig;
+
+    public void init(ServletConfig servletConfig) throws ServletException {
+        this.servletConfig = servletConfig;
+    }
+
+    public ServletConfig getServletConfig() {
+        return servletConfig;
+    }
+
+    public abstract void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException;
+
+    public String getServletInfo() {
+
+        return null;
+    }
+
+    public void destroy() {
+
+    }
+
+    /**
+     * 以下方法为ServletConfig 接口的方法
+     * @return
+     */
+    public String getServletName() {
+        return servletConfig.getServletName();
+    }
+
+    public ServletContext getServletContext() {
+        return servletConfig.getServletContext();
+    }
+
+    public String getInitParameter(String s) {
+
+        return servletConfig.getInitParameter(s);
+    }
+
+    public Enumeration&lt;String&gt; getInitParameterNames() {
+
+        return servletConfig.getInitParameterNames();
+    }
+}
+
+</code></pre>
+<h3 id="httpservlet">HttpServlet</h3>
+<p>HttpServlet 是专门针对于Http协议定义的一个Servlet基类，它也是一个抽象类，继承于GenericServlet.</p>
+<pre><code>public abstract class HttpServlet extends GenericServlet {
+</code></pre>
+<p>所以我们只需要实现Service(SrevletReeqequest,ServletResponse)方法即可。Servlet 的参数是ServletRequest和ServletResponse,但是因为所有的请求都是HTTP请求，所以传给Service 的其实是HttpServletRequst和HttpServletResponse.如果使用HttpServletRequest和HttpServletResponse那么需要进行强转。</p>
+<pre><code>public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+        if (req instanceof HttpServletRequest &amp;&amp; res instanceof HttpServletResponse) {
+            HttpServletRequest request = (HttpServletRequest)req;
+            HttpServletResponse response = (HttpServletResponse)res;
+            this.service(request, response);
+        } else {
+            throw new ServletException(&quot;non-HTTP request or response&quot;);
+        }
+    }
+</code></pre>
+<p>在HttpServlet 类里面的<code>service()</code>方法进行了强转然后调用了<code>service(HttpServletRequest, HttpServletresponse);</code></p>
+<pre><code>protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String method = req.getMethod();
+        long lastModified;
+        if (method.equals(&quot;GET&quot;)) {
+            lastModified = this.getLastModified(req);
+            if (lastModified == -1L) {
+                this.doGet(req, resp);
+            } else {
+                long ifModifiedSince = req.getDateHeader(&quot;If-Modified-Since&quot;);
+                if (ifModifiedSince &lt; lastModified) {
+                    this.maybeSetLastModified(resp, lastModified);
+                    this.doGet(req, resp);
+                } else {
+                    resp.setStatus(304);
+                }
+            }
+        } else if (method.equals(&quot;HEAD&quot;)) {
+            lastModified = this.getLastModified(req);
+            this.maybeSetLastModified(resp, lastModified);
+            this.doHead(req, resp);
+        } else if (method.equals(&quot;POST&quot;)) {
+            this.doPost(req, resp);
+        } else if (method.equals(&quot;PUT&quot;)) {
+            this.doPut(req, resp);
+        } else if (method.equals(&quot;DELETE&quot;)) {
+            this.doDelete(req, resp);
+        } else if (method.equals(&quot;OPTIONS&quot;)) {
+            this.doOptions(req, resp);
+        } else if (method.equals(&quot;TRACE&quot;)) {
+            this.doTrace(req, resp);
+        } else {
+            String errMsg = lStrings.getString(&quot;http.method_not_implemented&quot;);
+            Object[] errArgs = new Object[]{method};
+            errMsg = MessageFormat.format(errMsg, errArgs);
+            resp.sendError(501, errMsg);
+        }
+
+    }
+</code></pre>
+<p><code>service()</code> 会根据请求的方式来调用相应的方法，HttpServlet 里面写了相应的<code>doXXX()</code>方法.   我们在继承HttpServlet 实现Servlet 的时候只需要覆盖doXXX()方法即可.</p>
+<p><strong>Http请求方法</strong></p>
+<ul>
+<li><code>GET</code>   通过请求URI得到资源</li>
+<li><code>POST</code>   用于添加新的内容</li>
+<li><code>PUT</code>   用于修改某个内容</li>
+<li><code>DELETE</code>   删除某个内容</li>
+<li><code>CONNECT</code>   用于代理进行传输，如使用SSL</li>
+<li><code>OPTIONS</code>   询问可以执行哪些方法</li>
+<li><code>PATCH</code>   部分文档更改</li>
+<li><code>RACE</code>   用于远程诊断服务器</li>
+<li><code>HEAD</code>   类似于GET, 但是不返回body信息，用于检查对象是否存在，以及得到对象的元数据</li>
+<li><code>TRACE</code>   用于远程诊断服务器</li>
+</ul>
 ]]></content>
     </entry>
     <entry>
