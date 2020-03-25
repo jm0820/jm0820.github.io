@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1585120010060">
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1585120025346">
 <link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
 
 
@@ -37,7 +37,7 @@ Java Servlet 是运行在 Web 服务器或应用服务器上的程序，也就�
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://jm0820.github.io">
-        <img src="https://jm0820.github.io/images/avatar.png?v=1585120010060" class="site-logo">
+        <img src="https://jm0820.github.io/images/avatar.png?v=1585120025346" class="site-logo">
         <h1 class="site-title">小王同学</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -465,8 +465,8 @@ resp.sendRedirect(path);
 <p>请求转发：/代表的是当前WEB应用的根目录   <code>http://localhost:8080/project/</code><br>
 请求重定向：/代表的是当前WEB站点的根目录<code>http://localhost:8080/</code></p>
 <h1 id="genericservlet-和-httpservlet">GenericServlet 和 HttpServlet</h1>
-<h3 id="genericservelt">GenericServelt</h3>
-<p>GenericServelt 是Servlet 接口的实现类，但它是一个抽象类</p>
+<p><strong>一、GenericServelt</strong><br>
+GenericServelt 是Servlet 接口的实现类，但它是一个抽象类</p>
 <pre><code>public abstract class GenericServlet implements Servlet, ServletConfig, Serializable {
 </code></pre>
 <p>它实现了Servlet、ServletConfig、Serializable 这几个接口。</p>
@@ -557,8 +557,8 @@ GenericServelt 实现了 Servlet 的除service()外所有的方法，GenericServ
 }
 
 </code></pre>
-<h3 id="httpservlet">HttpServlet</h3>
-<p>HttpServlet 是专门针对于Http协议定义的一个Servlet基类，它也是一个抽象类，继承于GenericServlet.</p>
+<p><strong>二、HttpServlet</strong><br>
+HttpServlet 是专门针对于Http协议定义的一个Servlet基类，它也是一个抽象类，继承于GenericServlet.</p>
 <pre><code>public abstract class HttpServlet extends GenericServlet {
 </code></pre>
 <p>所以我们只需要实现Service(SrevletReeqequest,ServletResponse)方法即可。Servlet 的参数是ServletRequest和ServletResponse,但是因为所有的请求都是HTTP请求，所以传给Service 的其实是HttpServletRequst和HttpServletResponse.如果使用HttpServletRequest和HttpServletResponse那么需要进行强转。</p>
@@ -626,6 +626,45 @@ GenericServelt 实现了 Servlet 的除service()外所有的方法，GenericServ
 <li><code>HEAD</code>   类似于GET, 但是不返回body信息，用于检查对象是否存在，以及得到对象的元数据</li>
 <li><code>TRACE</code>   用于远程诊断服务器</li>
 </ul>
+<p><strong>自己实现一个HttpServlet</strong></p>
+<pre><code>
+/**
+ * 针对 HTTP 协议定义的一个 Servlet 基类
+ */
+public class MyHttpServletRequest extends MyGenericServlet {
+    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+        if (servletRequest instanceof HttpServletRequest) {
+            HttpServletRequest request = (HttpServletRequest) servletRequest;
+            if (servletResponse instanceof HttpServletResponse) {
+                HttpServletResponse response = (HttpServletResponse) servletResponse;
+                //调用下面的service 方法
+                service(request, response);
+            }
+        }
+    }
+
+    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //获取请求方式
+        String method = request.getMethod();
+
+        //根据强求方式再调用对应的处理方法
+        if (&quot;GET&quot;.equalsIgnoreCase(method)) {
+            doGet(request, response);
+        }
+        if (&quot;POST&quot;.equalsIgnoreCase(method)) {
+            doPost(request, response);
+        }
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    }
+
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {
+
+    }
+}
+</code></pre>
 
             </div>
             
