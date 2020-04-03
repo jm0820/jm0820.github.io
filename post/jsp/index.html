@@ -1,0 +1,1658 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>JSP | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1585924148825">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="JSP | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="JSP简介
+一、什么是JSP
+jsp就是servlet.
+第一次请求时，会把jsp 编译成java,再把java编译成.class,然后调用service方法。
+第二次请求时，直接调用对应class的service方法.
+Java Serv..." />
+    <meta name="keywords" content="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1585924148825" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              JSP
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-02
+              </span>
+              <span>
+                44 min read
+              </span>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="jsp简介">JSP简介</h2>
+<p><strong>一、什么是JSP</strong><br>
+jsp就是servlet.<br>
+第一次请求时，会把jsp 编译成java,再把java编译成.class,然后调用service方法。<br>
+第二次请求时，直接调用对应class的service方法.</p>
+<p>Java Server Page：java 服务器端网页，在HTML页面中编写java 代码的页面。<br>
+JSP可以访问在WEB应用程序中除了WEB-INF及其子目录外的其他任何目录<br>
+JSP页面的访问路径与普通HTML的访问路径形式也完全一样。</p>
+<p><strong>二、为什么使用JSP</strong></p>
+<ul>
+<li>JSP 它本质上是javaServlet,也就是一个普通的java类，拥有各种强大的企业级API.</li>
+<li>JSP页面可以与处理逻辑的Servlet一起使用，这种模式被javaServlet模板引擎所支持.</li>
+<li>与Servlet比，它同样可以修改或者编写HTML页面，而不用去面对大量的println语句.</li>
+<li>与javaScript相比，虽然javaScript可以在客户端动态生成HTML，但难以与服务器进行交互，因此不能提供复杂的服务.</li>
+</ul>
+<p><strong>三、JSP处理流程</strong><br>
+web 服务器如何使用JSP来创建网页</p>
+<ul>
+<li>浏览器发送一个浏览器请求给HTTP请求给服务器</li>
+<li>服务器识别出这是一个对JSP网页的请求，将请求传递给JSP引擎</li>
+<li>JSP引擎从磁盘中载入JSP文件，将其转化为Servlet,这里的转化是将JSP页面中的模板文件用println()输出，JSP页面中嵌入的代码不变</li>
+<li>JSP引擎将Servlet编译成.class文件（可执行类），然后将请求传递给Servlet引擎.</li>
+<li>Web服务器饿的某组件会调用servlet引擎，然后载入并执行Servlet.在执行过程中，Servlet 产生HTML格式的输出并将其嵌入HTTP Response 中上交给服务器.</li>
+<li>Web 服务器以静态HTML网页形式将HTTP Response返回到浏览器中.</li>
+<li>浏览器处理HTTP Response中动态产生的HTML网页，就好像在处理静态网页一样.</li>
+</ul>
+<p>一般情况下，JSP 引擎会检查 JSP 文件对应的 Servlet 是否已经存在，并且检查 JSP 文件的修改日期是否早于 Servlet。如果 JSP 文件的修改日期早于对应的 Servlet，那么容器就可以确定 JSP 文件没有被修改过并且 Servlet 有效。这使得整个流程与其他脚本语言（比如 PHP）相比要高效快捷一些。</p>
+<p><strong>JSP 生命周期</strong><br>
+因为JSP本质是一个Servlet,所以JSP的生命周期和Servlet的生命周期是相同的，但JSP的生命周期包括将JSP编译成Servlet的过程.</p>
+<ul>
+<li>编译<br>
+Servlet 容器编译Servlet 源文件，生成Servlet 类（.class文件）,编译分为三步:
+<ul>
+<li>解析JSP文件</li>
+<li>将JSP转化为Servlet</li>
+<li>编译Servlet</li>
+</ul>
+</li>
+<li>初始化<br>
+加载与JSP对应的Servlet类，创建其实例，并调用它的初始化方法<code>jspinit()</code></li>
+<li>执行<br>
+调用与JSP对应的Servlet实例的服务方法<code>_jspservice()</code></li>
+<li>销毁<br>
+调用与JSP对应的Servlet实例的销毁方法<code>jspDestory()</code></li>
+</ul>
+<h2 id="jsp-语法">JSP 语法</h2>
+<ol>
+<li><code>&lt;% 脚本代码 %&gt;</code> 或者 <code>&lt;jsp:scriptlet&gt;脚本代码&lt;/jsp:scriptlet&gt;</code>,这两者是等价的</li>
+</ol>
+<pre><code>&lt;%
+    System.out.print(&quot;hello world&quot;);
+%&gt;
+&lt;jsp:scriptlet&gt;
+   System.out.print(&quot;hello world&quot;);
+&lt;/jsp:scriptlet&gt;
+</code></pre>
+<ol start="2">
+<li><code>&lt;%=声明变量或者方法%&gt;</code>或者<code>&lt;jsp:declaration&gt;声明变量或者方法&lt;/jsp:declaration&gt;</code></li>
+</ol>
+<pre><code>&lt;%
+    String name = &quot;hello world&quot;;
+%&gt;
+
+&lt;jsp:declaration&gt;
+   String name = &quot;hello world&quot;;
+&lt;/jsp:declaration&gt;
+</code></pre>
+<ol start="3">
+<li><code>&lt;%=表达式%&gt;</code>或者<code>&lt;jsp:expression&gt;表达式&lt;/jsp:expression&gt;</code>jsp 表达式<br>
+表达式包含符合java语言规范的表达式，但不能使用;结束表达式。表达式的值先被转化为String,然后插入到表达式的位置.</li>
+</ol>
+<pre><code>&lt;%=new Date().toLocaleString()%&gt;
+
+&lt;jsp:expression&gt;
+   new Date().toLocaleString()
+&lt;/jsp:expression&gt;
+</code></pre>
+<p>4.注释<br>
+<code>&lt;%--注释内容--%&gt;</code><br>
+这种注释是jsp 注释，注释内容不会被发送至浏览器，也不会被编译</p>
+<p><code>&lt;!--注释内容--!&gt;</code><br>
+HTML注释，通过浏览器查看源代码时可以看见注释内容</p>
+<h2 id="jsp-指令">JSP 指令</h2>
+<p>jsp 提供了三种指令，分别是page、include、taglib<br>
+JSP指令是为JSP引擎而设计的，他们并不直接产生任何可见输出，而只是告诉引擎如何处理JSP页面中的其余部分。</p>
+<p>指定的基本语法格式<code>&lt;%@ 指令 属性名 =“值”&gt;</code><br>
+<strong>一、page 指令</strong></p>
+<p>page 指令用于定义JSP页面的各种属性，无论page指令出现在JSP页面中的什么地方，它作用的都是整个JSP页面，为了保持程序的可读性和遵循良好的编程习惯，page 指令最好是放在整个JSP页面的起始位置</p>
+<p><strong>page 指令的属性</strong></p>
+<ol>
+<li>language<br>
+定义jsp页面所用的脚本语言，默认为java,目前只支持java,所以无意义</li>
+</ol>
+<pre><code>&lt;%@ page language=&quot;java&quot; %&gt;
+</code></pre>
+<ol start="2">
+<li>session<br>
+指定页面是否使用隐含对象session,默认为true,为false不能使用隐含对象session,但是可以使用通过其它方式获取的session</li>
+</ol>
+<pre><code>&lt;%@ page session=&quot;true&quot; %&gt;
+</code></pre>
+<ol start="3">
+<li>import<br>
+指定导入的包,可以用&quot;,&quot;分开,表示导入多个包</li>
+</ol>
+<pre><code>&lt;%@ page import=&quot;java.util.Date&quot; %&gt;
+</code></pre>
+<ol start="4">
+<li>contentType<br>
+指定当前JSP页面的响应类型。实际调用的是<code>response.setContentType(&quot;text/html;charset=UTF-8&quot;)</code><br>
+tomcat-&gt;config-&gt;web.xml文件里面有，可以去搜一下某种格式的参数。</li>
+</ol>
+<pre><code>&lt;%@ page contentType=&quot;text/html;%&gt;
+</code></pre>
+<ol start="5">
+<li>errorPage<br>
+指定当JSP页面发生异常时需要转向的错误处理页面</li>
+</ol>
+<pre><code>&lt;%@ page  errorPage=&quot;error.jsp&quot; %&gt;
+</code></pre>
+<p>errorPage 指定若当前页面出现错误的实际响应页面是什么。其中/表示的是当前WEB应用的根目录<br>
+在响应error.jsp 时，JSP引擎使用的是请求转发的方式。<br>
+还可以在web.xml文件中配置错误页面</p>
+<pre><code>&lt;error-page&gt;
+  &lt;error-code&gt;500&lt;/error-code&gt;
+  &lt;location&gt;/error.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+
+&lt;error-page&gt;
+  &lt;exception-type&gt;java.lang.ArithmeticException&lt;/exception-type&gt;
+  &lt;location&gt;/error.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+</code></pre>
+<ol start="6">
+<li>isErrorPage<br>
+isErrorPage 指定当前页面是否为错误处理页面</li>
+</ol>
+<pre><code>&lt;%@ page  isErrorPage=&quot;true&quot; %&gt;
+</code></pre>
+<p>可以说明当前页面是否可以使用exception隐藏对象，需注意的是：若指定isErrorPage = “true”,并使用exception 的方法了，一般不建议能够直接访问该页面<br>
+那么如何使客户不能访问某个页面呢？<br>
+对于Tomcat 服务器而言，WEB-INF下的文件是不能通过在浏览器中直接输入地址的方式来访问的。 但是可以通过转发的方式来访问</p>
+<ol start="7">
+<li>extends<br>
+当前JSP翻译成源文件之后从哪一个类继承，无意义</li>
+<li>isELIgnored<br>
+是否执行EL表达式，默认情况下是true,如果在jsp页面中使用EL表达式要设置为false.</li>
+</ol>
+<pre><code>&lt;%@ page isELIgnored=&quot;false&quot;%&gt;
+</code></pre>
+<p><strong>二、include 指令</strong><br>
+include 指令用于通知JSP引擎在翻译当前JSP页面时将其他文件的内容合并进当前JSP页面转换成的Servlet源文件，这种在源文件级别进行引入的方式称之为静态引入，当前JSP页面与静态引入的页面紧密结合为一个Servlet</p>
+<pre><code>&lt;@ include file=&quot;jsp4.jsp&quot;%&gt;
+</code></pre>
+<ul>
+<li>其中file 属性用于指定被引入文件的相对路径。如果以/开头，表示当前web 应用的根目录。</li>
+<li>被引入的文件必须遵循JSP语法，其中的内容可以包含静态HTML、JSP脚本元素、JSP指令和JSP行为元素等普通JSP页面所具有的一切内容</li>
+<li>被引入的文件可以使用任意的扩展名，即使扩展名时html,JSP引擎也会按照处理JSP页面的方式处理它里面的内容，为了见名知意，JSP规范建议使用.jspf(JSP fragments)作为静态引入文件的扩展名。</li>
+<li>在将JSP文件翻译称Servlet源文件时，JSP引擎将合并被引入的文件与当前JSP页面中的指令元素（设置pageEncoding 属性的page指令除外），所以，除了import 和pageEncoding属性之外，page指令的其他属性不能在这两个页面中有不同的设置值</li>
+</ul>
+<p><strong>三、taglib 指令</strong><br>
+JSP API允许用户自定义标签，一个自定义标签库就是自定义标签的集合。<br>
+Taglib指令引入一个自定义标签集合的定义，包括库路径、自定义标签。<br>
+Taglib指令的语法：</p>
+<pre><code>&lt;%@ taglib uri=&quot;uri&quot; prefix=&quot;prefixOfTag&quot; %&gt;
+</code></pre>
+<p>uri属性确定标签库的位置<br>
+prefix属性指定标签库的前缀</p>
+<h2 id="jsp-隐式对象">JSP 隐式对象</h2>
+<p>jsp 隐式对象是jsp 容器为每个页面提供的java对象，不用声明即可使用,jsp容器为jsp 提供了九个隐式对象:<code>request,response,session,out,application,config,pageContext,page,Exception</code></p>
+<p><strong>一、request</strong><br>
+request对象是javax.servlet.http.HttpServletRequest类的实例<br>
+每当客户端请求一个JSP页面时，JSP引擎就会制造一个新的request对象来代表这个请求<br>
+request对象提供了一系列方法来获取HTTP头信息，cookies，HTTP方法等等</p>
+<p><strong>二、response对象</strong><br>
+response对象是javax.servlet.http.HttpServletResponse类的实例<br>
+当服务器创建request对象时会同时创建用于响应这个客户端的response对象<br>
+response对象也定义了处理HTTP头模块的接口<br>
+通过这个对象，开发者们可以添加新的cookies，时间戳，HTTP状态码等等</p>
+<p><strong>三、session</strong><br>
+session对象是 javax.servlet.http.HttpSession 类的实例。和Java Servlets中的session对象有一样的行为。<br>
+session对象用来跟踪在各个客户端请求间的会话。</p>
+<p><strong>四、Exception</strong><br>
+exception 对象包装了从先前页面中抛出的异常信息。它通常被用来产生对出错条件的适当响应。<br>
+这个对象只有在page 指令的isErrorPage属性被设置为true时才可以使用.</p>
+<p><strong>五、out</strong><br>
+out对象是 javax.servlet.jsp.JspWriter类的实例，用来在response对象中写入内容。</p>
+<p><strong>六、application</strong><br>
+application对象直接包装了servlet的ServletContext类的对象，是javax.servlet.ServletContext 类的实例。</p>
+<p>这个对象在JSP页面的整个生命周期中都代表着这个JSP页面。这个对象在JSP页面初始化时被创建，随着jspDestroy()方法的调用而被移除。</p>
+<p>通过向application中添加属性，则所有组成您web应用的JSP文件都能访问到这些属性</p>
+<p><strong>七、config</strong><br>
+config对象是 javax.servlet.ServletConfig类的实例，直接包装了servlet的ServletConfig类的对象。<br>
+这个对象允许开发者访问Servlet或者JSP引擎的初始化参数，比如文件路径等</p>
+<p><strong>八、pageContext</strong></p>
+<ul>
+<li>pageContext对象是javax.servlet.jsp.PageContext类的实例，用来代表整个JSP页面。</li>
+<li>这个对象主要用来访问页面信息，同时过滤掉大部分实现细节。</li>
+<li>这个对象存储了request对象和response对象的引用。application对象，config对象，session对象，out对象可以通过访问这个对象的属性来导出。</li>
+<li>pageContext对象也包含了传给JSP页面的指令信息，包括缓存信息，ErrorPage URL,页面scope等。</li>
+</ul>
+<p><strong>九、page</strong><br>
+这个对象就是页面实例的引用。它可以被看做是整个JSP页面的代表。<br>
+page 对象就是this对象的同义词。</p>
+<h2 id="jsp动态标签">JSP动态标签</h2>
+<p>JSP动态标签也成为JSP动作元素，它是在请求处理阶段起作用，它使用XML语法写成的。</p>
+<p>jsp 标签基本都是预定义的函数，jsp 规范定义了一系列标准动作，它用jsp做前缀，</p>
+<p><strong>1. <a href="jsp:include">jsp:include</a></strong><br>
+在页面被请求的时候引入一个文件</p>
+<ul>
+<li><code>include</code> 指令是在编译的时候就将被引入的文件编译进当前文件，最后生成一个Servlet.只能引入遵循jsp文件.</li>
+<li><code>jsp：include</code>标签是在请求当前页面时插入被访问页面的输出内容，被动态引入的资源必须是一个能独立被WEB容器调用和执行的资源.最后生成的是两个独立的Servlet.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">page</td>
+<td style="text-align:left">被引入的文件的相对URL地址</td>
+</tr>
+<tr>
+<td style="text-align:center">flush</td>
+<td style="text-align:left">布尔属性，定义在包含资源前是否刷新缓存区</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;jsp:include page = &quot;b.jsp&quot; flush=&quot;true&quot;/&gt;
+</code></pre>
+<p><strong>2. javaBean相关的动态标签</strong></p>
+<p>JSP规范中专门定义了三个JSP标签:<code>&lt;jsp:useBean&gt;</code>,<code>&lt;jsp:getProperty&gt;</code>,<code>&lt;jsp:setProperty&gt;</code>. 分别用于创建和查找javaBean 的实例对象、设置javaBean对象的属性、读取javaBean对象的属性.</p>
+<ul>
+<li>对于JSP页面来说，只要一个类具有一个公共的、无参数的构造方法，就可以把这个类当作javaBean 来使用,如果类中有不接受任何参数的getter方法或只接受一个参数的setter 方法，就可以把前缀get或set后面的部分当着一个属性名来引用。</li>
+<li>JSP页面可以像调用一个普通java 类的方式去调用javaBean,即先使用java代码创建javaBean的实例对象，然后直接调用javaBean对象的getter方法和setter方法.</li>
+</ul>
+<p><strong>&lt;jsp:useBean /&gt;标签</strong></p>
+<p>用于在某个指定的域范围（application,session,request,pageContext）中查找一个指定名称的javaBean对象,如果存在则直接返回该javaBean对象的引用,如果不存在则实例化一个新的javaBean对象并将它按指定的名称存储在指定的域范围中.<br>
+它有几个属性：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">id</td>
+<td style="text-align:left">用于指定javaBean的实例对象的引用名称和其存储在域范围中的名称.</td>
+</tr>
+<tr>
+<td style="text-align:center">class</td>
+<td style="text-align:left">用于指定javaBean的完整类名（即必须带有包名）</td>
+</tr>
+<tr>
+<td style="text-align:center">scope</td>
+<td style="text-align:left">用于指定javaBean 实例对象所存储的域范围，其取值只能是page,request,session,application 四个值中的一个,默认值是page</td>
+</tr>
+<tr>
+<td style="text-align:center">beanName</td>
+<td style="text-align:left">当没有这个Bean 的时候通过反射创建一个类型为type 的Bean</td>
+</tr>
+<tr>
+<td style="text-align:center">type</td>
+<td style="text-align:left">指定引用该对象的变量的类型，它必须是Bean类的名字、超类名字、该类所实现的接口名字之一。请记住变量的名字是由id属性指定的。</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;jsp:useBean id=&quot;myName&quot; class=&quot;&quot; scope=&quot;&quot;/&gt;
+&lt;jsp:useBean id=&quot;myName&quot; beanName=&quot;全类名&quot; type=&quot;&quot; scope=&quot;&quot;/&gt;
+</code></pre>
+<p><strong>&lt;jsp:setProperty /&gt;</strong><br>
+用来设置已经实例化的Bean对象的属性,有两种使用方式：</p>
+<ol>
+<li>写在<code>jsp:useBean</code>外面</li>
+</ol>
+<pre><code>&lt;jsp:useBean id=&quot;myName&quot; ... /&gt;
+
+&lt;jsp:setProperty name=&quot;myName&quot; property=&quot;someProperty&quot; .../&gt;
+</code></pre>
+<p>这种情况下，不管jsp:useBean是新建了一个bean还是找到了一个现有的bean,jsp:setProperty都会执行<br>
+2. 写在在<code>jsp:useBean</code>里面</p>
+<pre><code>&lt;jsp:useBean id=&quot;myName&quot; ... &gt;
+    &lt;jsp:setProperty name=&quot;myName&quot; property=&quot;someProperty&quot; .../&gt;
+&lt;/jsp:useBean&gt;
+</code></pre>
+<p>这种情况下，只有jsp:useBean新建了一个bean,jsp:setProperty才会执行。如果是找到一个现有的bean，则jsp:setProperty不执行.</p>
+<p>jsp:setProperty 有四个属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>name属性是必需的。它表示要设置属性的是哪个Bean。对应useBean的id</td>
+</tr>
+<tr>
+<td>property</td>
+<td>property属性是必需的。它表示要设置哪个属性。有一个特殊用法：如果property的值是&quot;*&quot;，表示所有名字和Bean属性名字匹配的请求参数都将被传递给相应的属性set方法。</td>
+</tr>
+<tr>
+<td>value</td>
+<td>value 属性是可选的。该属性用来指定Bean属性的值。字符串数据会在目标类中通过标准的valueOf方法自动转换成数字、boolean、Boolean、 byte、Byte、char、Character。例如，boolean和Boolean类型的属性值（比如&quot;true&quot;）通过 Boolean.valueOf转换，int和Integer类型的属性值（比如&quot;42&quot;）通过Integer.valueOf转换。 　　value和param不能同时使用，但可以使用其中任意一个。</td>
+</tr>
+<tr>
+<td>param</td>
+<td>param 是可选的。它指定用哪个请求参数作为Bean属性的值。如果当前请求没有参数，则什么事情也不做，系统不会把null传递给Bean属性的set方法。因此，你可以让Bean自己提供默认属性值，只有当请求参数明确指定了新值时才修改默认属性值。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>&lt;jsp:getProperty /&gt;</strong><br>
+提取指定Bean属性的值，转换成字符串，然后输出</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">name</td>
+<td style="text-align:left">bean的id</td>
+</tr>
+<tr>
+<td style="text-align:center">property</td>
+<td style="text-align:left">bean 的属性名</td>
+</tr>
+</tbody>
+</table>
+<pre><code> &lt;jsp:getProperty name=&quot;bean 的 id&quot; property=&quot;属性名&quot;/&gt;
+</code></pre>
+<p><strong>3. <a href="jsp:forward">jsp:forward</a></strong></p>
+<p>jsp:forward动作把请求转到另外的页面。jsp:forward标记只有一个属性page，代表要转发的页面的相对路径.page的值既可以直接给出，也可以在请求的时候动态计算，可以是一个JSP页面或者一个 Java Servlet.</p>
+<pre><code>&lt;jsp:forward page=&quot;相对 URL 地址&quot; /&gt;
+</code></pre>
+<h2 id="jsp自定义标签">JSP自定义标签</h2>
+<ul>
+<li>自定义标签可以降低JSP开发的复杂度和维护量，从HTML角度来说，可以使HTML不用去过多的关注那些比较复杂的商业逻辑（业务逻辑）.</li>
+<li>利用自定义标签，可以软件开发人员和页面设计人员合理分工：页面设计人员可以把精力集中在使用标签（HTML,XML,JSP）创建的网站上，而软件开发人员则可以将精力集中在实现底层功能上面，如国际化等，从而提高了工程生产力.</li>
+<li>将具有共同特性的tag库应用于不同的项目中，体现了软件复用的思想.</li>
+</ul>
+<p><strong>什么是自定义标签</strong><br>
+用户定义的一种自定义的jsp 标记，当一个含有自定义标签的jsp页面被jsp引擎编译成servlet时，tag标签被转化成了对一个成为标签处理类(TagHandler)对象的操作。于是,当jsp页面被jsp引擎转化为servlet后，实际上tag标签被转化为了对tag处理类的操作.<br>
+这是JSTL中定义的标签forEach</p>
+<pre><code>    &lt;name&gt;forEach&lt;/name&gt;
+    &lt;tag-class&gt;org.apache.taglibs.standard.tag.rt.core.ForEachTag&lt;/tag-class&gt;
+    &lt;tei-class&gt;org.apache.taglibs.standard.tei.ForEachTEI&lt;/tei-class&gt;
+    &lt;body-content&gt;JSP&lt;/body-content&gt;
+</code></pre>
+<p><strong>标签库API</strong><br>
+<strong>简单标签和传统标签</strong></p>
+<ul>
+<li>开发自定义标签，<strong>其核心就是要编写处理器类</strong>，一个标签对应一个标签处理器类，而一个标签库则是很多标签处理器的集合。所有的标签处理器类都要实现JspTag接口，该接口中没有定义任何方法，主要作为Tag和SimpleTag 接口的父接口。</li>
+<li>在jsp 2.0 以前，所有标签处理器类都必须实现Tag 接口，这样的标签称为传统标签.</li>
+<li>jsp 2.0 规范又定义了一种新的类型的标签，称为简单标签，其对应的处理器类要实现SimpleTag 接口.</li>
+</ul>
+<ol start="2">
+<li>标签的形式</li>
+</ol>
+<ul>
+<li>空标签</li>
+</ul>
+<pre><code>&lt;hello/&gt; 
+</code></pre>
+<ul>
+<li>带有属性的空标签</li>
+</ul>
+<pre><code>&lt;max num1=&quot;3&quot; num2=&quot;5&quot;&gt;
+</code></pre>
+<ul>
+<li>带有内容的标签</li>
+</ul>
+<pre><code>&lt;greeting&gt;
+    hello
+&lt;/greeting&gt;
+</code></pre>
+<ul>
+<li>带有内容和属性的标签</li>
+</ul>
+<pre><code>&lt;greeting name=&quot;Tom&quot;&gt;
+    hello
+&lt;/greeting&gt;
+</code></pre>
+<p><strong>一、自定义标签的开发与应用步骤</strong></p>
+<ul>
+<li>编写完成标签功能的 java 类（标签处理器）:实现SimpleTag 接口</li>
+</ul>
+<pre><code>public class HelloSimpleTag implements SimpleTag {
+    /**
+     * 该方法用于完成所有的标签逻辑。该方法可以抛出javax.servlet.jsp.SkipPageException 异常，
+     * 用于通知web容器不再执行JSP页面中位于结束标记后面的内容 
+     * 容器调用标签处理器对象的doTag 方法执行标签逻辑
+     */
+    @Override
+    public void doTag() throws JspException, IOException {
+        System.out.println(&quot;doTag&quot;);
+    }
+    /**
+     * 该方法把父标签处理器对象传递给当前标签处理器对象
+     * JSP引擎对父标签处理器对象传递给当前标签处理器对象，只有存在父
+     * 签时，JSP引擎才会调用该方法.
+     */
+    @Override
+    public void setParent(JspTag jspTag) {
+        System.out.println(&quot;setParent&quot;);
+    }
+    /**
+     * 该方法用于活的标签的父标签处理器对象
+     */
+    @Override
+    public JspTag getParent() {
+        System.out.println(&quot;getParent&quot;);
+        return null;
+    }
+    private PageContext pageContext;
+    /**
+     * 该方法把代表JSP页面的pageContext 对象传递给处理器对象
+     * JSP引擎代表JSP页面的pageContext 对象传递给标签处理器对象,
+     * pageContext 是jspContext 的子类
+     */
+    @Override
+    public void setJspContext(JspContext jspContext) {
+        this.pageContext = (PageContext) jspContext;
+        System.out.println(&quot;setJspContext&quot;);
+    }
+    /**
+     * 该方法把用于把代表标签体的JSPGragment对象传递给标签处理器对象
+     * 若存在标签体，JSP引擎将把标签体封装成一个JspFragment对象
+     * 调用setJspBody方法将JspFragment对象传递给标签处理器对象
+     * 若标签体为空，这setJspBody 将不会被JSP引擎调用.
+     */
+    @Override
+    public void setJspBody(JspFragment jspFragment) {
+    }
+}
+</code></pre>
+<p>SimpleTag 的生命周期</p>
+<ul>
+<li>每次遇到标签时，容器构造一个SimpleTage的实例，并且这个构造方法没有参数。和经典的标签是一样的，SimpleTag不能进行缓冲，故不能重用，每次都需要构造新的实例</li>
+<li>调用构造方法后，就用setJspContext()和setParent()方法，只有这个标签有父标签时，才调用setParent()方法。</li>
+<li>容器调用每个属性的setter方法以设置这些属性的值。</li>
+<li>如果存在Body，那么就使用setJspBody方法设置这个标签的标签体。</li>
+<li>容器调用doTag方法，所有的标签的逻辑，迭代和Body计算都在这个方法中。</li>
+<li>当doTag方法返回时，所有参数都被锁定。</li>
+</ul>
+<p><strong>SimpleTagSupport 类</strong><br>
+通常情况下开发简单标签直接继承SimpleTagSupport就可以了，可以直接调用其对应的getter方法得到对应api.</p>
+<ul>
+<li>编写标签库描述（tld）文件，在tld 文件中对自定义中进行描述<br>
+在WEB-INF文件夹下新建一个.tld 的XML文件，导入固定的部分</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;taglib xmlns=&quot;http://java.sun.com/xml/ns/j2ee&quot;
+        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+        xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd&quot;
+        version=&quot;2.0&quot;&gt;
+
+    &lt;!--描述TLD文件--&gt;
+    &lt;description&gt;MyTag 1.0&lt;/description&gt;
+    &lt;display-name&gt;MyTag core&lt;/display-name&gt;
+    &lt;!--自定义标签库的版本号--&gt;
+    &lt;tlib-version&gt;1.0&lt;/tlib-version&gt;
+
+    &lt;!--建议在JSP页面上使用的标签的前缀--&gt;
+    &lt;short-name&gt;atguigu&lt;/short-name&gt;
+    &lt;!--作为 tld 文件的 id,用来唯一表示当前的 tld 文件，多个 tld 文件的 uri 不能重复，通过 JSP 页面的 taglib 标签的 uri 属性来引用--&gt;
+    &lt;uri&gt;http://www.atguigu.com/mytag/core&lt;/uri&gt;
+&lt;/taglib&gt;
+</code></pre>
+<p>在tld 文件中描述自定义的标签</p>
+<pre><code>    &lt;!--描述自定义的HelloSimpleTag标签--&gt;
+    &lt;tag&gt;
+        &lt;!-- 标签名：在jsp页面上使用标签时的名字 --&gt;
+        &lt;name&gt;hello&lt;/name&gt;
+        &lt;!-- 标签所在的全类名 --&gt;
+        &lt;tag-class&gt;com.atguigu.tag.HelloSimpleTag&lt;/tag-class&gt;
+        &lt;!-- 标签体类型--&gt;
+        &lt;body-content&gt;empty&lt;/body-content&gt;
+    &lt;/tag&gt;
+</code></pre>
+<ul>
+<li>在JSP页面导入和使用自定义标签
+<ul>
+<li>使用 taglib 指定导入标签库描述文件</li>
+</ul>
+<pre><code>&lt;%@taglib prefix=&quot;atguigu&quot; uri=&quot;http://www.atguigu.com/mytag/core&quot; %&gt;
+</code></pre>
+<ul>
+<li>使用自定义的标签</li>
+</ul>
+<pre><code>&lt;atguigu:hello/&gt;
+</code></pre>
+</li>
+</ul>
+<p>setJspContext:一定会被JSP引擎所调用，先于doTag,把代表JSP引擎的pageContext传给标签处理器类.</p>
+<pre><code>    private PageContext pageContext;   
+    @Override
+    public void setJspContext(JspContext jspContext) {
+        this.pageContext = (PageContext) jspContext;
+    }
+</code></pre>
+<p><strong>二、带属性的自定义标签</strong></p>
+<ol>
+<li>先在标签处理器类中定义 setter方法 方法.建议把所有的属性类型都设置为String 类型，</li>
+</ol>
+<pre><code>    private String value;
+    private String count;
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+</code></pre>
+<p>2.在tld 描述文件中来描述属性</p>
+<pre><code>        &lt;!--描述当前标签的属性--&gt;
+        &lt;attribute&gt;
+            &lt;!--属性名--&gt;
+            &lt;name&gt;value&lt;/name&gt;
+            &lt;!--该属性是否必须--&gt;
+            &lt;required&gt;true&lt;/required&gt;
+            &lt;!--
+            rtexprvalue runtime expression value
+            当前属性是否可以接收运行时表达式的动态值
+            --&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;count&lt;/name&gt;
+            &lt;required&gt;false&lt;/required&gt;
+            &lt;rtexprvalue&gt;false&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+</code></pre>
+<p>3.使用<br>
+属性名同tld 文件中定义的名字</p>
+<pre><code>&lt;atguigu:hello value=&quot;atguigu&quot; count=&quot;10&quot;/&gt;
+</code></pre>
+<p><strong>练习</strong></p>
+<ol>
+<li>定制一个带有两个属性的标签<max>,用于计算并输出两个数的最大值.</li>
+</ol>
+<ul>
+<li>写标签处理器类</li>
+</ul>
+<pre><code>public class MaxTag extends SimpleTagSupport {
+    private String num1;
+    private String num2;
+
+    public void setNum1(String num1) {
+        this.num1 = num1;
+    }
+    public void setNum2(String num2) {
+        this.num2 = num2;
+    }
+    @Override
+    public void doTag() throws JspException, IOException {
+        int n1 = Integer.parseInt(num1);
+        int n2 = Integer.parseInt(num2);
+        PageContext pageContext = (PageContext) getJspContext();
+        JspWriter out = pageContext.getOut();
+        try {
+           out.print(n1 &gt; n2 ? n1 : n2);
+
+        } catch (IOException e) {
+            out.print(&quot;输入的格式不正确&quot;);
+        }
+        out.print(&quot;&lt;br&gt;&lt;br&gt;&quot;);
+    }
+}
+</code></pre>
+<ul>
+<li>在tld 描述文件中描述属性</li>
+</ul>
+<pre><code>&lt;tag&gt;
+        &lt;!-- 标签名：在jsp页面上使用标签时的名字 --&gt;
+        &lt;name&gt;maxtag&lt;/name&gt;
+        &lt;!-- 标签所在的全类名 --&gt;
+        &lt;tag-class&gt;com.atguigu.tag.MaxTag&lt;/tag-class&gt;
+        &lt;!-- 标签体类型 --&gt;
+        &lt;body-content&gt;empty&lt;/body-content&gt;
+
+        &lt;!--描述当前标签的属性--&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;num1&lt;/name&gt;
+            &lt;required&gt;true&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;num2&lt;/name&gt;
+            &lt;required&gt;true&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+    &lt;/tag&gt;
+</code></pre>
+<ul>
+<li>在jsp页面调用</li>
+</ul>
+<pre><code>  &lt;atguigu:maxtag num1=&quot;${param.a}&quot; num2=&quot;${param.b}&quot;/&gt;
+</code></pre>
+<ol start="2">
+<li>定制一个带有一个属性的标签&lt;atguigu:readFile  src=&quot;&quot;&gt;,用于输出指定文件的内容.</li>
+</ol>
+<ul>
+<li>定义标签处理器类</li>
+</ul>
+<pre><code>public class ReadFileTag extends SimpleTagSupport {
+
+    private String src;
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
+
+    @Override
+    public void doTag() throws JspException, IOException {
+        PageContext pageContext = (PageContext) getJspContext();
+        InputStream in = pageContext.getServletContext().getResourceAsStream(src);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        String str = null;
+        while((str = reader.readLine()) != null){
+            pageContext.getOut().print(str);
+            pageContext.getOut().print(&quot;&lt;br&gt;&quot;);
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>在tld 文件中添加描述</li>
+</ul>
+<pre><code>&lt;tag&gt;
+        &lt;name&gt;readfile&lt;/name&gt;
+        &lt;tag-class&gt;com.atguigu.tag.ReadFileTag&lt;/tag-class&gt;
+        &lt;body-content&gt;empty&lt;/body-content&gt;
+        
+        &lt;attribute&gt;
+            &lt;name&gt;src&lt;/name&gt;
+            &lt;required&gt;true&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+    &lt;/tag&gt;
+</code></pre>
+<ul>
+<li>在页面导入并使用</li>
+</ul>
+<pre><code>&lt;%@ taglib prefix=&quot;atguigu&quot; uri=&quot;http://www.atguigu.com/mytag/core&quot;%&gt;
+&lt;atguigu:readfile src=&quot;/WEB-INF/note.txt&quot;/&gt;
+</code></pre>
+<p><strong>三、带标签体的自定义标签</strong></p>
+<ul>
+<li>在自定义标签的标签处理器中使用JspFragment 对象封装标签体信息</li>
+<li>若配置了标签含有标签体，则Jsp引擎会调用setJspBody()方法把JspFragment传递给标签处理器类，在SimpleTagSupport 中还定义了一个getJspBody()方法<br>
+，用于返回JspFragment 对象</li>
+<li>JspFragment 的invoke(Writer)方法：把标签体内容从Writer 中输出，若为null,则等同于invoke(gerJspContext().getOut())，即直接把标签体内容输出到页面上</li>
+<li>在tld文件中，使用body-content 节点来描述标签体的类型：<br>
+<body-ccontent>指定标签体的类型，大部分情况下，取值为scriptless，可能取值有3种</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">属性</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">empty</td>
+<td style="text-align:left">没有标签体</td>
+</tr>
+<tr>
+<td style="text-align:center">scriptless</td>
+<td style="text-align:left">标签体可以包含el表达式和JSP动作元素，但不能包含JSP的脚本元素</td>
+</tr>
+<tr>
+<td style="text-align:center">tagdependent</td>
+<td style="text-align:left">在标签体重所有的代码都会原封不动的交给标签处理器，而不是将执行结果传递给标签处理器</td>
+</tr>
+</tbody>
+</table>
+<p><strong>练习</strong><br>
+定义一个自定义标签，<code>&lt;atguigu:print time=&quot;10&quot;&gt;abcde&lt;/atguigu:print&gt;</code>,把标签体内容转换为大写并输出 time 次到浏览器上</p>
+<ol>
+<li>定义标签体</li>
+</ol>
+<pre><code>public class PrintUpperTag extends SimpleTagSupport {
+    private String time;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    @Override
+    public void doTag() throws JspException, IOException {
+        //1.得到标签体的内容
+        JspFragment body = getJspBody();
+        StringWriter writer = new StringWriter();
+        body.invoke(writer);
+        String content = writer.toString();
+
+        //2.变为大写
+        content = content.toUpperCase();
+        //3.得到out隐含变量
+        //4.循环输出
+        int count = 1;
+        try {
+            count = Integer.parseInt(time);
+        }catch (Exception e){
+
+        }
+        for(int i = 0;i &lt; count;i++){
+            getJspContext().getOut().print((i+1)+&quot;.&quot;+content+&quot;&lt;br&gt;&quot;);
+        }
+    }
+}
+</code></pre>
+<ol start="2">
+<li>添加描述文件</li>
+</ol>
+<pre><code>&lt;tag&gt;
+        &lt;name&gt;printUpper&lt;/name&gt;
+        &lt;tag-class&gt;com.atguigu.tag.PrintUpperTag&lt;/tag-class&gt;
+        &lt;body-content&gt;scriptless&lt;/body-content&gt;
+        &lt;attribute&gt;
+            &lt;name&gt;time&lt;/name&gt;
+            &lt;required&gt;true&lt;/required&gt;
+            &lt;rtexprvalue&gt;true&lt;/rtexprvalue&gt;
+        &lt;/attribute&gt;
+    &lt;/tag&gt;
+</code></pre>
+<ol start="3">
+<li>使用</li>
+</ol>
+<pre><code>&lt;atguigu:printUpper time=&quot;10&quot;&gt;hello world&lt;/atguigu:printUpper&gt;
+</code></pre>
+<p><strong>四、带父标签的自定义标签</strong></p>
+<ul>
+<li>父标签无法获取子标签的引用，父标签仅把子标签作为标签体来使用.</li>
+<li>子标签可以通过getParent（）获取父标签的引用，(需继承SimpleTagSupport或自己实现SimpleTag接口该方法)若子标签确有父标签，JSP引擎会把代表父标签的引用通过setParent（JspTag）赋给标签处理器</li>
+<li>注意：父标签的类型是jspTag 类型.该接口是一个空接口，是用来统一SimpleTag 和Tag 的实际使用需要进行类型的强制转换。</li>
+<li>在tld 配置文件中，无需为父标签有额外的配置，但子标签是以标签体的形式存在的，所以父标签的body-content需要设置为scriptless</li>
+</ul>
+<ol>
+<li>父标签</li>
+</ol>
+<pre><code>public class ParentTag extends SimpleTagSupport {
+    private String name = &quot;ATGUIGU&quot;;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+    @Override
+    public void doTag() throws JspException, IOException {
+        System.out.println(&quot;父标签处理器类name:&quot;+name);
+        getJspBody().invoke(null);
+    }
+}
+</code></pre>
+<ol start="2">
+<li>子标签</li>
+</ol>
+<pre><code>public class SonTag extends SimpleTagSupport {
+    @Override
+    public void doTag() throws JspException, IOException {
+        //1.得到父标签的引用
+        JspTag parent = getParent();
+        //2.获取父标签的属性
+        ParentTag parentTag = (ParentTag) parent;
+        String name = parentTag.getName();
+        //3.把name值打印到JSP页面上
+        getJspContext( ).getOut().print(&quot;子标签输出name:&quot;+name);
+    }
+}
+</code></pre>
+<ol start="3">
+<li>添加描述文件</li>
+</ol>
+<pre><code>&lt;tag&gt;
+    &lt;name&gt;parentTag&lt;/name&gt;
+    &lt;tag-class&gt;com.atguigu.tag.ParentTag&lt;/tag-class&gt;
+    &lt;body-content&gt;scriptless&lt;/body-content&gt;
+&lt;/tag&gt;
+&lt;tag&gt;
+    &lt;name&gt;sonTag&lt;/name&gt;
+    &lt;tag-class&gt;com.atguigu.tag.SonTag&lt;/tag-class&gt;
+    &lt;body-content&gt;empty&lt;/body-content&gt;
+&lt;/tag&gt;
+</code></pre>
+<ol start="4">
+<li>使用</li>
+</ol>
+<pre><code>&lt;!--父标签打印name到控制台--&gt;
+&lt;atguigu:parentTag&gt;
+    &lt;%--子标签以父标签的标签体存在，子标签把父标签的name打印到JSP页面上--%&gt;
+    &lt;atguigu:sonTag/&gt;
+&lt;/atguigu:parentTag&gt;
+</code></pre>
+<p><strong>五、EL自定义函数</strong><br>
+EL自定义函数：在EL表达式中调用某个java类的静态方法，这个静态方法需在web应用程序中进行配置才能被EL表达式调用<br>
+EL自定义函数可以扩展EL表达式的功能，让EL表达式完成普通java程序代码所能完成的功能。</p>
+<p><strong>EL自定义函数开发步骤</strong></p>
+<ul>
+<li>编写EL自定义函数映射的java 类中的静态方法：这个java类必须带有public 修饰符，方法必须是这个类的带有publi 修饰符的静态方法</li>
+</ul>
+<pre><code>public class MyELFunction {
+
+    public static String concat(String str1,String str2){
+        return str1+str2;
+    }
+
+}
+</code></pre>
+<ul>
+<li>编写标签库描述文件（tld文件）,在tld 文件中描述自定义函数</li>
+</ul>
+<pre><code>&lt;function&gt;
+    &lt;name&gt;concat&lt;/name&gt;
+    &lt;function-class&gt;com.atguigu.el.MyELFunction&lt;/function-class&gt;
+    &lt;function-signature&gt;java.lang.String concat(java.lang.String,java.lang.String)&lt;/function-signature&gt;
+&lt;/function&gt;
+</code></pre>
+<ul>
+<li>在JSP页面中导入和使用EL自定义函数</li>
+</ul>
+<pre><code>  ${atguigu:concat(param.name1,param.name2)}
+</code></pre>
+<h2 id="jstl">JSTL</h2>
+<p>JSTL全名为JavaServer Pages Standard Tag Library,它是由JCP（Java Community Process）所指定的标准规格，主要是提供给Web 开发人员一个标准通用的标签函数库。<br>
+主要分为五大类：</p>
+<ol>
+<li>核心标签库：c(前缀) <code>http://java.sun.com/jsp/jstl/core(url)</code></li>
+<li>118N标签库：fmt <code>http://java.sun.com/jsp/jstl/fmt</code></li>
+<li>sql标签库： sql <code>http://java.sun.com/jsp/jstl/sql</code></li>
+<li>xml标签库： x <code>http://java.sun.com/jsp/jstl/xml</code></li>
+<li>函数标签库：fn	<code>http://java.sun.com/jsp/jstl/functions</code></li>
+</ol>
+<p>在这里我们主要使用的是核心标签库.<br>
+功能分类：</p>
+<ol>
+<li>表达式操作</li>
+<li>流程操作</li>
+<li>迭代操作</li>
+<li>URL操作</li>
+</ol>
+<p><strong>一、表达式操作</strong></p>
+<ul>
+<li>&lt;c:out&gt;<br>
+主要用来显示数据的内容，相当于<code>&lt;%= %&gt;</code><br>
+<strong>属性</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:left">需要显示出来的值</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">default</td>
+<td style="text-align:left">如果value为null，则显示这个值</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">escapeXml</td>
+<td style="text-align:left">是否转换特殊字符</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">true</td>
+</tr>
+</tbody>
+</table>
+<pre><code> &lt;%
+            request.setAttribute(&quot;book&quot;,&quot;&lt;&lt;java&gt;&gt;&quot;);
+        %&gt;
+        &lt;!--敏感字符不转义,翻译到网页为book:&lt;&lt;java&gt;&gt;--&gt;
+        book:${requestScope.book}&lt;br&gt;
+        &lt;!--敏感字符转义，翻译到网页为book:&amp;lt;&amp;lt;java&amp;gt;&amp;gt;--&gt;
+        book:&lt;c:out value=&quot;${requestScope.book}&quot;/&gt;
+</code></pre>
+<ul>
+<li>&lt;c:set&gt;<br>
+主要是用来将变量存储至JSP范围中或是JavaBean 的属性中.<br>
+属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:left">要被存储的值</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">欲存入变量的名称</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">scope</td>
+<td style="text-align:left">var 变量的JSP范围</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">page</td>
+</tr>
+<tr>
+<td style="text-align:center">target</td>
+<td style="text-align:left">为一JavaBean或java.util.Map对象</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">property</td>
+<td style="text-align:left">指定target对象的属性</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>将value 值存储至范围为scope的varName 变量之中,value 可以使用EL表达式</li>
+</ol>
+<pre><code>        &lt;c:set var=&quot;a&quot; value=&quot;123&quot; scope=&quot;page&quot;&gt;&lt;/c:set&gt;
+        a:${pageScope.a}
+        &lt;%--
+            //相当于
+            pageContext.setAttribute(&quot;a&quot;,&quot;134&quot;);
+        --%&gt;
+        &lt;%--使用EL表达式--%&gt;
+        &lt;c:set var=&quot;name&quot; value=&quot;${param.name}&quot; scope=&quot;request&quot;&gt;&lt;/c:set&gt;
+        name:${requestScope.name}&lt;br&gt;&lt;br&gt;
+
+</code></pre>
+<ol start="2">
+<li>将本体内容的数据存储至范围为scope 的varName 变量之中</li>
+</ol>
+<pre><code>&lt;c:set var=&quot;b&quot; scope=&quot;request&quot;&gt;
+            这里是b
+        &lt;/c:set&gt;
+        b:${requestScope.b}
+</code></pre>
+<ol start="3">
+<li>将value 的值储存至target 对象的属性中</li>
+</ol>
+<pre><code>&lt;%
+    Customer customer = new Customer();
+    customer.setId(34);
+    request.setAttribute(&quot;cust&quot;,customer);
+%&gt;
+        &lt;c:set target=&quot;${requestScope.cust}&quot; property=&quot;id&quot; value=&quot;${param.id}&quot;&gt;&lt;/c:set&gt;
+        ID:${requestScope.cust.id}
+</code></pre>
+<ol start="4">
+<li>将本体的内容存储至target对象的属性中</li>
+</ol>
+<pre><code>        &lt;s:set target=&quot;${requestScope.cust}&quot; property=&quot;phone&quot;&gt;
+            12345
+        &lt;/s:set&gt;
+        Phone:${requestScope.cust.phone}&lt;br&gt;&lt;br&gt;
+</code></pre>
+<ul>
+<li>&lt;c:remove&gt;<br>
+移除指定的变量</li>
+</ul>
+<pre><code>        &lt;c:set var=&quot;data&quot; value=&quot;2020-4-3&quot; scope=&quot;session&quot;/&gt;
+        data:${sessionScope.data}&lt;br&gt;&lt;br&gt;
+        &lt;c:remove var=&quot;data&quot; scope=&quot;session&quot;/&gt;
+        移除后data:${sessionScope.data}
+</code></pre>
+<p><strong>二、流程控制</strong></p>
+<ul>
+<li>c:if</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">test</td>
+<td style="text-align:left">如果表达式的结果为true，则执行本体内容，false则相反</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">用来存储test 运算后的结果，即true或false</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:center">scope</td>
+<td style="text-align:left">var 变量的JSP范围</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left"></td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;c:set var=&quot;age&quot; value=&quot;20&quot; scope=&quot;request&quot;/&gt;
+&lt;c:if test=&quot;${requestScope.age &gt; 18}&quot;&gt;成年了！&lt;/c:if&gt;&lt;br&gt;
+&lt;c:if test=&quot;${param.age &gt; 18}&quot; var=&quot;isAdult&quot; scope=&quot;request&quot;&gt;&lt;/c:if&gt;
+isAdult:&lt;c:out value=&quot;${requestScope.isAdult}&quot;/&gt;
+</code></pre>
+<p><code>&lt;c:if&gt;</code> 标签必须要有test 属性，当test中的表达式结果为true时，则会执行本体内容：如果为false,则不会执行.</p>
+<p>除了test属性之外，&lt;c:if&gt; 还有另外两个属性var和scope,当我们执行&lt;c:if&gt; 的时候，可以将这次判断后的结果存放到属性var里，scope 则是设定var. 的属性范围。例如：当表达式过长时，我们会希望拆开处理，或是之后还须使用此结果时，也可以用它先将结果暂时保留，以便日后使用.</p>
+<ul>
+<li>c:c:choose、c:when、c:otherwise</li>
+</ul>
+<ol>
+<li>c:choose、c:when、c:otherwise可以实现if……else if……else的效果，但较为麻烦.</li>
+<li>c:choose 以c:when和c:otherwise的父标签出现。c:when和c:otherwise不能脱离c:choose单独使用.</li>
+<li>c:otherwise必须在c:when之后使用.</li>
+<li>当所有的c:when的test 为false时，则执行c:otherwise本体内容</li>
+</ol>
+<pre><code>        &lt;c:choose&gt;
+            &lt;c:when test=&quot;${param.age &gt; 60}&quot;&gt;
+                老年
+            &lt;/c:when&gt;
+            &lt;c:when test=&quot;${param.age &gt; 35}&quot;&gt;
+                中年
+            &lt;/c:when&gt;
+            &lt;c:when test=&quot;${param.age &gt; 18}&quot;&gt;
+                青年
+            &lt;/c:when&gt;
+            &lt;c:otherwise&gt;
+                未成年
+            &lt;/c:otherwise&gt;
+        &lt;/c:choose&gt;
+
+</code></pre>
+<p><strong>三、迭代操作</strong></p>
+<ul>
+<li>c:forEach<br>
+<code>c:forEach</code> 为循环控制，它可以将集合（Collection）中的成员循序浏览一遍，运作方式为当条件符合时，就会持续重复执行&lt;c:forEach&gt;的本体内容.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">用来存放现在指到的成员</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">items</td>
+<td style="text-align:left">被迭代的集合对象</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">Arrays、Collection、Iterator、Enumeration、Map、String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">varStatus</td>
+<td style="text-align:left">用来存放现在指到的相关成员信息</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">begin</td>
+<td style="text-align:left">开始的位置</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">0</td>
+</tr>
+<tr>
+<td style="text-align:center">end</td>
+<td style="text-align:left">结束的位置</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">最后一个成员</td>
+</tr>
+<tr>
+<td style="text-align:center">step</td>
+<td style="text-align:left">每次迭代的间隔数</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">1</td>
+</tr>
+</tbody>
+</table>
+<p>varStatus 是一个内部类，它的属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>number</td>
+<td>现在指到成员的索引</td>
+</tr>
+<tr>
+<td>count</td>
+<td>number</td>
+<td>总共指到成员的总数</td>
+</tr>
+<tr>
+<td>first</td>
+<td>boolean</td>
+<td>现在指到的成员是否为第一个成员</td>
+</tr>
+<tr>
+<td>last</td>
+<td>boolean</td>
+<td>现在指到的成员是否为最后一个成员</td>
+</tr>
+<tr>
+<td>current</td>
+<td>number</td>
+<td>当前迭代的项</td>
+</tr>
+<tr>
+<td>begin</td>
+<td>number</td>
+<td>begin 的值</td>
+</tr>
+<tr>
+<td>end</td>
+<td>number</td>
+<td>end 的值</td>
+</tr>
+<tr>
+<td>step</td>
+<td>number</td>
+<td>step 的值</td>
+</tr>
+</tbody>
+</table>
+<p><strong>遍历数字</strong></p>
+<pre><code>&lt;c:forEach begin=&quot;1&quot; end=&quot;10&quot; step=&quot;3&quot; var=&quot;i&quot;&gt;
+    ${i}--
+ &lt;/c:forEach&gt;
+</code></pre>
+<p><strong>遍历Collection</strong></p>
+<pre><code>&lt;%
+    List&lt;Customer&gt; list = new ArrayList&lt;&gt;();
+    list.add(new Customer(1,&quot;AAA&quot;));//index:0
+    list.add(new Customer(2,&quot;BBB&quot;));
+    list.add(new Customer(3,&quot;CCC&quot;));
+    list.add(new Customer(4,&quot;DDD&quot;));
+    list.add(new Customer(5,&quot;EEE&quot;));
+    list.add(new Customer(6,&quot;FFF&quot;));
+    request.setAttribute(&quot;custs&quot;,list);
+%&gt;
+&lt;c:forEach items=&quot;${requestScope.custs}&quot; var=&quot;cust&quot; begin=&quot;1&quot; step=&quot;2&quot; end=&quot;5&quot;&gt;
+    ${cust.id}:${cust.name}&lt;br&gt;
+&lt;/c:forEach&gt;&lt;br&gt;
+&lt;%--使用varStatus--%&gt;
+&lt;c:forEach items=&quot;${requestScope.custs}&quot; varStatus=&quot;status&quot;&gt;
+    ${status.index}.${status.count}${status.first}.${status.last}${cust.id}:${cust.name}&lt;br&gt;
+&lt;/c:forEach&gt;
+</code></pre>
+<p><strong>遍历Map</strong></p>
+<pre><code>&lt;%
+    Map&lt;String,Customer&gt; map = new HashMap();
+    map.put(&quot;a&quot;,new Customer(1,&quot;AAA&quot;));//index:0
+    map.put(&quot;b&quot;,new Customer(2,&quot;BBB&quot;));
+    map.put(&quot;c&quot;,new Customer(3,&quot;CCC&quot;));
+    map.put(&quot;d&quot;,new Customer(4,&quot;DDD&quot;));
+    map.put(&quot;e&quot;,new Customer(5,&quot;EEE&quot;));
+    map.put(&quot;f&quot;,new Customer(6,&quot;FFF&quot;));
+    request.setAttribute(&quot;map&quot;,map);
+%&gt;
+&lt;c:forEach items=&quot;${requestScope.map}&quot; var=&quot;map&quot;&gt;
+    ${map.key}-${map.value.id}-${map.value.name}
+&lt;/c:forEach&gt;
+</code></pre>
+<p><strong>遍历数组</strong></p>
+<pre><code>&lt;%
+    String[] array = {&quot;A&quot;, &quot;B&quot;, &quot;C&quot;};
+    request.setAttribute(&quot;array&quot;,array);
+%&gt;
+&lt;c:forEach var=&quot;name&quot; items=&quot;${requestScope.array}&quot;&gt;
+    ${name}-
+&lt;/c:forEach&gt;
+</code></pre>
+<p><strong>遍历Eumberations</strong></p>
+<pre><code>&lt;c:forEach var=&quot;attrName&quot; items=&quot;${pageContext.session.attributeNames}&quot;&gt;
+    ${attrName}-
+&lt;/c:forEach&gt;
+</code></pre>
+<ul>
+<li>c:forTokens<br>
+用来浏览一字符串中所有的成员，其成员是由定义符号所分割的.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">items</td>
+<td style="text-align:left">被迭代的字符串</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">用来存放现在指到的成员</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">delims</td>
+<td style="text-align:left">分隔符</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">无</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;c:set value=&quot;a,b,c,d,e,f&quot; var=&quot;test&quot; scope=&quot;request&quot;&gt;&lt;/c:set&gt;
+&lt;c:forTokens items=&quot;${requestScope.test}&quot; delims=&quot;.&quot; var=&quot;s&quot;&gt;
+    ${s}-
+&lt;/c:forTokens&gt;
+</code></pre>
+<p><strong>四、URL操作</strong></p>
+<p>JSTL包含三个与URL操作相关的标签，分别为:<code>&lt;c:import&gt;</code>、<code>&lt;c:redirect&gt;``````&lt;c:yrl&gt;</code>.它们的主要功能是：用来将其他文件的内容包含起来、网页的导向，还有URL的产生.</p>
+<ul>
+<li>&lt;c:import&gt;<br>
+可以把其它静态或动态文件包含至本身JSP网页，它和JSP动作标签的<a href="jsp:include">jsp:include</a> 最大的差别在于：<a href="jsp:include">jsp:include</a> 只能包含和自己同一个web application下的文件：而&lt;c:import&gt;除了能包含和自己用一个web application的文件外，亦可以包含不同web application或者是其他网站的文件.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">url</td>
+<td style="text-align:left">文件被包含的地址</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">context</td>
+<td style="text-align:left">相同Container下,其他web战天必须以&quot;/&quot; 开头</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">储存好被包含的文件的内容（以String类型存入）</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">scope</td>
+<td style="text-align:left">var 变量的JSP范围</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">page</td>
+</tr>
+<tr>
+<td style="text-align:center">charEncoding</td>
+<td style="text-align:left">被包含文件之内容的编码格式</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">varReader</td>
+<td style="text-align:left">储存被包含的文件的内容（以Reader类型存入）</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+</tbody>
+</table>
+<pre><code>    &lt;c:import url=&quot;http://www.baidu.com&quot;&gt;&lt;/c:import&gt;
+</code></pre>
+<ul>
+<li>
+<p>如果url 为null或为空时，会产生 JspException<br>
+如果以“/”开头，那么表示跳到web站台的根目录下</p>
+</li>
+<li>
+<p>c:url<br>
+c:url 产生一个url地址，可以检查Cookie 是否可用来智能进行 url 重写，对get 请求的参数进行编码</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:left">EL表达式</th>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">必须</th>
+<th style="text-align:left">默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">value</td>
+<td style="text-align:left">执行的URL</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">是</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">context</td>
+<td style="text-align:left">相同的Container 下，其他web 站台必须以“/”开头</td>
+<td style="text-align:left">Y</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">var</td>
+<td style="text-align:left">储存被包含文件的内容（以String 类型存入）</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">无</td>
+</tr>
+<tr>
+<td style="text-align:center">scope</td>
+<td style="text-align:left">var 变量的JSP范围</td>
+<td style="text-align:left">N</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">否</td>
+<td style="text-align:left">page</td>
+</tr>
+</tbody>
+</table>
+<pre><code>&lt;c:url value=&quot;/test.jsp&quot; var=&quot;testurl&quot;&gt;
+    &lt;c:param name=&quot;name&quot; value=&quot;尚硅谷&quot;&gt;&lt;/c:param&gt;
+&lt;/c:url&gt;
+</code></pre>
+<ul>
+<li>c:redirect<br>
+将客户端的请求从一个JSP网页导向其他文件.</li>
+</ul>
+<pre><code>&lt;c:redirect url=&quot;test2.jsp&quot;&gt;&lt;/c:redirect&gt;
+</code></pre>
+<blockquote>
+<p>/ 代表的是Web 应用的根目录,response.sendRedirect(&quot;/&quot;),这个里面的/代表web 站点的根目录.如果/交由jsp引擎或者tomcat服务器去解析，那么/代表web应用根目录,否则代表web站点根目录</p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#jsp%E7%AE%80%E4%BB%8B">JSP简介</a></li>
+<li><a href="#jsp-%E8%AF%AD%E6%B3%95">JSP 语法</a></li>
+<li><a href="#jsp-%E6%8C%87%E4%BB%A4">JSP 指令</a></li>
+<li><a href="#jsp-%E9%9A%90%E5%BC%8F%E5%AF%B9%E8%B1%A1">JSP 隐式对象</a></li>
+<li><a href="#jsp%E5%8A%A8%E6%80%81%E6%A0%87%E7%AD%BE">JSP动态标签</a></li>
+<li><a href="#jsp%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E7%AD%BE">JSP自定义标签</a></li>
+<li><a href="#jstl">JSTL</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/cookie&amp;Session/">
+              <h3 class="post-title">
+                Cookie 和 Session
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>

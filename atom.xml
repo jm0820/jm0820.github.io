@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jm0820.github.io</id>
     <title>小王同学</title>
-    <updated>2020-04-01T15:00:46.109Z</updated>
+    <updated>2020-04-03T14:29:13.398Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jm0820.github.io"/>
     <link rel="self" href="https://jm0820.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://jm0820.github.io/images/avatar.png</logo>
     <icon>https://jm0820.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 小王同学</rights>
+    <entry>
+        <title type="html"><![CDATA[JSP]]></title>
+        <id>https://jm0820.github.io/post/jsp/</id>
+        <link href="https://jm0820.github.io/post/jsp/">
+        </link>
+        <updated>2020-04-01T18:24:19.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Cookie 和 Session]]></title>
         <id>https://jm0820.github.io/post/cookie&amp;Session/</id>
