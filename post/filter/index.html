@@ -1,0 +1,1055 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Filter | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1587397879560">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Filter | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Filter简介
+
+Filter 的基本功能是对Servlet容器调用Servlet的过程进行拦截，从而在Servlet进行响应处理的前后实现一些特殊的功能.
+在Servlet API 中定义了三个接口类来供开发人员编写Filter 程序：..." />
+    <meta name="keywords" content="Java WEB" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1587397879560" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Filter
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-20
+              </span>
+              <span>
+                27 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/lue2VfI4E/" class="post-tag">
+                  # Java WEB
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="filter简介">Filter简介</h2>
+<ul>
+<li>Filter 的基本功能是对Servlet容器调用Servlet的过程进行拦截，从而在Servlet进行响应处理的前后实现一些特殊的功能.</li>
+<li>在Servlet API 中定义了三个接口类来供开发人员编写Filter 程序：Filter,FilterChain,FilterConfig</li>
+<li>Filter 程序是一个实现了Filter 接口的java类，与Servlet 程序相似，它由Servlet 容器进行调用和执行</li>
+<li>Filter 程序需要在web.xml 文件中进行注册和设置它所能拦截的资源：Filter 程序可以拦截JSP,Servlet,静态图片文件和静态html 文件.</li>
+</ul>
+<h2 id="一-filter-是什么">一、Filter 是什么？</h2>
+<ul>
+<li>Java Web 的一个重要组件，可以对发送到Servlet 的请求进行拦截并对响应也进行拦截.</li>
+<li>Filter 是实现了Filter 接口的java 类</li>
+<li>Filter 需要造web.xml文件中进行配置和映射</li>
+</ul>
+<h2 id="二-如何创建一个filter并运行">二、如何创建一个Filter并运行</h2>
+<ul>
+<li>创建一个Filter 类：实现Filter接口</li>
+</ul>
+<pre><code>public class HelloFilter implements Filter {
+    /**
+     * filter 创建之后立即被调用且只被调用一次
+     * @param filterConfig
+     * @throws ServletException
+     */
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println(&quot;init……&quot;);
+    }
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        System.out.println(&quot;doFilter……&quot;);
+    }
+    @Override
+    public void destroy() {
+        System.out.println(&quot;destory&quot;);
+    }
+}
+</code></pre>
+<ul>
+<li>在web.xml 文件中配置并映射该Filter</li>
+</ul>
+<pre><code>&lt;!--注册Filter--&gt;
+  &lt;filter&gt;
+    &lt;filter-name&gt;helloFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.jm.javaweb.HelloFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+
+  &lt;!--映射Filter--&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;helloFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/test.html&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+</code></pre>
+<ul>
+<li>这里的url-pattern 指的是拦截的资源，当访问这个url 时这个Filter 被调用.</li>
+<li>在同一个web.xml 文件中可以为同一个Filter 设置多个映射。若一个Filter 链中多次出现了同一个Filter 程序，则个Filter 程序的拦截处理过程将被多次执行.</li>
+</ul>
+<h2 id="三-filter-相关的api">三、Filter 相关的API</h2>
+<ol>
+<li>Filter 接口</li>
+</ol>
+<ul>
+<li>init(FilterConfig filterConfig)方法
+<ul>
+<li>类似于Servlet 的init()方法,在创建Filter对象(Filter对象在Servlet 容器加载当前WEB应用时即被创建)后立即被调用且只被调用一次.该方法用于对当前的Filter 进行初始化工作.Filter 实例是单例的.</li>
+<li>FilterConfig 类似于ServletConfig</li>
+<li>可以在web.xml文件中配置当前Filter 的初始化参数，配置方式也和Servlet 类似.</li>
+</ul>
+</li>
+<li>doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+<ul>
+<li>真正Filter 的逻辑代码需要编写在该方法中</li>
+<li>FilterChain：多个Filter，可以构成一个Filter链</li>
+<li>这个方法是把请求传给Filter链的下一个Filter,若当前Filter是Filter 链的最后一个Filter,将把请求传给目标Servlet(JSP)</li>
+<li>多个Filter 拦截的顺序和<filter-mapping>配置的顺序有关，靠前的先被调用.</li>
+</ul>
+</li>
+<li>destroy() 方法<br>
+释放当前 Filter 所占用的资源的方法，在Filter 被销毁之前调用，且只被调用一次.</li>
+</ul>
+<h2 id="四-filter-的基本工作原理">四、Filter 的基本工作原理</h2>
+<ul>
+<li>当在web.xml 中注册了一个Filter 来对某个Servlet程序进行拦截处理时，这个Filter 就成了Servlet容器与该Servlet 程序的通信线路上的一道关卡，该Filter 可以对Servlet 容器发送给Servlet 程序的请求和Servlet 程序回送给Servlet 容器的响应进行拦截，可以决定是否请求继续传递给Servlet程序，以及对请求和响应信息是否进行修改.</li>
+<li>在一个web应用程序中可以注册多个Filter 程序，每个Filter 程序都可以对一个或一组Servlet 程序进行拦截</li>
+<li>若有多个Filter 程序对某个Servlet程序的访问进行拦截，当针对该Servlet的访问请求到达时，web 容器将把这多个Filter 程序组合成一个Filter 链(过滤器链).Filter 链中各个Filter 的拦截顺序与它们在应用程序的web.xml 中的映射顺序一致</li>
+<li>与开发Servlet 不同的是,Filter接口并没有相应的实现类可供继承，要开发过滤器，只能直接实现Filter 接口.</li>
+</ul>
+<h2 id="五-自定义一个专门处理http的过滤器">五、自定义一个专门处理Http的过滤器</h2>
+<pre><code>/**
+ * 自定义的Http接口，实现自Filter接口
+ */
+public abstract class HttpFilter implements Filter {
+    /**
+     * 用于保存FilterConfig 对象
+     */
+    private FilterConfig config;
+
+    /**
+     * 不建议子类直接覆盖，若直接覆盖，
+     * 将有可能会导致filterConfig 成员变量初始化失败
+     * @param filterConfig
+     * @throws ServletException
+     */
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        this.config = filterConfig;
+        init();
+    }
+
+    /**
+     * 供子类继承的初始化方法，可以通过getFilterConfig 获取FilterConfig对象
+     */
+    public void init() {
+    }
+
+    /**
+     * 直接返回init(servletConfig) 的FilterConfig 对象
+     * @return
+     */
+    public  FilterConfig getFilterConfig(){
+        return config;
+    }
+
+    /**
+     * 原生的doFilter 方法，在方法内部把ServletRequest和ServletResponse
+     * 转为了HttpServeltRequest和HttpServletResponse
+     * 并调用doFilter(HttpServletRequest servletRequest, HttpServletResponse servletResponse, FilterChain filterChain)
+     * 若编写过滤器的过滤方法，不建议直接继承该方法，而建议继承
+     * doFilter(HttpServletRequest servletRequest, HttpServletResponse servletResponse, FilterChain filterChain)
+     *
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        doFilter(req,resp,filterChain);
+    }
+
+    /**
+     * 抽象方法，为Http请求定制，必须实现的方法
+     * @param req
+     * @param resp
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
+    public abstract void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)throws IOException, ServletException;
+
+    /**
+     * 空的destory方法
+     */
+    @Override
+    public void destroy() {
+
+    }
+}
+</code></pre>
+<h2 id="六-过滤器链执行顺序">六、过滤器链执行顺序</h2>
+<p>定义两个Filter,再定义一个JSP页面，通过访问JSP页面看这两个过滤器的执行顺序.</p>
+<ul>
+<li>HelloFilter</li>
+</ul>
+<pre><code>
+public class HelloFilter implements Filter {
+    /**
+     * filter 创建之后立即被调用且只被调用一次
+     * @param filterConfig
+     * @throws ServletException
+     */
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println(&quot;init……&quot;);
+    }
+
+    @Override
+    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        System.out.println(&quot;1.Before HelloFilter's chain.doFiltet&quot;);
+        //放行
+        chain.doFilter(req,resp);
+        System.out.println(&quot;2.After HelloFilter's chain.doFilter&quot;);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println(&quot;destory&quot;);
+    }
+}
+
+</code></pre>
+<ul>
+<li>SecondFilter</li>
+</ul>
+<pre><code>public class SecondFilter implements Filter {
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        System.out.println(&quot;second init&quot;);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        System.out.println(&quot;3.Before SecondFilter's doFiltet&quot;);
+        //放行
+        filterChain.doFilter(servletRequest,servletResponse);
+        System.out.println(&quot;4.After SecondFilter's doFilter&quot;);
+    }
+
+    @Override
+    public void destroy() {
+        System.out.println(&quot;second destory&quot;);
+    }
+}
+
+</code></pre>
+<ul>
+<li>test.jsp</li>
+</ul>
+<pre><code>&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h4&gt;Test Page&lt;/h4&gt;
+        &lt;%
+            System.out.println(&quot;5.Test JSP&quot;);
+        %&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>执行结果:</p>
+<blockquote>
+<p>1.Before HelloFilter's chain.doFiltet<br>
+3.Before SecondFilter's doFiltet<br>
+5.Test JSP<br>
+4.After SecondFilter's doFilter<br>
+2.After HelloFilter's chain.doFilter</p>
+</blockquote>
+<p>Filter 的执行顺序和在web.xml 中的配置顺序有关，<filter-mapping> 越靠前，Filter 越先执行，在这个例子中，HelloFilter在SecondFilter之前配置，所以先执行HelloFilter。在访问JSP页面之前，请求会先经过两个Filter 处才能访问JSP页面，JSP 或者Servlet 给与响应之后响应又会再通过SecondFilter和HelloFilter在返回浏览器.</p>
+<h2 id="七-映射filter">七、映射Filter</h2>
+<p><filter-mapping>元素用于设置一个Filter 所负责拦截的资源。一个Filter 拦截的资源可通过两种方式来指定：Servlet名称和资源访问的请求路径</p>
+<ul>
+<li><filter-name>子元素用于设置filter 的注册名称。该值必须实在<filter> 元素中声明过的过滤器名字</li>
+<li><url-pattern>设置filter 所拦截的请求路径（过滤器关联的URL样式）</li>
+<li><servlet-name>指定过滤器所拦截的Servlet 名称</li>
+<li><dispatcher>指定过滤器所拦截的资源被Servlet容器调用的方式，可以是REQUEST,INCLUDE,FORWARD和ERROR之一，默认REQUEST,可以设置多个<dispatcher>子元素用来指定Filter 对资源的多种调用方式进行拦截.
+<ul>
+<li>REQUEST:当用户直接访问页面时，Web 容器将会调用过滤器。如果目标资源时通过RequestDispatcher的include()或forward()方法访问时，通过GET或POST请求直接访问</li>
+<li>INCLUDE：如果目标资源时通过RequestDispatcher的include()方法访问时，那么该过滤器将会被调用，除此之外，该过滤器不会被调用</li>
+</ul>
+<pre><code>&lt;jsp:include file=&quot;&quot;/&gt;
+</code></pre>
+<ul>
+<li>FORWARD:forward()方法访问时，那么该过滤器将会被调用，除此之外，该过滤器不会被调用</li>
+</ul>
+<pre><code>&lt;jsp:forward page=&quot;&quot;/&gt; 
+&lt;%@ page errorPage=&quot;&quot;/&gt;
+</code></pre>
+<ul>
+<li>ERROR:如果目标资源时通过声明式异常处理机制调用时，那么该过滤器将会被调用，除此之外，过滤器不会被调用.</li>
+</ul>
+<pre><code> //在web.xml 文件中通过error-page节点进行声明
+    &lt;error-page&gt;
+        &lt;exception-type&gt;java.lang.ArithmeticException&lt;/exception-type&gt;
+        &lt;location&gt;/test.jsp&lt;/location&gt;
+    &lt;/error-page&gt;
+</code></pre>
+</li>
+</ul>
+<p><strong>示例</strong></p>
+<pre><code>&lt;filter-mapping&gt;
+    &lt;filter-name&gt;secondFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/test.jsp&lt;/url-pattern&gt;
+    &lt;dispatcher&gt;REQUEST&lt;/dispatcher&gt;
+    &lt;dispatcher&gt;INCLUDE&lt;/dispatcher&gt;
+    &lt;dispatcher&gt;ERROR&lt;/dispatcher&gt;
+  &lt;/filter-mapping&gt;
+</code></pre>
+<h2 id="八-应用">八、应用</h2>
+<ol>
+<li>使浏览器不缓存页面的过滤器</li>
+</ol>
+<ul>
+<li>有3个HTTP响应头字段都可以禁止浏览器缓存当前页面，它们在Servlet 中的示例代码如下：
+<ul>
+<li>response.setDtaeHeader(&quot;Expires&quot;,-1);</li>
+<li>response.setHeader(&quot;Cache-Control&quot;,&quot;no-cache&quot;);</li>
+<li>response.setHeader(&quot;Pragma&quot;,&quot;no-cache&quot;);</li>
+</ul>
+</li>
+<li>并不是所有的浏览器都能完全支持上面的三个响应头，因此最好使同时使用上面的三个响应头</li>
+</ul>
+<pre><code>public class NoCacheFilter extends HttpFilter {
+    @Override
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        System.out.println(&quot;cacheFilter's doFilter...&quot;);
+        resp.setDateHeader(&quot;Expires&quot;,-1);
+        resp.setHeader(&quot;Cache-Control&quot;,&quot;no-cache&quot;);
+        resp.setHeader(&quot;Pragma&quot;,&quot;no-cache&quot;);
+        chain.doFilter(req,resp);
+    }
+}
+
+</code></pre>
+<ol start="2">
+<li>字符编码过滤器</li>
+</ol>
+<ul>
+<li>通过配置参数上encoding 指明使用何种字符编码，以处理Html Form 请求参数的中文问题</li>
+</ul>
+<pre><code>public class EncodingFilter extends HttpFilter {
+    private String encoding;
+    @Override
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        System.out.println(&quot;encoding's Filter&quot;);
+        encoding = getFilterConfig().getServletContext().getInitParameter(&quot;encoding&quot;);
+        req.setCharacterEncoding(encoding);
+        chain.doFilter(req,resp);
+    }
+}
+
+</code></pre>
+<p>web.xml</p>
+<pre><code>&lt;context-param&gt;
+    &lt;param-name&gt;encoding&lt;/param-name&gt;
+    &lt;param-value&gt;UTF-8&lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;filter&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.jm.encoding.EncodingFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;encoding&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/encoding/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+</code></pre>
+<ol start="3">
+<li>检测用户是否登录的浏览器</li>
+</ol>
+<ul>
+<li>情景：系统中某些页面只有在正常登录后才可以使用，用户请求这些页面时要检查session 中有无该用户信息，但在所有必要的页面加上session 的判断相当麻烦的事情.</li>
+<li>解决方案：编写一个用于检测用户是否登录的过滤器，如果用户未登录，则重定向到指定的登录页面.</li>
+<li>要求：需检查的在Session 中保存的关键字；如果用户未登录，需重定向到指定的页面（URL不包括ContextPath）,不做检查的URL列表（以分号分开，并且URL中不包括ContextPath）都要采取可配置的方式.</li>
+</ul>
+<p><strong>页面</strong></p>
+<ul>
+<li>login.jsp：登录页面，请求提交到doLogin</li>
+</ul>
+<pre><code>&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;doLogin.jsp&quot; method=&quot;post&quot;&gt;
+            username:&lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;/&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+
+</code></pre>
+<ul>
+<li>doLogin.jsp:判断用户信息，存入Session.</li>
+</ul>
+<pre><code>&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;%
+            //1.获取用户的登录信息
+            String username = request.getParameter(&quot;username&quot;);
+            //2.若登录信息完整，则把登录信息放到session里面
+            if(username != null &amp;&amp; !username.equals(&quot;&quot;)){
+                session.setAttribute(application.getInitParameter(&quot;userSessionKey&quot;),username);
+                //3.重定向到list.jsp
+                response.sendRedirect(&quot;list.jsp&quot;);
+            }else{
+                response.sendRedirect(&quot;login.jsp&quot;);
+            }
+
+        %&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ul>
+<li>list.jsp:list 列表，所有可以访问的页面链接.用户可不登录直接访问</li>
+</ul>
+<pre><code>&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;
+    &lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;a href=&quot;a.jsp&quot;/&gt;AAA&lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;b.jsp&quot;/&gt;BBB&lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;c.jsp&quot;/&gt;CCC&lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;d.jsp&quot;/&gt;DDD&lt;br&gt;&lt;br&gt;
+        &lt;a href=&quot;e.jsp&quot;/&gt;EEE&lt;br&gt;&lt;br&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>web.xml</p>
+<pre><code>  &lt;!--用户信息放入session中键的名字--&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;userSessionKey&lt;/param-name&gt;
+    &lt;param-value&gt;USERSESSIONKEY&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;!--若未登录，需重定向的页面--&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;redirectPage&lt;/param-name&gt;
+    &lt;param-value&gt;/login/login.jsp&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;!--不需要拦截或检查的url列表：list login a--&gt;
+  &lt;context-param&gt;
+    &lt;param-name&gt;uncheckedUrls&lt;/param-name&gt;
+    &lt;param-value&gt;/login/a.jsp,/login/list.jsp,/login/login.jsp,/login/doLogin.jsp,/login/b.jsp&lt;/param-value&gt;
+  &lt;/context-param&gt;
+
+  &lt;filter&gt;
+    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;com.jm.login.LoginFilter&lt;/filter-class&gt;
+  &lt;/filter&gt;
+
+  &lt;filter-mapping&gt;
+    &lt;filter-name&gt;loginFilter&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/login/*&lt;/url-pattern&gt;
+  &lt;/filter-mapping&gt;
+</code></pre>
+<p>LoginFilter</p>
+<pre><code>public class LoginFilter extends HttpFilter {
+    //1.获取web.xml获取sessionkey，redirectUrl，uncheckUrls
+    private String sessionKey;
+    private String redirectUrl;
+    private String uncheckedUrls;
+    @Override
+    public void init() {
+        ServletContext context = getFilterConfig().getServletContext();
+        //
+        sessionKey = context.getInitParameter(&quot;userSessionKey&quot;);
+        //重定向页面
+        redirectUrl = context.getInitParameter(&quot;redirectPage&quot;);
+        //不用检查的url
+        uncheckedUrls = context.getInitParameter(&quot;uncheckedUrls&quot;);
+    }
+    @Override
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+        //1.获取请求的URL
+        String url = req.getRequestURL().toString();
+        String uri = req.getRequestURI();
+        String servletPath = req.getServletPath();
+        //2.检查1获取的servletPath是否为不需要检查的url中的一个，如果是，则直接放行，方法结束
+        List&lt;String&gt; urls = Arrays.asList(uncheckedUrls.split(&quot;,&quot;));
+        if(urls.contains(servletPath)){
+            chain.doFilter(req,resp);
+            return;
+        }
+        //3.从session 中获取sessionKey 对应的值，若值不存在，则重定向到redirectUrl
+        Object user = req.getSession().getAttribute(sessionKey);
+        if(user == null){
+            resp.sendRedirect(req.getContextPath()+redirectUrl);
+        }
+        //4.若存在，则放行，允许访问
+        chain.doFilter(req,resp);
+    }
+}
+</code></pre>
+<ol start="4">
+<li>使用Filter 完成一个简单的权限模型：</li>
+</ol>
+<p>需求:</p>
+<ol>
+<li>管理权限</li>
+</ol>
+<ul>
+<li>查看某人的权限</li>
+<li>修改某人的权限</li>
+</ul>
+<p>实现:</p>
+<ul>
+<li>login.jsp</li>
+</ul>
+<pre><code>  &lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;${pageContext.request.contextPath}/loginServlet?method=login&quot; method=&quot;post&quot;&gt;
+            name:&lt;input type=&quot;text&quot; name=&quot;name&quot;/&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;/&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>authority-manager.jsp<br>
+有一个text文本框，供输入username,提交后，使用checkbox 显示当前用户所有的权限的信息.<br>
+检查request 中是否有user信息，若有，则显示xxx的权限为：对应的权限的checkbox 打上对号. 提示，页面上需要两层循环的方式来筛选出被选择的权限.</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;center&gt;
+            &lt;br&gt;&lt;br&gt;
+            &lt;form action=&quot;${pageContext.request.contextPath}/AuthorityServlet?method=getAuthorities&quot; method=&quot;post&quot;&gt;
+              name:&lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;/&gt;
+            &lt;/form&gt;
+            &lt;c:if test=&quot;${requestScope.user != null}&quot;&gt;
+                ${requestScope.user.username} 的权限是:
+                &lt;br&gt;&lt;br&gt;
+                &lt;form action=&quot;${pageContext.request.contextPath}/AuthorityServlet?method=updateAuthority&quot; method=&quot;post&quot;&gt;
+                    &lt;input type=&quot;hidden&quot; name=&quot;username&quot; value=&quot;${requestScope.user.username}&quot;/&gt;
+                    &lt;c:forEach items=&quot;${authorities}&quot; var=&quot;auth&quot;&gt;
+                        &lt;c:set var=&quot;flag&quot; value=&quot;false&quot;/&gt;
+                        &lt;c:forEach items=&quot;${user.authorities}&quot; var=&quot;ua&quot;&gt;
+                            &lt;c:if test=&quot;${ua.url == auth.url}&quot;&gt;
+
+                                &lt;c:set var=&quot;flag&quot; value=&quot;true&quot;/&gt;
+                            &lt;/c:if&gt;
+                        &lt;/c:forEach&gt;
+
+                        &lt;c:if test=&quot;${flag == true}&quot;&gt;
+                            &lt;input type=&quot;checkbox&quot; name=&quot;authority&quot; value=&quot;${auth.url}&quot; checked=&quot;checked&quot;&gt;${auth.displayName}
+                        &lt;/c:if&gt;
+                        &lt;c:if test=&quot;${flag == false}&quot;&gt;
+                            &lt;input type=&quot;checkbox&quot; name=&quot;authority&quot; value=&quot;${auth.url}&quot;&gt;${auth.displayName}
+                        &lt;/c:if&gt;
+                        &lt;br&gt;&lt;br&gt;
+                    &lt;/c:forEach&gt;
+                    &lt;input type=&quot;submit&quot; value=&quot;Update&quot;/&gt;
+                &lt;/form&gt;
+        &lt;/c:if&gt;
+        &lt;/center&gt;
+     &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<ol start="2">
+<li>对访问进行权限控制：有权限则可以访问，否则提示：没有对应的权限，请返回</li>
+</ol>
+<pre><code>public class AuthorityFilter extends HttpFilter {
+    @Override
+    public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+//        - 获取ServletPath
+        String servletPath = req.getServletPath();
+        //不需要被拦截的url列表
+        List&lt;String&gt; uncheckUrls = Arrays.asList(&quot;/authority/403.jsp&quot;, &quot;/authority/articles.jsp&quot;, &quot;/authority/authority-manager.jsp&quot;, &quot;/authority/login.jsp&quot;, &quot;/authority/logout.jsp&quot;);
+        if(uncheckUrls.contains(servletPath)){
+            chain.doFilter(req,resp);
+            return;
+        }
+
+//      在用户已经登录（可使用用户是否登录的过滤器）的情况下，获取用户信息：session.getAttribute(&quot;user&quot;);
+        User user = (User) req.getSession().getAttribute(&quot;user&quot;);
+        if(user == null){
+              resp.sendRedirect(req.getContextPath()+&quot;/authority/login.jsp&quot;);
+        }
+//      在获取用户所具有的权限的信息：List&lt;Authority&gt;
+        List&lt;Authority&gt; authorities = user.getAuthorities();
+
+//      检验用户是否有请求servletPath的权限:可以思考除了遍历之外，有没有更好的实现方式
+        Authority authority = new Authority(null, servletPath);
+
+//      若有权限则：响应(这里因为contains方法判断要使用equals,所以我们必须要重写equals方法)
+        if (authorities.contains(authority)) {
+            chain.doFilter(req,resp);
+            return;
+        }
+//      若没有权限：重定向到403.jsp
+        resp.sendRedirect(req.getContextPath()+&quot;/authority/403.jsp&quot;);
+    }
+}
+
+</code></pre>
+<ul>
+<li>用户若登录，需要把用户信息（User）放入到 HttpSession 中</li>
+<li>在检验权限之前，需要判断用户是否已经登录.</li>
+</ul>
+<ol start="3">
+<li>管理权限</li>
+</ol>
+<ul>
+<li>封装权限信息：Authority</li>
+</ul>
+<pre><code>public class Authority {
+    //显示到页面上的权限的名字
+    private String displayName;
+    //权限对应的URL地址：一个权限对应一个URL   private String url;
+    private String url;
+    public Authority() {
+
+    }
+    public Authority(String displayName, String url) {
+        this.displayName = displayName;
+        this.url = url;
+    }
+    public String getDisplayName() {
+        return displayName;
+    }
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Authority authority = (Authority) o;
+        return Objects.equals(url, authority.url);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(url);
+    }
+}
+</code></pre>
+<ul>
+<li>封装用户信息：User</li>
+</ul>
+<pre><code>public class User {
+    private String username;
+    private List&lt;Authority&gt; authorities;
+
+    public User() {
+    }
+
+    public User(String username, List&lt;Authority&gt; authorities) {
+        this.username = username;
+        this.authorities = authorities;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List&lt;Authority&gt; getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List&lt;Authority&gt; authorities) {
+        this.authorities = authorities;
+    }
+}
+
+</code></pre>
+<ul>
+<li>创建一个UseryDao：</li>
+</ul>
+<pre><code>public class UserDao {
+    private static Map&lt;String,User&gt; users;
+    private static List&lt;Authority&gt; authorities = null;
+
+    static {
+        //用户所有的权限
+        authorities = new ArrayList&lt;Authority&gt;();
+        authorities.add(new Authority(&quot;Article-1&quot;,&quot;/authority/article-1.jsp&quot;));
+        authorities.add(new Authority(&quot;Article-2&quot;,&quot;/authority/article-2.jsp&quot;));
+        authorities.add(new Authority(&quot;Article-3&quot;,&quot;/authority/article-3.jsp&quot;));
+        authorities.add(new Authority(&quot;Article-4&quot;,&quot;/authority/article-4.jsp&quot;));
+
+        users = new HashMap&lt;String,User&gt;();
+        //给AAA用户添加12权限
+        User user1 = new User(&quot;AAA&quot;,authorities.subList(0,2));
+        users.put(&quot;AAA&quot;, user1);
+        //给BBB用户添加34权限
+        user1 = new User(&quot;BBB&quot;,authorities.subList(2,4));
+        users.put(&quot;BBB&quot;,user1);
+
+    }
+    //通过用户名获取用户
+    public User get(String username){
+        return users.get(username);
+    }
+    //更新用户权限
+    public void update(String username,List&lt;Authority&gt; authorities){
+        System.out.println(&quot;username:&quot;+username);
+        if(users.get(username) == null){
+            System.out.println(username+&quot;不存在&quot;);
+        }
+        users.get(username).setAuthorities(authorities);
+    }
+    //获取所有的权限信息
+    public  List&lt;Authority&gt; getAuthorities(){
+        return authorities;
+    }
+    public List&lt;Authority&gt; getAuthorities(String[] urls) {
+        //新的权限集合
+        List&lt;Authority&gt; authorities2 = new ArrayList&lt;Authority&gt;();
+        for(Authority authority:authorities){
+            if(urls != null){
+                for(String url:urls){
+                    if(url.equals(authority.getUrl())){
+                        authorities2.add(authority);
+                    }
+                }
+            }
+        }
+        return authorities2;
+    }
+}
+</code></pre>
+<ul>
+<li>Servlet<br>
+authority-manager.jsp    提交表单后get方法:获取表单的请求参数：username,再根据username获取User 信息.把user放入到request 请求域中,转发到authority-manager.jsp.<br>
+authority-manager.jsp 修改权限的表单提交后update方法:获取请求参数：username,authority（多选）;把权限封装为List;调用UserDao 的update() 方法实现权限的修改;重定向到authority-manager.jsp</li>
+</ul>
+<pre><code>
+public class AuthorityServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String methodName = req.getParameter(&quot;method&quot;);
+        System.out.println(methodName);
+        try {
+            Method method = getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
+            method.invoke(this, req, resp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private UserDao userDao = new UserDao();
+    //获取用户全选
+    public void getAuthorities(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String username = req.getParameter(&quot;username&quot;);
+        User user = userDao.get(username);
+        req.setAttribute(&quot;user&quot;, user);
+        req.setAttribute(&quot;authorities&quot;,userDao.getAuthorities());
+        req.getRequestDispatcher(&quot;/authority/authority-manager.jsp&quot;).forward(req, resp);
+    }
+    //更新权限
+    public void updateAuthority(HttpServletRequest req,HttpServletResponse resp) throws IOException {
+        String username = req.getParameter(&quot;username&quot;);
+        String[] authorities = req.getParameterValues(&quot;authority&quot;);
+        List&lt;Authority&gt; authorityList = userDao.getAuthorities(authorities);
+        userDao.update(username,authorityList);
+        resp.sendRedirect(req.getContextPath()+&quot;/authority/authority-manager.jsp&quot;);
+    }
+}
+</code></pre>
+<ol start="5">
+<li>为论坛过滤不雅文字和HTML特殊字符</li>
+</ol>
+<ul>
+<li>开发论坛模块时要解决以下两个问题：
+<ul>
+<li>用户回复发帖时可能会插入如HTML代码（例如：&lt;,&gt;等），这可能会破坏论坛的正常显示，也可能会带来安全隐患</li>
+<li>某些用户在回复时可能会输入不雅句子，这些字句会给论坛带来不好的影响</li>
+<li>实现对不雅文字的可配置</li>
+<li>要求：不雅文字及其替代内容实现可配置</li>
+</ul>
+</li>
+</ul>
+<p>Serevlet API 也提供了一个HttpSerevletRequestWrapper类来包装原始的request 对象.<br>
+HttpServletRequestWrapper 类实现了HttpServletRequest 接口中的所有方法.<br>
+这些方法的内部实现都是仅仅调用了一下所包装的 request 对象的对应方法.</p>
+<p>相类似Servlet API 也提供了一个HttpServletResponseWrapper 类来包装原始的response 对象.<br>
+<strong>包装类 ServletRequest 实现</strong></p>
+<pre><code>public class HttpServletRequestWrapper extends ServletRequestWrapper implements HttpServletRequest {
+    public HttpServletRequestWrapper(HttpServletRequest request) {
+        super(request);
+    }
+
+    private HttpServletRequest _getHttpServletRequest() {
+        return (HttpServletRequest)super.getRequest();
+    }
+
+    public String getAuthType() {
+        return this._getHttpServletRequest().getAuthType();
+    }
+
+    public Cookie[] getCookies() {
+        return this._getHttpServletRequest().getCookies();
+    }
+
+    public long getDateHeader(String name) {
+        return this._getHttpServletRequest().getDateHeader(name);
+    }
+    ……
+}
+</code></pre>
+<p>作用:对HttpServletRequest 或HttpServletResponse 的某一个方法进行修改或者增强<br>
+MyHttpServletRequest</p>
+<pre><code>public class MyHttpServletRequest extends HttpServletRequestWrapper {
+    public MyHttpServletRequest(HttpServletRequest request) {
+        super(request);
+    }
+    @Override
+    public String getParameter(String name) {
+        String val = super.getParameter(name);
+        if(val != null &amp;&amp; val.contains(&quot; fuck &quot;)){
+            val = val.replace(&quot;fuck&quot;,&quot;****&quot;);
+        }
+        return val;
+    }
+}
+</code></pre>
+<p>使用：在Filter ,利用HttpServletRequest 替换传入的HttpServletRequest</p>
+<pre><code>public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain) throws IOException, ServletException {
+            //1.获取请求content参数的值
+            System.out.println(req);
+            HttpServletRequest request = new MyHttpServletRequest(req);
+            String content = request.getParameter(&quot;content&quot;);
+        }
+        chain.doFilter(request,resp);
+    }
+</code></pre>
+<p>此时到达Servlet 或JSP的HttpServletRequest 实际上是MyHttpServletRequest</p>
+<h2 id="httpservletrequestwrapper">HttpServletRequestWrapper</h2>
+<p>1.为什么需要 HttpServletRequestWrapper<br>
+需要改变从Servlet 容器（可能是任何的Servlet容器）中传入的HttpServletRequest 对象的某个行为，该怎么办？</p>
+<ul>
+<li>继承HttpServletRequest接口的Servlet容器的实现类，但就和具体的容器相耦合</li>
+<li>提供HttpServletRequest接口的实现类，很麻烦，而且也需要和具体的容器相耦合。</li>
+<li>使用装饰器设计模式
+<ul>
+<li>提供一个类，该类实现HttpServletRequest 接口</li>
+<li>传入具体的一容器实现的HttpServletRequest 接口的实现类作为上述类的一个成员变量</li>
+<li>使用HttpServletRequest 成员变量来实现HttpServletRequest 接口的所有方法。</li>
+</ul>
+</li>
+<li>提供HttpServletRequestWrapper 的实现类，实现具体的方法.</li>
+</ul>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#filter%E7%AE%80%E4%BB%8B">Filter简介</a></li>
+<li><a href="#%E4%B8%80-filter-%E6%98%AF%E4%BB%80%E4%B9%88">一、Filter 是什么？</a></li>
+<li><a href="#%E4%BA%8C-%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAfilter%E5%B9%B6%E8%BF%90%E8%A1%8C">二、如何创建一个Filter并运行</a></li>
+<li><a href="#%E4%B8%89-filter-%E7%9B%B8%E5%85%B3%E7%9A%84api">三、Filter 相关的API</a></li>
+<li><a href="#%E5%9B%9B-filter-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">四、Filter 的基本工作原理</a></li>
+<li><a href="#%E4%BA%94-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E4%B8%93%E9%97%A8%E5%A4%84%E7%90%86http%E7%9A%84%E8%BF%87%E6%BB%A4%E5%99%A8">五、自定义一个专门处理Http的过滤器</a></li>
+<li><a href="#%E5%85%AD-%E8%BF%87%E6%BB%A4%E5%99%A8%E9%93%BE%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F">六、过滤器链执行顺序</a></li>
+<li><a href="#%E4%B8%83-%E6%98%A0%E5%B0%84filter">七、映射Filter</a></li>
+<li><a href="#%E5%85%AB-%E5%BA%94%E7%94%A8">八、应用</a></li>
+<li><a href="#httpservletrequestwrapper">HttpServletRequestWrapper</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/jsp/">
+              <h3 class="post-title">
+                JSP
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
