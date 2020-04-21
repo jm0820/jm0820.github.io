@@ -1,0 +1,331 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>EL 表达式 | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1587449092916">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="EL 表达式 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="EL简介
+EL（Express Language）
+一、EL语法
+EL都是以&quot;${&quot;开始 &quot;}&quot;结尾的,
+${expression}
+
+二、EL变量
+${username} 表示取出某一范围中名称为u..." />
+    <meta name="keywords" content="前端,Java WEB" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1587449092916" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              EL 表达式
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-04-21
+              </span>
+              <span>
+                4 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/VeKofCJ5_/" class="post-tag">
+                  # 前端
+                </a>
+              
+                <a href="https://jm0820.github.io/tag/lue2VfI4E/" class="post-tag">
+                  # Java WEB
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p><strong>EL简介</strong><br>
+EL（Express Language）</p>
+<p><strong>一、EL语法</strong><br>
+EL都是以&quot;${&quot;开始 &quot;}&quot;结尾的,</p>
+<pre><code>${expression}
+</code></pre>
+<p><strong>二、EL变量</strong><br>
+<code>${username}</code> 表示取出某一范围中名称为username的变量，因为我们并没有指定哪一个范围的username,所以它的默认值会先从Page 范围找，假如找不到，再依序到Request、Session、Application范围,假如途中找到username,就直接回传,不再继续找下去,但是假如全部的范围都没有找到时，就回传null.</p>
+<p>如果域对象里面有特殊字符,那么使用[]更方便一点.<br>
+<code>${username.My-name}</code>就应该改为<code>${username[&quot;My-name&quot;]}</code></p>
+<ul>
+<li>EL 可以进行自动的类型转换.</li>
+</ul>
+<p><strong>三、EL的隐含对象</strong></p>
+<ol>
+<li><strong>与范围有关的隐含对象:</strong> application、sessionScope、requestScope、pageScope<br>
+在EL中，这四个隐含对象只能用来取得范围属性值，即<code>getAttribute(String name)</code>,却不能取得其它相关信息.<br>
+取得Session 中的username值：</li>
+</ol>
+<pre><code>session.getAttribute(&quot;username&quot;)
+</code></pre>
+<p>使用EL表达式：</p>
+<pre><code>${sessionScope.username}
+</code></pre>
+<ol start="2">
+<li><strong>与输入有关的隐含对象:</strong> param、paramValues</li>
+</ol>
+<ul>
+<li><code>${param}</code>: 表示返回请求参数中单个字符串的值.</li>
+<li><code>${paramValues}</code>:表示返回请求参数的一组值.<br>
+取用户的请求参数：</li>
+</ul>
+<pre><code>request.getParameter(String name)   
+request.getParameterValues(String name)   
+</code></pre>
+<p>使用EL表达式：</p>
+<pre><code>${param.name}
+${paramValues.name}
+</code></pre>
+<ol start="3">
+<li><strong>其它隐含对象:</strong> cookie、header、headerValues、initParam、pageContext</li>
+</ol>
+<p>cookie:</p>
+<pre><code>${cookie.username}
+</code></pre>
+<p>header：储存用户浏览器和服务端用来沟通的数据.</p>
+<pre><code>&lt;!--取得用户浏览器版本--&gt;
+${header[&quot;User-Agent&quot;]}
+</code></pre>
+<p>另外在鲜少机会下，有可能同一标头名称拥有不同的值，此时必须改为使用headValues 来取得这些值.<br>
+initParam：<br>
+取得设定站点的环境参数（Context）</p>
+<pre><code>&lt;!--一般的方法--&gt;   
+String userid = (String)application.getInitParameter(&quot;userid&quot;);   
+&lt;!--使用EL表达式--&gt;
+${initParam.userid}
+</code></pre>
+<p>pageContext：取得其他有关用户要求或页面的详细信息。</p>
+<pre><code>     &lt;!--取得请求的参数字符串--&gt;
+     ${pageContext.request.queryString}
+     &lt;!--取得请求的URL，但不包括请求之参数字符串--&gt;
+     ${pageContext.request.requestURL}         
+     &lt;!--服务的web application 的名称--&gt;
+     ${pageContext.request.contextPath}          
+     &lt;!--取得HTTP 的方法(GET、POST)--&gt;
+     ${pageContext.request.method} 
+     &lt;!--取得使用的协议(HTTP/1.1、HTTP/1.0)--&gt;
+     ${pageContext.request.protocol}        
+     &lt;!--取得用户名称--&gt;
+     ${pageContext.request.remoteUser}
+     &lt;!--取得用户的IP 地址--&gt;
+     ${pageContext.request.remoteAddr}
+     &lt;!--判断session 是否为新的--&gt;
+     ${pageContext.session.new}             
+     &lt;!--取得session 的ID--&gt;
+     ${pageContext.session.id}
+     &lt;!--取得主机端的服务信息--&gt;
+     ${pageContext.servletContext.serverInfo}   
+</code></pre>
+<p><strong>四、EL运算符</strong></p>
+<ul>
+<li>
+<p>算数运算符<br>
++、-、*或$、/或div、%或mod</p>
+</li>
+<li>
+<p>关系运算符<br>
+==或eq、!=或ne、&lt;或lt、&gt;或gt、&lt;=或le、&gt;=或ge</p>
+</li>
+<li>
+<p>逻辑运算符<br>
+&amp;&amp;或and、||或or、!或not</p>
+</li>
+<li>
+<p>其它运算符<br>
+Empty 运算符、条件运算符、()运算符</p>
+</li>
+</ul>
+<pre><code>${empty param.name}、${A?B:C}、${A*(B+C)}
+</code></pre>
+<p><strong>五、EL函数</strong><br>
+EL自定义函数：在EL表达式中调用某个java类的静态方法，这个静态方法需在web应用程序中进行配置才能被EL表达式调用 EL自定义函数可以扩展EL表达式的功能，让EL表达式完成普通java程序代码所能完成的功能。</p>
+<p>EL自定义函数开发步骤</p>
+<ul>
+<li>编写EL自定义函数映射的java 类中的静态方法：这个java类必须带有public 修饰符，方法必须是这个类的带有publi 修饰符的静态方法</li>
+</ul>
+<pre><code>public class MyELFunction {
+
+    public static String concat(String str1,String str2){
+        return str1+str2;
+    }
+
+}
+</code></pre>
+<ul>
+<li>编写标签库描述文件（tld文件）,在tld 文件中描述自定义函数</li>
+</ul>
+<pre><code>&lt;function&gt;
+    &lt;name&gt;concat&lt;/name&gt;
+    &lt;function-class&gt;com.atguigu.el.MyELFunction&lt;/function-class&gt;
+    &lt;function-signature&gt;java.lang.String concat(java.lang.String,java.lang.String)&lt;/function-signature&gt;
+&lt;/function&gt;
+</code></pre>
+<p>在JSP页面中导入和使用EL自定义函数</p>
+<pre><code>${atguigu:concat(param.name1,param.name2)}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/listen/">
+              <h3 class="post-title">
+                Listen
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
