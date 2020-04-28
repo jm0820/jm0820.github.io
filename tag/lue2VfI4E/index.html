@@ -3,7 +3,7 @@
   <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Java WEB | 小王同学</title>
-<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588067090100">
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588094541598">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="Java WEB | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
@@ -18,7 +18,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://jm0820.github.io">
-  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588067090100" alt="">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588094541598" alt="">
   </a>
   <h1 class="site-title">
     小王同学
@@ -74,6 +74,269 @@
             </h2> 
         </div>
         <div class="post-container">
+  
+    <article class="post">
+      <a href="https://jm0820.github.io/post/wen-jian-de-shang-chuan-he-xia-zai/">
+        <h2 class="post-title">文件的上传和下载</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2020-04-29
+        </span>
+        <span>
+          9 min read
+        </span>
+        
+          <a href="https://jm0820.github.io/tag/lue2VfI4E/" class="post-tag">
+            # Java WEB
+          </a>
+        
+      </div>
+      
+      <div class="post-abstract">
+        <h2 id="写在前面">写在前面</h2>
+<p>在实现上传和在下载之前需要做一些准备工作，去 Apache 官网下载文件上传和下载的两个组件,这里给出地址和maven 坐标.</p>
+<ul>
+<li>common-fileupload组件下载：<code>http://commons.apache.org/proper/commons-fileupload/</code></li>
+<li>common-io组件下载：<code>http://commons.apache.org/proper/commons-io/</code><br>
+maven 坐标</li>
+</ul>
+<pre><code> &lt;!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;commons-fileupload&lt;/groupId&gt;
+      &lt;artifactId&gt;commons-fileupload&lt;/artifactId&gt;
+      &lt;version&gt;1.3.1&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- https://mvnrepository.com/artifact/commons-io/commons-io --&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;commons-io&lt;/groupId&gt;
+      &lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+      &lt;version&gt;2.2&lt;/version&gt;
+    &lt;/dependency&gt;
+</code></pre>
+<h2 id="表单上传文件">表单上传文件</h2>
+<p>进行文件上传时，表单需要做的准备：</p>
+<ol>
+<li>请求方式为post</li>
+</ol>
+<pre><code>&lt;form action=&quot;uploadServlet&quot; method=&quot;post&quot;……/&gt;
+</code></pre>
+<ol start="2">
+<li>使用file 的表单域</li>
+</ol>
+<pre><code>&lt;input type=&quot;file&quot; name=&quot;file&quot;/&gt;
+</code></pre>
+<ol start="3">
+<li>使用multipart/form-data的请求编码方式</li>
+</ol>
+<pre><code>&lt;form action=&quot;uploadServlet&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+</code></pre>
+<p>如下:</p>
+<pre><code>   &lt;form action=&quot;uploadServlet&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+      File:&lt;input type=&quot;file&quot; name=&quot;file&quot;/&gt;
+      &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;/&gt;
+   &lt;/form&gt;
+</code></pre>
+<p><strong>基于表单的文件上传</strong></p>
+<ul>
+<li>如果在表单中使用表单元素<code>&lt;input type=&quot;&quot;/&gt;</code>,浏览器在解析表单时，<br>
+会自动生成一个输入框和一个按钮，输入框可供用户填写本地文件的文件名和<br>
+路径名，按钮可以让浏览器打开一个文件选择框供用户选择文件:<br>
+Enctype 属性</li>
+<li>当表单需要上传文件时，需指定表单enctype 的值为multipart/form-data</li>
+<li>在form 元素的语法中，enctype 属性指定将数据发送到服务器时浏览器使用的编码类型.</li>
+<li>enctype 属性取值
+<ul>
+<li>application/x-www-form-urlencoded:表单enctype 属性的默认<br>
+值，这种编码方案使用有限的字符集，当使用了非字母和数字时，必须用<br>
+&quot;%HH&quot;代替（H代表十六进制数字）,对于大容量的二进制数据或包含非ASCII字符的文本来说，这种编码不能满足要求</li>
+<li>multipart/form-data:form设定了enctype=&quot;multipart/form-data&quot;属性后,<br>
+表示表单以为禁止传输数据.</li>
+</ul>
+</li>
+</ul>
+<p><strong>服务端</strong></p>
+<ol>
+<li>不能再使用request.getParameter()等方式获取请求信息，获取不到，<br>
+因为请求的编码方式已经改为multipart/form-data，以二进制的方式来提交<br>
+请求信息.</li>
+<li>可以使用输入流的方式来获取</li>
+<li>具体使用common-fileupload 组件来完成文件的上传操作.</li>
+</ol>
+<ul>
+<li>搭建环境，导入fileupload和io的包</li>
+<li>基本思想：
+<ul>
+<li>commons-fileupload 可以解析请求，得到一个FileItem对象组成的List</li>
+<li>commons-fileupload 把所有的请求信息都解析为 FileItem 对象, 无论是一个一般的文本域还是一个文件域.</li>
+<li>可以调用 FileItem 的 isFormField() 方法来判断是一个表单域 或不是表单域(则是一个文件域)</li>
+<li>再来进一步获取信息</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例</strong><br>
+jsp 页面</p>
+<pre><code>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Title&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;form action=&quot;${pageContext.request.contextPath}/uploadServlet&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+            &lt;%--文件输入--%&gt;
+            File:&lt;input type=&quot;file&quot; name=&quot;file&quot;/&gt;&lt;br&gt;&lt;br&gt;
+            &lt;%--文件描述--%&gt;
+            Desc:&lt;input type=&quot;text&quot; name=&quot;desc&quot;/&gt;&lt;br&gt;&lt;br&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Submit&quot;/&gt;
+        &lt;/form&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>UploadServlet.java</p>
+<pre><code>public class UploadServlet extends HttpServlet {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1.得到FileItem 的集合items.
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        factory.setSizeThreshold(1024*500);
+        //设置临时文件夹
+        File tempDirectory = new File(&quot;d:\\tempDirectory&quot;);
+        factory.setRepository(tempDirectory);
+
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        //设置最大容量
+        upload.setSizeMax(1024*1024*5);
+        try {
+            List&lt;FileItem&gt; items = upload.parseRequest(req);
+            for(FileItem item:items){
+                //2.若是一个一般的表单域，打印信息.
+                if(item.isFormField()) {
+                    String name = item.getFieldName();
+                    String val = item.getString();
+                    System.out.println(name+&quot;:&quot;+val);
+                }
+                //3.若是文件域，则把文件保存到d://files目录下.
+                else{
+                    String fieldName = item.getFieldName();
+                    String name = item.getName();
+                    String contentType = item.getContentType();
+                    long size = item.getSize();
+                    //获取输入流
+                    InputStream in = item.getInputStream();
+                    byte[] buffer = new byte[1024];
+                    int len = 0;
+                    name = &quot;d:\\files\\&quot;+ name;
+                    //通过输出流把文件写到其它位置
+                    FileOutputStream out = new FileOutputStream(name);
+                    while((len = in.read(buffer)) != -1){
+                        out.write(buffer,0,len);
+                    }
+                    out.close();
+                    in.close();
+                }
+            }
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        }
+    }
+</code></pre>
+<h2 id="文件的下载">文件的下载</h2>
+<p><strong>步骤</strong></p>
+<ol>
+<li>设置 contentType 响应头: 设置响应的类型是什么 ? 通知浏览器是个下载的文件</li>
+</ol>
+<pre><code>response.setContentType(&quot;application/x-msdownload&quot;); 
+</code></pre>
+<ol start="2">
+<li>设置 Content-Disposition 响应头: 通知浏览器不再有浏览器来自行处理(或打开)要下载的文件, 而由用户手工完成</li>
+</ol>
+<pre><code>response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=abc.txt&quot;);
+</code></pre>
+<ol start="3">
+<li>具体的文件: 可以调用 response.getOutputStream 的方式, 以 IO 流的方式发送给客户端.</li>
+</ol>
+<pre><code>OutputStream out = response.getOutputStream();
+String pptFileName = &quot;C:\\Users\\Think Pad\\Desktop\\__正在上课__\\11.尚硅谷_JavaWEB_监听器.pptx&quot;;
+
+InputStream in = new FileInputStream(pptFileName);
+
+byte [] buffer = new byte[1024];
+int len = 0;
+
+while((len = in.read(buffer)) != -1){
+	out.write(buffer, 0, len);
+}
+in.close();
+</code></pre>
+<p><strong>实例</strong></p>
+<p><strong>download.jsp</strong></p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	
+	&lt;!-- 静态下载,xyz.txt这个文件直接放在那儿就行 --&gt;
+	&lt;a href=&quot;xyz.txt&quot;&gt;download xyz.txt&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+	&lt;a href=&quot;test.jsp&quot;&gt;download test.jsp&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+	&lt;a href=&quot;${pageContext.request.contextPath}/downloadServlet&quot;&gt;DownLoad abcd.pptx&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>test.jsp</strong></p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;
+&lt;title&gt;Insert title here&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+	&lt;% 
+		//1. 通知客户端浏览器: 这是一个需要下载的文件, 不能再按普通的 html 的方式打开.
+		//即设置一个响应的类型: application/x-msdownload
+		response.setContentType(&quot;application/x-msdownload&quot;); 
+	
+		//2. 通知客户端浏览器: 不再有浏览器来处理该文件, 而是交由用户自行处理
+		//设置用户处理的方式: 响应头: Content-Disposition
+		response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=abc.txt&quot;);
+	%&gt;
+	
+	&lt;h4&gt;Test Page&lt;/h4&gt;
+	
+	Time: &lt;%= new Date() %&gt;
+	
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p><strong>downloadServlet</strong></p>
+<pre><code>public class DownloadServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType(&quot;application/x-msdownload&quot;); 
+		//下载文件的名字
+		String fileName = &quot;文件下载.pptx&quot;;
+		//设置响应头，控制浏览器下载该文件
+		response.setHeader(&quot;Content-Disposition&quot;, &quot;attachment;filename=&quot; + URLEncoder.encode(fileName, &quot;UTF-8&quot;));
+		//获取输出流
+		OutputStream out = response.getOutputStream();
+		String pptFileName = &quot;F:\\视频\\个人博客系统_视频\\document\\基于SSM的个人博客系统.pptx&quot;;
+		//读取要下载的文件，保存到输入流
+		InputStream in = new FileInputStream(pptFileName);
+		//创建缓冲区
+		byte [] buffer = new byte[1024];
+		int len = 0;
+		//循环从输入流中的内容读取到缓冲区中!
+		while((len = in.read(buffer)) != -1){
+			out.write(buffer, 0, len);
+		}
+		in.close();
+	}
+}
+
+</code></pre>
+
+      </div>
+    </article>
   
     <article class="post">
       <a href="https://jm0820.github.io/post/guo-ji-hua/">
