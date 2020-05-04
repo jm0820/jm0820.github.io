@@ -1,0 +1,467 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python 基础——类和对象 | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588609496367">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python 基础——类和对象 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="类
+概念
+用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。
+类的基本操作
+
+定一个类
+
+class ClassName:
+    --TODO--
+
+
+实例化一个类
+
+name = Cl..." />
+    <meta name="keywords" content="Python" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588609496367" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Python 基础——类和对象
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-05
+              </span>
+              <span>
+                6 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/-8kjyiVwA/" class="post-tag">
+                  # Python
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="类">类</h2>
+<p><strong>概念</strong><br>
+用来描述具有相同的属性和方法的对象的集合。它定义了该集合中每个对象所共有的属性和方法。对象是类的实例。</p>
+<p><strong>类的基本操作</strong></p>
+<ol>
+<li>定一个类</li>
+</ol>
+<pre><code>class ClassName:
+    --TODO--
+</code></pre>
+<ol start="2">
+<li>实例化一个类</li>
+</ol>
+<pre><code>name = ClassName()
+</code></pre>
+<h2 id="类的属性">类的属性</h2>
+<p><strong>私有属性</strong><br>
+私有属性只能在类的内部使用，不能在类的外部被使用或者直接访问.<br>
+<strong>定义</strong><br>
+两个下划线开头，声明该属性为私有属性</p>
+<pre><code>__privateAttr = None
+</code></pre>
+<p><strong>访问</strong><br>
+在类的内部使用<code>self.__privateAttr</code>进行访问</p>
+<p><strong>示例</strong></p>
+<pre><code>class PrivateAttrTest:
+    # 私有变量
+    __private_attr = 0
+    # 公有变量
+    _public_attr = 0
+
+    def count(self):
+        self.__private_attr += 1
+        self._public_attr += 2
+
+test = PrivateAttrTest()
+test.count()
+print(&quot;公有变量:&quot;,test._public_attr)
+print(&quot;私有变量:&quot;,test.__private_attr)
+</code></pre>
+<p>结果：</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;E:/python_code/day_01/类和对象/test1.py&quot;, line 17, in &lt;module&gt;
+    print(&quot;私有变量:&quot;,test.__private_attr)
+AttributeError: 'PrivateAttrTest' object has no attribute '__private_attr'
+公有变量: 2
+</code></pre>
+<h2 id="类的方法">类的方法</h2>
+<p><strong>方法定义</strong><br>
+在类的内部定义一个方法，也使用 def 关键字来声明</p>
+<ul>
+<li>类的方法必须包含一个self 的参数，并且为第一个参数，self 代表的是类的实例（self 这个名字不是必须的，也可以使用其它名字，比如this）</li>
+</ul>
+<pre><code>class PrivateAttrTest:
+    # 私有变量
+    __private_attr = 0
+    # 公有变量
+    _public_attr = 0
+
+    def count(self):
+        self.__private_attr += 1
+        self._public_attr += 2
+</code></pre>
+<p>这个count() 就是当前类的一个方法</p>
+<p><strong>私有方法</strong></p>
+<p>定义:两个__开头，生命该方法为私有方法，只能在类的内部调用<br>
+调用：<code>self.Method.Name</code><br>
+示例：</p>
+<pre><code>class PrivateMethodTest:
+    def __pri_method(self):
+        print(&quot;这是私有方法&quot;)
+
+    def public_method(self):
+        print(&quot;这是共有方法，下面调用私有方法&quot;)
+        self.__pri_method()
+test = PrivateMethodTest()
+test.public_method()
+test.__pri_method()
+</code></pre>
+<p>结果:</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;E:/python_code/day_01/类和对象/test1.py&quot;, line 33, in &lt;module&gt;
+    test.__pri_method()
+AttributeError: 'PrivateMethodTest' object has no attribute '__pri_method'
+这是共有方法，下面调用私有方法
+这是私有方法
+</code></pre>
+<p><strong>类的专有方法</strong></p>
+<ul>
+<li><code>__init__</code><br>
+构造函数，在生成对象时调用</li>
+<li><code>__del__</code><br>
+析构函数，释放对象时使用</li>
+<li><code>__repr__</code><br>
+打印，转换</li>
+<li><code>__setitem__</code><br>
+按照索引赋值</li>
+<li><code>__getitem__</code><br>
+按照索引获取值</li>
+<li><code>__len__</code><br>
+获得长度</li>
+<li><code>__cmp__</code><br>
+比较运算</li>
+<li><code>__call__</code><br>
+函数调用</li>
+<li><code>__add__</code><br>
+加运算</li>
+<li><code>__sub__</code><br>
+减运算</li>
+<li><code>__mul__</code><br>
+乘运算</li>
+<li><code>__truediv__</code><br>
+除运算</li>
+<li><code>__mod__</code><br>
+求余运算</li>
+<li><code>__pow__</code><br>
+乘方</li>
+</ul>
+<p><strong>初始化方法</strong></p>
+<ul>
+<li>
+<p><code>def __init__(self)</code><br>
+此方法在对象初始化时就会自动执行，而不用调用</p>
+</li>
+<li>
+<p><code>def __new__(cls)</code><br>
+此方法在对象创建时由解释器回调，若没有写，则调用父类的。该方法必须返回当前类的对象</p>
+</li>
+</ul>
+<p><strong>注意</strong><br>
+new先执行init后执行，当一个类指定了new和init方法，两个方法传入的参数必须一致。</p>
+<pre><code>class Person(object):
+    #属性
+    age=1
+    #初始化对象时调用的
+    def __init__(self,name):
+        print('对象初始化')
+    #new方法是对象构建的时候由解释器自动回调的
+    #该方法必须返回当前类的对象
+    def __new__(cls,name):
+        #调用父类构造器
+        print('对象创建')
+        return object.__new__(cls)
+p=Person('151')
+</code></pre>
+<p>结果:</p>
+<pre><code>对象创建
+对象初始化
+</code></pre>
+<h2 id="类的继承">类的继承</h2>
+<p><strong>语法</strong></p>
+<pre><code>class DerivedName(BaseName):
+    --TODO--
+</code></pre>
+<p>这种情况下基类和派生类在同一个作用域内.如果基类在另一个模块中，那么还可以使用表达式.</p>
+<pre><code>class DerivedName(modName.BaseName):
+</code></pre>
+<p><strong>示例</strong></p>
+<pre><code>class Animal:
+    #定义属性
+    name = ''
+    age = 0
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+
+class Cat(Animal):
+    species = ''
+    def __init__(self,name,age,species):
+        Animal.__init__(self,name,age)
+        self.species = species
+        print(&quot;名字:&quot;,name,&quot;年龄:&quot;,age,&quot;种类:&quot;,species)
+cat = Cat(&quot;猫&quot;,5,&quot;猫科&quot;)
+</code></pre>
+<p><strong>结果</strong></p>
+<pre><code>名字: 猫 年龄: 5 种类: 猫科
+</code></pre>
+<p><strong>多继承</strong><br>
+语法</p>
+<pre><code>class DerivedName(Base1Name, Base2Name, Base3Name):
+    --TODO--
+</code></pre>
+<p>当子类调用一个未指定的方法时，Python 在子类中没找到时，会在父类中从左到右查找父类中是否包含方法</p>
+<pre><code>class Animal:
+    #定义属性
+    name = ''
+    age = 0
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+
+    def eat(self):
+        print(&quot;我是一个叫&quot;, self.name,&quot;的动物，在进食&quot;)
+#野生
+class Wild:
+    name = ''
+    def __init__(self,name):
+        self.name = name
+    def eat(self):
+        print(&quot;我是一个叫&quot;, self.name,&quot;的野生喵，在进食&quot;)
+
+class Cat(Animal,Wild):
+    species = ''
+    def __init__(self,name,age,species):
+        Animal.__init__(self,name,age)
+        Wild.__init__(self,name)
+        self.species = species
+        print(&quot;名字:&quot;,name,&quot;年龄:&quot;,age,&quot;种类:&quot;,species)
+cat = Cat(&quot;猫&quot;,5,&quot;猫科&quot;)
+cat.eat()
+</code></pre>
+<p>结果:</p>
+<pre><code>我是一个叫 猫 的动物，在进食
+</code></pre>
+<p><strong>方法重写</strong><br>
+父类方法若不满足子类的需求，子类可以重写父类的方法，将父类的方法覆盖掉.</p>
+<pre><code>
+class Parent:  
+    def myMethod(self):
+        print('调用父类方法')
+class Child(Parent):  
+    def myMethod(self):
+        print('调用子类方法')
+c = Child()  
+c.myMethod()  
+super(Child, c).myMethod()  
+</code></pre>
+<p>注意：super() 函数是用于调用父类(超类)的一个方法。<br>
+结果</p>
+<pre><code>调用子类方法
+调用父类方法
+</code></pre>
+<h2 id="运算符重载">运算符重载</h2>
+<p>还可以通过对专有方法进行重写来覆盖掉原来的专有方法</p>
+<pre><code>class Vector:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+    def __str__(self):
+        return 'Vector (%d, %d)' % (self.a, self.b)
+    def __add__(self, other):
+        return Vector(self.a + other.a, self.b + other.b)
+v1 = Vector(2, 10)
+v2 = Vector(5, -2)
+print(v1 + v2)
+</code></pre>
+<p>结果:</p>
+<pre><code>Vector (7, 8)
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%B1%BB">类</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%B1%9E%E6%80%A7">类的属性</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95">类的方法</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF">类的继承</a></li>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD">运算符重载</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/python-ji-chu-han-shu-han-shu-shi-bian-cheng/">
+              <h3 class="post-title">
+                Python 基础——函数/函数式编程
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
