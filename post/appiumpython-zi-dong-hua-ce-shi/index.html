@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Appium+Python 自动化测试 | 小王同学</title>
-<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588953840186">
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588955949989">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="Appium+Python 自动化测试 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
@@ -33,7 +33,7 @@ adb shell dum..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://jm0820.github.io">
-  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588953840186" alt="">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588955949989" alt="">
   </a>
   <h1 class="site-title">
     小王同学
@@ -129,7 +129,7 @@ adb shell dum..." />
 <p>包名:<code>com.android.settings</code><br>
 界面名:<code>.Settings</code><br>
 注意：界面名在有些文章中可能会被叫做启动名</p>
-<h2 id="adb-文件传输">adb 文件传输</h2>
+<p><strong>一、adb 文件传输</strong></p>
 <p><strong>发送文件到手机</strong><br>
 命令格式</p>
 <pre><code>adb push 电脑的文件路径 手机的文件夹路径
@@ -148,8 +148,8 @@ C:\Users\Administrator\Desktop\a.txt: 1 file pushed, 0 skipped. 0.0 MB/s (6 byte
 <pre><code>C:\Users\Administrator&gt;adb pull /sdcard/a.txt  C:\Users\Administrator\Desktop
 /sdcard/a.txt: 1 file pulled, 0 skipped. 0.0 MB/s (6 bytes in 0.003s)
 </code></pre>
-<h2 id="获取app启动时间">获取app启动时间</h2>
-<p>命令格式</p>
+<p><strong>二、获取app启动时间</strong><br>
+命令格式</p>
 <pre><code>adb shell am start -W 包名/启动名   
 </code></pre>
 <p>示例<br>
@@ -165,12 +165,12 @@ Complete
 </code></pre>
 <p><strong>ThisTime：</strong> 该界面启动毫秒<br>
 <strong>TotalTime：</strong> 应用自身启动耗时= ThisTime+应用application 等资源启动耗时<br>
-<strong>WaitTime：</strong> 系统启动应用耗时=TotalTime + 系统资源启动时间</p>
-<h2 id="获取手机日志">获取手机日志</h2>
-<p>命令格式</p>
+<strong>WaitTime：</strong> 系统启动应用耗时=TotalTime + 系统资源启动时间<br>
+<strong>三、获取手机日志</strong><br>
+命令格式</p>
 <pre><code>adb logcat   
 </code></pre>
-<h2 id="其它命令">其它命令</h2>
+<p><strong>四、其它命令</strong></p>
 <ul>
 <li>安装app 到手机</li>
 </ul>
@@ -241,8 +241,8 @@ desired_cap['appActivity'] = '.ui.conversationlist.ConversationListActivity'
 <li>appium 通过接收到的 post 请求发送给手机，再由手机进行执行.</li>
 </ol>
 <h2 id="appium-基础操作api">Appium 基础操作API</h2>
-<h3 id="11-在脚本内启动其它app">1.1 在脚本内启动其它app</h3>
-<p><strong>应用场景</strong><br>
+<p><strong>1.1 在脚本内启动其它app</strong><br>
+<strong>应用场景</strong><br>
 如果一个应用需要跳转到其它应用，就可以使用这个api进行应用的跳转，就像我们通过外卖应用下订单之后会跳转到支付页面一样.<br>
 <strong>方法名和参数</strong></p>
 <ul>
@@ -258,8 +258,8 @@ driver.start_activity('com.android.messaging','.ui.conversationlist.Conversation
 time.sleep(3)
 driver.quit()
 </code></pre>
-<h3 id="12-获取app-的包名和界面名">1.2 获取app 的包名和界面名</h3>
-<p><strong>应用场景</strong><br>
+<p><strong>1.2 获取app 的包名和界面名</strong><br>
+<strong>应用场景</strong><br>
 当我们从一个应用跳转到另外一个应用的时候，想输出其包名，界面名或者想在报告中展现对象信息，我们就可以调用这个属性来进行获取<br>
 <strong>方法和属性</strong></p>
 <ul>
@@ -289,8 +289,8 @@ driver.quit()
 com.android.messaging
 .ui.conversationlist.ConversationListActivity
 </code></pre>
-<h3 id="13-关闭app和驱动对象">1.3 关闭app和驱动对象</h3>
-<p><strong>方法</strong></p>
+<p><strong>1.3 关闭app和驱动对象</strong><br>
+<strong>方法</strong></p>
 <ul>
 <li>关闭当前app，但driver 对象还在</li>
 </ul>
@@ -311,9 +311,9 @@ print(driver.current_package)
 <pre><code># 下面这个是正常得到的桌面的包名  
 com.android.launcher3
 </code></pre>
-<p>如果调用<code>driver.quit()</code>后获取包名，则会报错，因为driver 对象已经被关闭了.</p>
-<h3 id="14-安装-卸载及判断应用是否被安装">1.4 安装、卸载及判断应用是否被安装</h3>
-<p><strong>应用场景</strong><br>
+<p>如果调用<code>driver.quit()</code>后获取包名，则会报错，因为driver 对象已经被关闭了.<br>
+<strong>1.4 安装、卸载及判断应用是否被安装</strong><br>
+<strong>应用场景</strong><br>
 一些应用市场的软件可能会有一些按钮，如果某一个程序已经安装则显示卸载，如果没有安装则显示安装<br>
 <strong>方法和参数</strong></p>
 <ul>
@@ -393,8 +393,8 @@ UIAutomatorViewer用来扫描和分析Android 应用程序的 UI 控件的工具
 <li>元素定位操作需要采用前面刚提到的UIAutomatorViewer</li>
 <li>元素定位是基于当前屏幕范围内展示的可见元素</li>
 </ul>
-<h2 id="通过idclassxpath-定位某一个元素">通过id,class,xpath 定位某一个元素</h2>
-<p>想要对按钮进行点击，想要对输入框进行输入，想要获取文本框的内容，定位元素是自动化操作必须要使用的方法，只有获取元素之后，才能对这个元素进行操作。<br>
+<p><strong>一、通过id,class,xpath 定位某一个元素</strong><br>
+想要对按钮进行点击，想要对输入框进行输入，想要获取文本框的内容，定位元素是自动化操作必须要使用的方法，只有获取元素之后，才能对这个元素进行操作。<br>
 <strong>使用id 进行定位</strong></p>
 <pre><code>&quot;&quot;&quot;
 参数:
@@ -447,8 +447,8 @@ driver.quit
 <li>尽量去找有唯一性的特征去定位元素</li>
 <li>如果传入一个没有的特征，会报NoSuchElementException异常</li>
 </ul>
-<h2 id="通过idclassxpath-定位某一组元素">通过id,class,xpath 定位某一组元素</h2>
-<p>和定位一个元素相同，但如果想要批量的获取某个相同特征的元素，使用定位一组元素的方式更加方便<br>
+<p><strong>二、通过id,class,xpath 定位某一组元素</strong><br>
+和定位一个元素相同，但如果想要批量的获取某个相同特征的元素，使用定位一组元素的方式更加方便<br>
 <strong>方法</strong></p>
 <ul>
 <li>通过id 定位一组元素</li>
@@ -515,11 +515,11 @@ for var in xpath:
 <li>如果传入一个没有的特征,会返回一个空的列表</li>
 </ul>
 <h1 id="元素操作">元素操作</h1>
-<p>获取到元素之后就可以对元素进行操作了</p>
-<h2 id="点击元素">点击元素</h2>
+<p>获取到元素之后就可以对元素进行操作了<br>
+<strong>一、点击元素</strong></p>
 <pre><code>element.click()      
 </code></pre>
-<h2 id="输入内容">输入内容</h2>
+<p><strong>二、输入内容</strong></p>
 <pre><code>element.send_keys(value)   
 </code></pre>
 <p>示例</p>
@@ -530,10 +530,10 @@ driver.find_element_by_class_name(&quot;android.widget.EditText&quot;).send_keys
 <pre><code>desired_cap['unicodeKeyboard'] = True
 desired_cap['resetKeyboard'] = True
 </code></pre>
-<h2 id="清空内容">清空内容</h2>
+<p><strong>三、清空内容</strong></p>
 <pre><code>element.clear()      
 </code></pre>
-<h2 id="获取元素的文本内容">获取元素的文本内容</h2>
+<p><strong>四、获取元素的文本内容</strong></p>
 <pre><code>element.text        
 </code></pre>
 <p>示例</p>
@@ -542,7 +542,7 @@ titles = driver.find_elements_by_id(&quot;com.android.settings:id/title&quot;)
 for var in titles:
     print(var.text,end=&quot;,&quot;)
 </code></pre>
-<h2 id="获取元素的位置和大小">获取元素的位置和大小</h2>
+<p><strong>五、获取元素的位置和大小</strong></p>
 <pre><code>&quot;&quot;&quot;
 返回值:
     字典，x为元素的x坐标，y 为元素的 y 坐标
@@ -560,7 +560,7 @@ search = driver.find_element_by_id(&quot;com.android.settings:id/search&quot;)
 print(search.location)
 print(search.size)
 </code></pre>
-<h2 id="获取元素的属性值">获取元素的属性值</h2>
+<p><strong>六、获取元素的属性值</strong></p>
 <pre><code>&quot;&quot;&quot;
 参数:   
     value，要获取的属性名   
@@ -617,9 +617,9 @@ value = 'resourceId' 返回resource-id属性值，只有API&gt;=18才能支持<b
 <li>显式等待</li>
 <li>隐式等待</li>
 </ul>
-<p>找元素的时候，通过一个时间的设置，进行等待元素，等待元素出来之后，再来定位，防止报错</p>
-<h2 id="显式等待">显式等待</h2>
-<p><strong>应用场景</strong></p>
+<p>找元素的时候，通过一个时间的设置，进行等待元素，等待元素出来之后，再来定位，防止报错<br>
+<strong>一、显式等待</strong><br>
+<strong>应用场景</strong></p>
 <p>针对所有定位元素的超时时间设置为不同值的时候<br>
 等待元素加载指定的时长，超出时长还未加载出来时抛出TimeoutException</p>
 <p><strong>步骤</strong></p>
@@ -678,8 +678,8 @@ driver.quit()
 调用该方法提供的驱动程序作为参数，直到返回值为False</p>
 </blockquote>
 <p>在设置时间（10s）内，等待后面的条件发生。如果超过设置时间未发生，则抛出异常。在等待期间，每隔一定时间（默认0.5秒)，调用until或until_not里的方法，直到它返回True或False。</p>
-<h2 id="隐式等待">隐式等待</h2>
-<p><strong>应用场景</strong><br>
+<p><strong>二、隐式等待</strong><br>
+<strong>应用场景</strong><br>
 针对所有定位元素的超时时间设置为同一个值的时候<br>
 等待元素加载指定的时长，超出时长抛出NoSuchElementException异常<br>
 <strong>步骤</strong><br>
@@ -696,8 +696,8 @@ print(driver.current_package)
 <pre><code>准备找返回并点击~
 点完了~
 </code></pre>
-<h2 id="隐式等待和显式等待的选择">隐式等待和显式等待的选择</h2>
-<p><strong>作用域</strong><br>
+<p><strong>隐式等待和显式等待的选择</strong><br>
+<strong>作用域</strong><br>
 显式等待为单个元素有效，隐式为全局元素</p>
 <p><strong>方法</strong><br>
 显式等待方法封装在WebDriverWait类中，而隐式等待则直接通过driver 实例化对象调用</p>
@@ -723,8 +723,8 @@ print(driver.current_package)
 </ul>
 <h1 id="滑动和拖拽事件">滑动和拖拽事件</h1>
 <p>在做自动化测试的时候，有些按钮需要滑动几次屏幕后才会出现，此时，我们需要使用代码来模拟手指的滑动</p>
-<h2 id="swipe滑动事件">swipe滑动事件</h2>
-<p>从一个坐标位置滑动到另一个坐标位置，只能是两个点之间的滑动<br>
+<p><strong>一、swipe滑动事件</strong><br>
+从一个坐标位置滑动到另一个坐标位置，只能是两个点之间的滑动<br>
 <strong>方法</strong></p>
 <pre><code>'''
 参数：
@@ -739,15 +739,7 @@ driver.swipe(start_x,start_y,end_x,end_y,duration)
 </code></pre>
 <p><strong>示例</strong><br>
 模拟手指从（1000,2000）到（1000,1000）的位置</p>
-<pre><code>from appium import webdriver
-import time
-desired_cap = dict()
-desired_cap['platformName'] = 'Android'
-desired_cap['platformVersion'] = '6.0'
-desired_cap['deviceName'] = '192.168.208.101:5555'
-desired_cap['appPackage'] = 'com.android.settings'
-desired_cap['appActivity'] = '.Settings'
-driver = webdriver.Remote(&quot;http://localhost:4723/wd/hub&quot;,desired_cap)
+<pre><code>driver = webdriver.Remote(&quot;http://localhost:4723/wd/hub&quot;,desired_cap)
 driver.swipe(100,1000,100,500)
 driver.quit()
 </code></pre>
@@ -760,8 +752,8 @@ driver.quit()
 <li>持续时间长，惯性大</li>
 <li>因为每个屏幕的分辨率不一样，所以在一个手机上适用不一定在所有手机上适用，可以动态的获取手机分辨率再进行滑动</li>
 </ul>
-<h2 id="scroll-滑动事件">scroll 滑动事件</h2>
-<p><strong>概念</strong><br>
+<p><strong>二、scroll 滑动事件</strong><br>
+<strong>概念</strong><br>
 从一个元素滑动到另一个元素，直到页面自动停止<br>
 <strong>方法</strong></p>
 <pre><code>'''
@@ -778,8 +770,8 @@ driver.scroll(save,more)
 </code></pre>
 <p><strong>特点</strong><br>
 不能设置持续时间，惯性大</p>
-<h2 id="drag_and_drop-拖拽事件">drag_and_drop 拖拽事件</h2>
-<p><strong>概念</strong><br>
+<p><strong>三、drag_and_drop 拖拽事件</strong><br>
+<strong>概念</strong><br>
 从一个元素滑动到另一个元素，第二个元素替代第一个元素原本屏幕上的位置</p>
 <p><strong>方法</strong></p>
 <pre><code>'''
@@ -805,8 +797,8 @@ driver.drag_and_drop(save,more)
 <li>无惯性，传入坐标:swipe,设置较长的duration 时间</li>
 </ul>
 <h1 id="手机操作">手机操作</h1>
-<h2 id="获取手机分辨率">获取手机分辨率</h2>
-<p>因为每个手机的分辨率不一致，所以一般我们通过动态获取分辨率来获取一些点击或者滑动的坐标<br>
+<p><strong>一、获取手机分辨率</strong><br>
+因为每个手机的分辨率不一致，所以一般我们通过动态获取分辨率来获取一些点击或者滑动的坐标<br>
 <strong>方法名</strong></p>
 <pre><code>get_window_size()
 </code></pre>
@@ -817,8 +809,8 @@ driver.drag_and_drop(save,more)
 <p>结果</p>
 <pre><code>  {'width': 720, 'height': 1280}
 </code></pre>
-<h2 id="获取手机截图">获取手机截图</h2>
-<p>有些时候自动化操作可能也没有反应，但不报错，此时就可以将操作过后的关键情况，截图留存，后期也可以根据图片发现问题<br>
+<p><strong>二、获取手机截图</strong><br>
+有些时候自动化操作可能也没有反应，但不报错，此时就可以将操作过后的关键情况，截图留存，后期也可以根据图片发现问题<br>
 <strong>方法</strong></p>
 <pre><code>&quot;&quot;&quot;
 参数:   
@@ -835,8 +827,8 @@ driver.get_screenshot_as_file(&quot;C:\\Users\\Administrator\\Desktop\\screen.pn
 <ul>
 <li>如果直接写了文件名，则会默认保存在项目目录下</li>
 </ul>
-<h2 id="获取和设置网络状态">获取和设置网络状态</h2>
-<p>视频应用在使用流量看视频的时候，大部分都会提示用户是否继续播放，作为测试人员，我们可能需要用自动化的形式来判断是否有对应的提示，即，用流量的时候应该有提示，不用流量的时候应该没有提示<br>
+<p><strong>三、获取和设置网络状态</strong><br>
+视频应用在使用流量看视频的时候，大部分都会提示用户是否继续播放，作为测试人员，我们可能需要用自动化的形式来判断是否有对应的提示，即，用流量的时候应该有提示，不用流量的时候应该没有提示<br>
 <strong>方法</strong></p>
 <pre><code># 获取网络状态
 print(driver.network_connection)
@@ -897,8 +889,8 @@ driver.set_network_connection(6)
 <p>这个类在另一个包里，需要引入一下</p>
 <pre><code>from appium.webdriver.connectiontype import ConnectionType
 </code></pre>
-<h2 id="发送键到设备">发送键到设备</h2>
-<p>模拟按&quot;返回键&quot;,&quot;home键等等操作&quot;,比如,很多应用有按两次返回键退出应用的功能，如果这个功能更需要我们做自动化，那么一定会用到这个方法<br>
+<p><strong>四、发送键到设备</strong><br>
+模拟按&quot;返回键&quot;,&quot;home键等等操作&quot;,比如,很多应用有按两次返回键退出应用的功能，如果这个功能更需要我们做自动化，那么一定会用到这个方法<br>
 <strong>方法名</strong></p>
 <pre><code>&quot;&quot;&quot;   
 参数：   
@@ -923,8 +915,8 @@ driver.press_keycode(25)
 </code></pre>
 <p><strong>注意点</strong><br>
 按键对应的编码，可以在百度搜索关键字&quot;android keycode&quot;</p>
-<h2 id="打开和关闭手机通知栏">打开和关闭手机通知栏</h2>
-<p>测试即时通信类软件的时候，如果A给B发送一条消息，B的通知栏肯定会显示对应的消息，我们想通过通知栏来判断B是否收到消息，一定要先操作手机的通知栏<br>
+<p><strong>五、打开和关闭手机通知栏</strong><br>
+测试即时通信类软件的时候，如果A给B发送一条消息，B的通知栏肯定会显示对应的消息，我们想通过通知栏来判断B是否收到消息，一定要先操作手机的通知栏<br>
 <strong>方法</strong></p>
 <pre><code>driver.open_notifications()
 </code></pre>
@@ -956,8 +948,8 @@ driver.swipe(0.5*width,0.75*height,0.5*width,0.25*height)
 </ol>
 <p><strong>注意点</strong><br>
 所有手势都要通过执行perform()函数才会运行</p>
-<h2 id="轻敲手势">轻敲手势</h2>
-<p>模拟手指对某个元素或坐标按下并快速抬起<br>
+<p><strong>一、轻敲手势</strong><br>
+模拟手指对某个元素或坐标按下并快速抬起<br>
 <strong>方法名</strong></p>
 <pre><code>'''
 参数:
@@ -972,8 +964,8 @@ TouchAction(driver).tap(element=None,x=None,y=None).perform()
 </code></pre>
 <p><strong>注意</strong><br>
 多次点击使用count参数</p>
-<h2 id="按下手势">按下手势</h2>
-<p>模拟手指一直按下，模拟手指抬起。可以用来组合成轻敲或者长按的操作<br>
+<p><strong>二、按下手势</strong><br>
+模拟手指一直按下，模拟手指抬起。可以用来组合成轻敲或者长按的操作<br>
 <strong>方法名</strong></p>
 <pre><code>''' 
 参数:   
@@ -988,8 +980,8 @@ TouchAction(driver).press(el=None,x=None,y=None).perform()
 # 轻敲
 TouchAction(driver).tap(button).perform()
 </code></pre>
-<h2 id="抬起手势">抬起手势</h2>
-<p>模拟手指对元素或者坐标的抬起操作</p>
+<p><strong>三、抬起手势</strong><br>
+模拟手指对元素或者坐标的抬起操作</p>
 <pre><code>TouchAction(driver).release().perform()
 </code></pre>
 <p><strong>示例</strong></p>
@@ -997,8 +989,8 @@ TouchAction(driver).tap(button).perform()
 # 摁下
 TouchAction(driver).press(button).perform()
 </code></pre>
-<h2 id="等待操作">等待操作</h2>
-<p>模拟手指的等待，比如按下后等待5秒后再抬起<br>
+<p><strong>四、等待操作</strong><br>
+模拟手指的等待，比如按下后等待5秒后再抬起<br>
 <strong>方法名</strong></p>
 <pre><code>''' 
 参数:   
@@ -1011,8 +1003,8 @@ TouchAction(driver).wait(ms=0).perform()
 TouchAction(driver).tap(button).perform()
 TouchAction(driver).press(x=650,y=650).wait(2000).release().perform()
 </code></pre>
-<h2 id="长按手势">长按手势</h2>
-<p>模拟手指对元素或坐标的长按操作<br>
+<p><strong>五、长按手势</strong><br>
+模拟手指对元素或坐标的长按操作<br>
 <strong>方法名</strong></p>
 <pre><code>&quot;&quot;&quot;
 参数：
@@ -1030,8 +1022,8 @@ TouchAction(driver).tap(button).perform()
 time.sleep(2)
 TouchAction(driver).long_press(x=200,y=320,duration=2000).perform()
 </code></pre>
-<h2 id="手指移动操作">手指移动操作</h2>
-<p>模拟手指移动操作，比如手势解锁需要先按下屏幕，再移动<br>
+<p><strong>六、手指移动操作</strong><br>
+模拟手指移动操作，比如手势解锁需要先按下屏幕，再移动<br>
 <strong>方法名</strong></p>
 <pre><code>&quot;&quot;&quot;
 参数：
@@ -1048,10 +1040,6 @@ TouchAction(driver).move_to(el=None,x=None,y=None).perform()
 <li><a href="#adb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">adb 的基本操作</a>
 <ul>
 <li><a href="#%E8%8E%B7%E5%8F%96%E8%AE%BE%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8C%85%E5%90%8D%E5%92%8C%E7%95%8C%E9%9D%A2%E5%90%8D">获取设置应用程序的包名和界面名</a></li>
-<li><a href="#adb-%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93">adb 文件传输</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96app%E5%90%AF%E5%8A%A8%E6%97%B6%E9%97%B4">获取app启动时间</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E6%97%A5%E5%BF%97">获取手机日志</a></li>
-<li><a href="#%E5%85%B6%E5%AE%83%E5%91%BD%E4%BB%A4">其它命令</a></li>
 </ul>
 </li>
 <li><a href="#appium-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">Appium 基本使用</a>
@@ -1060,66 +1048,22 @@ TouchAction(driver).move_to(el=None,x=None,y=None).perform()
 <li><a href="#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B">启动过程</a></li>
 <li><a href="#appium-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9Capi">Appium 基础操作API</a>
 <ul>
-<li><a href="#11-%E5%9C%A8%E8%84%9A%E6%9C%AC%E5%86%85%E5%90%AF%E5%8A%A8%E5%85%B6%E5%AE%83app">1.1 在脚本内启动其它app</a></li>
-<li><a href="#12-%E8%8E%B7%E5%8F%96app-%E7%9A%84%E5%8C%85%E5%90%8D%E5%92%8C%E7%95%8C%E9%9D%A2%E5%90%8D">1.2 获取app 的包名和界面名</a></li>
-<li><a href="#13-%E5%85%B3%E9%97%ADapp%E5%92%8C%E9%A9%B1%E5%8A%A8%E5%AF%B9%E8%B1%A1">1.3 关闭app和驱动对象</a></li>
-<li><a href="#14-%E5%AE%89%E8%A3%85-%E5%8D%B8%E8%BD%BD%E5%8F%8A%E5%88%A4%E6%96%AD%E5%BA%94%E7%94%A8%E6%98%AF%E5%90%A6%E8%A2%AB%E5%AE%89%E8%A3%85">1.4 安装、卸载及判断应用是否被安装</a></li>
 <li><a href="#15-%E5%B0%86%E5%BA%94%E7%94%A8%E7%BD%AE%E4%BA%8E%E5%90%8E%E5%8F%B0">1.5 将应用置于后台</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li><a href="#uiautomatorviewer-%E7%9A%84%E4%BD%BF%E7%94%A8">UIAutomatorViewer 的使用</a></li>
-<li><a href="#%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E6%93%8D%E4%BD%9C">元素定位操作</a>
-<ul>
-<li><a href="#%E9%80%9A%E8%BF%87idclassxpath-%E5%AE%9A%E4%BD%8D%E6%9F%90%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0">通过id,class,xpath 定位某一个元素</a></li>
-<li><a href="#%E9%80%9A%E8%BF%87idclassxpath-%E5%AE%9A%E4%BD%8D%E6%9F%90%E4%B8%80%E7%BB%84%E5%85%83%E7%B4%A0">通过id,class,xpath 定位某一组元素</a></li>
-</ul>
-</li>
-<li><a href="#%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C">元素操作</a>
-<ul>
-<li><a href="#%E7%82%B9%E5%87%BB%E5%85%83%E7%B4%A0">点击元素</a></li>
-<li><a href="#%E8%BE%93%E5%85%A5%E5%86%85%E5%AE%B9">输入内容</a></li>
-<li><a href="#%E6%B8%85%E7%A9%BA%E5%86%85%E5%AE%B9">清空内容</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E7%9A%84%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9">获取元素的文本内容</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E7%9A%84%E4%BD%8D%E7%BD%AE%E5%92%8C%E5%A4%A7%E5%B0%8F">获取元素的位置和大小</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%85%83%E7%B4%A0%E7%9A%84%E5%B1%9E%E6%80%A7%E5%80%BC">获取元素的属性值</a></li>
-</ul>
-</li>
-<li><a href="#%E5%85%83%E7%B4%A0%E7%AD%89%E5%BE%85">元素等待</a>
-<ul>
-<li><a href="#%E6%98%BE%E5%BC%8F%E7%AD%89%E5%BE%85">显式等待</a></li>
-<li><a href="#%E9%9A%90%E5%BC%8F%E7%AD%89%E5%BE%85">隐式等待</a></li>
-<li><a href="#%E9%9A%90%E5%BC%8F%E7%AD%89%E5%BE%85%E5%92%8C%E6%98%BE%E5%BC%8F%E7%AD%89%E5%BE%85%E7%9A%84%E9%80%89%E6%8B%A9">隐式等待和显式等待的选择</a></li>
-</ul>
-</li>
+<li><a href="#%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E6%93%8D%E4%BD%9C">元素定位操作</a></li>
+<li><a href="#%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C">元素操作</a></li>
+<li><a href="#%E5%85%83%E7%B4%A0%E7%AD%89%E5%BE%85">元素等待</a></li>
 <li><a href="#%E6%BB%91%E5%8A%A8%E5%92%8C%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6">滑动和拖拽事件</a>
 <ul>
-<li><a href="#swipe%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6">swipe滑动事件</a></li>
-<li><a href="#scroll-%E6%BB%91%E5%8A%A8%E4%BA%8B%E4%BB%B6">scroll 滑动事件</a></li>
-<li><a href="#drag_and_drop-%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6">drag_and_drop 拖拽事件</a></li>
 <li><a href="#%E6%BB%91%E5%8A%A8%E5%92%8C%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9">滑动和拖拽事件的选择</a></li>
 </ul>
 </li>
-<li><a href="#%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C">手机操作</a>
-<ul>
-<li><a href="#%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E5%88%86%E8%BE%A8%E7%8E%87">获取手机分辨率</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E6%89%8B%E6%9C%BA%E6%88%AA%E5%9B%BE">获取手机截图</a></li>
-<li><a href="#%E8%8E%B7%E5%8F%96%E5%92%8C%E8%AE%BE%E7%BD%AE%E7%BD%91%E7%BB%9C%E7%8A%B6%E6%80%81">获取和设置网络状态</a></li>
-<li><a href="#%E5%8F%91%E9%80%81%E9%94%AE%E5%88%B0%E8%AE%BE%E5%A4%87">发送键到设备</a></li>
-<li><a href="#%E6%89%93%E5%BC%80%E5%92%8C%E5%85%B3%E9%97%AD%E6%89%8B%E6%9C%BA%E9%80%9A%E7%9F%A5%E6%A0%8F">打开和关闭手机通知栏</a></li>
-</ul>
-</li>
-<li><a href="#%E9%AB%98%E7%BA%A7%E6%89%8B%E5%8A%BF">高级手势</a>
-<ul>
-<li><a href="#%E8%BD%BB%E6%95%B2%E6%89%8B%E5%8A%BF">轻敲手势</a></li>
-<li><a href="#%E6%8C%89%E4%B8%8B%E6%89%8B%E5%8A%BF">按下手势</a></li>
-<li><a href="#%E6%8A%AC%E8%B5%B7%E6%89%8B%E5%8A%BF">抬起手势</a></li>
-<li><a href="#%E7%AD%89%E5%BE%85%E6%93%8D%E4%BD%9C">等待操作</a></li>
-<li><a href="#%E9%95%BF%E6%8C%89%E6%89%8B%E5%8A%BF">长按手势</a></li>
-<li><a href="#%E6%89%8B%E6%8C%87%E7%A7%BB%E5%8A%A8%E6%93%8D%E4%BD%9C">手指移动操作</a></li>
-</ul>
-</li>
+<li><a href="#%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C">手机操作</a></li>
+<li><a href="#%E9%AB%98%E7%BA%A7%E6%89%8B%E5%8A%BF">高级手势</a></li>
 </ul>
 
               </div>
