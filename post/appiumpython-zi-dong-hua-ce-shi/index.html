@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Appium+Python 自动化测试 | 小王同学</title>
-<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588952206801">
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588953840186">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="Appium+Python 自动化测试 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
@@ -14,7 +14,7 @@
     <meta name="description" content="adb 的基本操作
 获取设置应用程序的包名和界面名
 
-如何获取包名和界面名
+获取包名和界面名
 
 mac
 
@@ -23,7 +23,7 @@ adb shell dumpsys window windows | grep mFocusedApp``
 
 windows
 
-adb shell d..." />
+adb shell dum..." />
     <meta name="keywords" content="Appium" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
     <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
@@ -33,7 +33,7 @@ adb shell d..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://jm0820.github.io">
-  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588952206801" alt="">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588953840186" alt="">
   </a>
   <h1 class="site-title">
     小王同学
@@ -107,7 +107,7 @@ adb shell d..." />
                 <h1 id="adb-的基本操作">adb 的基本操作</h1>
 <h2 id="获取设置应用程序的包名和界面名">获取设置应用程序的包名和界面名</h2>
 <ul>
-<li>如何获取包名和界面名
+<li>获取包名和界面名
 <ul>
 <li>mac</li>
 </ul>
@@ -947,8 +947,8 @@ driver.swipe(0.5*width,0.75*height,0.5*width,0.25*height)
 </ul>
 <h1 id="高级手势">高级手势</h1>
 <p>TouchAction 可以实现一些针对手势的操作，比如滑动、长按、长拖等，我们可以将这些基本手势组合成一个相对复杂的手势。<br>
-比如，我们解锁手机或者一些应用软件都有手势解锁这种方式。</p>
-<p><strong>使用步骤</strong></p>
+比如，我们解锁手机或者一些应用软件都有手势解锁这种方式。<br>
+<strong>使用步骤</strong></p>
 <ol>
 <li>创建TouchAction 对象</li>
 <li>通过对象调用想执行的手势</li>
@@ -956,7 +956,7 @@ driver.swipe(0.5*width,0.75*height,0.5*width,0.25*height)
 </ol>
 <p><strong>注意点</strong><br>
 所有手势都要通过执行perform()函数才会运行</p>
-<h3 id="轻敲手势">轻敲手势</h3>
+<h2 id="轻敲手势">轻敲手势</h2>
 <p>模拟手指对某个元素或坐标按下并快速抬起<br>
 <strong>方法名</strong></p>
 <pre><code>'''
@@ -972,7 +972,7 @@ TouchAction(driver).tap(element=None,x=None,y=None).perform()
 </code></pre>
 <p><strong>注意</strong><br>
 多次点击使用count参数</p>
-<h3 id="按下手势">按下手势</h3>
+<h2 id="按下手势">按下手势</h2>
 <p>模拟手指一直按下，模拟手指抬起。可以用来组合成轻敲或者长按的操作<br>
 <strong>方法名</strong></p>
 <pre><code>''' 
@@ -988,7 +988,7 @@ TouchAction(driver).press(el=None,x=None,y=None).perform()
 # 轻敲
 TouchAction(driver).tap(button).perform()
 </code></pre>
-<h3 id="抬起手势">抬起手势</h3>
+<h2 id="抬起手势">抬起手势</h2>
 <p>模拟手指对元素或者坐标的抬起操作</p>
 <pre><code>TouchAction(driver).release().perform()
 </code></pre>
@@ -997,7 +997,7 @@ TouchAction(driver).tap(button).perform()
 # 摁下
 TouchAction(driver).press(button).perform()
 </code></pre>
-<h3 id="等待操作">等待操作</h3>
+<h2 id="等待操作">等待操作</h2>
 <p>模拟手指的等待，比如按下后等待5秒后再抬起<br>
 <strong>方法名</strong></p>
 <pre><code>''' 
@@ -1011,7 +1011,7 @@ TouchAction(driver).wait(ms=0).perform()
 TouchAction(driver).tap(button).perform()
 TouchAction(driver).press(x=650,y=650).wait(2000).release().perform()
 </code></pre>
-<h3 id="长按手势">长按手势</h3>
+<h2 id="长按手势">长按手势</h2>
 <p>模拟手指对元素或坐标的长按操作<br>
 <strong>方法名</strong></p>
 <pre><code>&quot;&quot;&quot;
@@ -1030,7 +1030,7 @@ TouchAction(driver).tap(button).perform()
 time.sleep(2)
 TouchAction(driver).long_press(x=200,y=320,duration=2000).perform()
 </code></pre>
-<h3 id="手指移动操作">手指移动操作</h3>
+<h2 id="手指移动操作">手指移动操作</h2>
 <p>模拟手指移动操作，比如手势解锁需要先按下屏幕，再移动<br>
 <strong>方法名</strong></p>
 <pre><code>&quot;&quot;&quot;
@@ -1110,8 +1110,7 @@ TouchAction(driver).move_to(el=None,x=None,y=None).perform()
 <li><a href="#%E6%89%93%E5%BC%80%E5%92%8C%E5%85%B3%E9%97%AD%E6%89%8B%E6%9C%BA%E9%80%9A%E7%9F%A5%E6%A0%8F">打开和关闭手机通知栏</a></li>
 </ul>
 </li>
-<li><a href="#%E9%AB%98%E7%BA%A7%E6%89%8B%E5%8A%BF">高级手势</a><br>
-*
+<li><a href="#%E9%AB%98%E7%BA%A7%E6%89%8B%E5%8A%BF">高级手势</a>
 <ul>
 <li><a href="#%E8%BD%BB%E6%95%B2%E6%89%8B%E5%8A%BF">轻敲手势</a></li>
 <li><a href="#%E6%8C%89%E4%B8%8B%E6%89%8B%E5%8A%BF">按下手势</a></li>
