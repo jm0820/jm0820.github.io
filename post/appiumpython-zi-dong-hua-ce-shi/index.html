@@ -3,7 +3,7 @@
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Appium+Python 自动化测试 | 小王同学</title>
-<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1588955949989">
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1589000858921">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
 <link rel="alternate" type="application/atom+xml" title="Appium+Python 自动化测试 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
@@ -33,7 +33,7 @@ adb shell dum..." />
       <div class="main-content">
         <div class="site-header">
   <a href="https://jm0820.github.io">
-  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1588955949989" alt="">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1589000858921" alt="">
   </a>
   <h1 class="site-title">
     小王同学
@@ -105,7 +105,7 @@ adb shell dum..." />
             <div class="post-content-wrapper">
               <div class="post-content">
                 <h1 id="adb-的基本操作">adb 的基本操作</h1>
-<h2 id="获取设置应用程序的包名和界面名">获取设置应用程序的包名和界面名</h2>
+<p><strong>获取设置应用程序的包名和界面名</strong></p>
 <ul>
 <li>获取包名和界面名
 <ul>
@@ -346,8 +346,8 @@ driver.remove_app(app_id)
 &quot;&quot;&quot;
 driver.is_app_installed(app_id)
 </code></pre>
-<h3 id="15-将应用置于后台">1.5 将应用置于后台</h3>
-<p><strong>应用场景</strong><br>
+<p><strong>1.5 将应用置于后台</strong><br>
+<strong>应用场景</strong><br>
 银行类app 会在进入后台一定时间后，如果再回到前台页面也会再输入密码，如果需要自动化测试这种功能，可以使用这个api 进行测试<br>
 <strong>方法</strong></p>
 <pre><code>&quot;&quot;&quot;
@@ -788,8 +788,8 @@ driver.drag_and_drop(save,more)
 </code></pre>
 <p><strong>特点</strong><br>
 不能设置持续时间，没有惯性</p>
-<h2 id="滑动和拖拽事件的选择">滑动和拖拽事件的选择</h2>
-<p>滑动和拖拽主要考虑的是是否有惯性，以及传递的参数是否是坐标</p>
+<p><strong>滑动和拖拽事件的选择</strong><br>
+滑动和拖拽主要考虑的是是否有惯性，以及传递的参数是否是坐标</p>
 <ul>
 <li>有惯性，传入元素:scroll</li>
 <li>无惯性，传入元素:drag_and_drop</li>
@@ -1037,31 +1037,19 @@ TouchAction(driver).move_to(el=None,x=None,y=None).perform()
               </div>
               <div class="toc-container">
                 <ul class="markdownIt-TOC">
-<li><a href="#adb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">adb 的基本操作</a>
-<ul>
-<li><a href="#%E8%8E%B7%E5%8F%96%E8%AE%BE%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%8C%85%E5%90%8D%E5%92%8C%E7%95%8C%E9%9D%A2%E5%90%8D">获取设置应用程序的包名和界面名</a></li>
-</ul>
-</li>
+<li><a href="#adb-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">adb 的基本操作</a></li>
 <li><a href="#appium-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">Appium 基本使用</a>
 <ul>
 <li><a href="#%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">打开一个应用程序</a></li>
 <li><a href="#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B">启动过程</a></li>
-<li><a href="#appium-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9Capi">Appium 基础操作API</a>
-<ul>
-<li><a href="#15-%E5%B0%86%E5%BA%94%E7%94%A8%E7%BD%AE%E4%BA%8E%E5%90%8E%E5%8F%B0">1.5 将应用置于后台</a></li>
-</ul>
-</li>
+<li><a href="#appium-%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9Capi">Appium 基础操作API</a></li>
 </ul>
 </li>
 <li><a href="#uiautomatorviewer-%E7%9A%84%E4%BD%BF%E7%94%A8">UIAutomatorViewer 的使用</a></li>
 <li><a href="#%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D%E6%93%8D%E4%BD%9C">元素定位操作</a></li>
 <li><a href="#%E5%85%83%E7%B4%A0%E6%93%8D%E4%BD%9C">元素操作</a></li>
 <li><a href="#%E5%85%83%E7%B4%A0%E7%AD%89%E5%BE%85">元素等待</a></li>
-<li><a href="#%E6%BB%91%E5%8A%A8%E5%92%8C%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6">滑动和拖拽事件</a>
-<ul>
-<li><a href="#%E6%BB%91%E5%8A%A8%E5%92%8C%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9">滑动和拖拽事件的选择</a></li>
-</ul>
-</li>
+<li><a href="#%E6%BB%91%E5%8A%A8%E5%92%8C%E6%8B%96%E6%8B%BD%E4%BA%8B%E4%BB%B6">滑动和拖拽事件</a></li>
 <li><a href="#%E6%89%8B%E6%9C%BA%E6%93%8D%E4%BD%9C">手机操作</a></li>
 <li><a href="#%E9%AB%98%E7%BA%A7%E6%89%8B%E5%8A%BF">高级手势</a></li>
 </ul>
