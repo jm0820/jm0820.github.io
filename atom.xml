@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://jm0820.github.io</id>
     <title>小王同学</title>
-    <updated>2020-05-09T05:08:14.990Z</updated>
+    <updated>2020-05-29T09:56:50.496Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://jm0820.github.io"/>
     <link rel="self" href="https://jm0820.github.io/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://jm0820.github.io/images/avatar.png</logo>
     <icon>https://jm0820.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, 小王同学</rights>
+    <entry>
+        <title type="html"><![CDATA[Appium 架构和原理]]></title>
+        <id>https://jm0820.github.io/post/appium-jia-gou-he-yuan-li/</id>
+        <link href="https://jm0820.github.io/post/appium-jia-gou-he-yuan-li/">
+        </link>
+        <updated>2020-05-29T09:55:57.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Appium+Python 自动化测试]]></title>
         <id>https://jm0820.github.io/post/appiumpython-zi-dong-hua-ce-shi/</id>
@@ -72,12 +79,5 @@
         <link href="https://jm0820.github.io/post/listen/">
         </link>
         <updated>2020-04-21T04:48:06.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Filter]]></title>
-        <id>https://jm0820.github.io/post/filter/</id>
-        <link href="https://jm0820.github.io/post/filter/">
-        </link>
-        <updated>2020-04-20T15:50:37.000Z</updated>
     </entry>
 </feed>

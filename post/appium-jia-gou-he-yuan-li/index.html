@@ -1,0 +1,260 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Appium 架构和原理 | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1590746203892">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Appium 架构和原理 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="Appium 框架原理
+Appium 是在手机操作系统自带的测试框架基础上实现的，IOS9.3以前使用的是UIAutomation，IOS9.3以后使用的是XCUITest,Android4.0 以下使用基于Android Instrume..." />
+    <meta name="keywords" content="Appium" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1590746203892" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Appium 架构和原理
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-29
+              </span>
+              <span>
+                8 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/A_OFCrsHU/" class="post-tag">
+                  # Appium
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="appium-框架原理">Appium 框架原理</h3>
+<p>Appium 是在手机操作系统自带的测试框架基础上实现的，IOS9.3以前使用的是UIAutomation，IOS9.3以后使用的是XCUITest,Android4.0 以下使用基于Android Instrumentation框架实现的Selendroid,Android4.0以上使用UIAutomation。<br>
+Appium 包括Appium客户端和Appium 服务端。Appium 客户端和Appium 服务端之间采用JSON wire protocol (JSONWP)协议通信，Appium 客户端将操作命令例如点击某个按钮发送给Appium 服务端，Appium 服务端转发给设备上的bootstrap.jar，bootstrap.jar在手机上将命令发送给对应的测试框架，在手机上的测试app上执行点击某个按钮的操作，bootstrap.jar再将结果返回给Appium 服务端，再返回给Appium 客户端。</p>
+<ul>
+<li><strong>Appium 客户端</strong><br>
+测试脚本，也就是代码</li>
+<li><strong>Appium 服务端</strong><br>
+使用node.js编写的Http 服务器，当我们执行测试脚本时，脚本会转化成对应的JSON数据，通过HTTP请求发送给Appium 服务器，Appium 服务器默认开启4723端口，将接收到的Appium客户端的请求转发给设备上的bootstrap.jar,并将设备的结果通过HTTP应答反馈给Appium 客户端。</li>
+<li><strong>bootstrap.jar</strong><br>
+在设备上运行的应用程序，它在手机上扮演TCP服务器的角色，监听设备的4724端口上的Appium 服务端发来的请求，将请求发送给安卓的UIAutomation或者IOS的XCUITest可以识别的命令。<br>
+<img src="https://img-blog.csdnimg.cn/20200529151252315.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70" alt="Appium 架构图" loading="lazy"></li>
+</ul>
+<h3 id="appium-加载流程">Appium 加载流程</h3>
+<ol>
+<li>调用Android adb 完成基本的系统操作</li>
+<li>向Android 上部署bootstrap.jar包并启动</li>
+<li>Forward Android 的端口到PC上</li>
+<li>PC上监听端口接收请求，使用webdriver协议</li>
+<li>分析命令并通过 forward 的端口发给bootstrap.jar包</li>
+<li>bootstrap接收强求并把命令发给UIAutomation 或插桩体系</li>
+</ol>
+<figure data-type="image" tabindex="1"><img src="https://img-blog.csdnimg.cn/20200529162316589.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FseXNvbl9qbQ==,size_16,color_FFFFFF,t_70" alt="Appium 加载流程图" loading="lazy"></figure>
+<p><strong>客户端请求4723端口</strong><br>
+首先我们启动Appium 服务端，默认监听4723端口。4723端口专门和脚本打交道，基于WebDriver 协议，webDriver 是按照CS模式进行设计的，作用是启动基于WebDriver Wire 协议的appium 服务，接下来客户端和服务端的通信实际上是一个HTTP request 请求给服务端，在请求的body 中，以WebDriver Wire 协议规定的JSON格式的字符串告诉服务端我们希望设备接下来做什么。  那么客户端的JSON字符串是什么呢，这里引入 desiredCapabilities,客户端通过Json Wire Protocol 协议以json 格式发送待测试设备的信息给服务端，实际上发送的就是 desiredCapabilities，desiredCapabilities告诉了服务端本次测试的上下文。由于这是第一次请求，所以并已有一个已存在的session id,这时候appium 服务端会调用Android Driver 为客户端生成一个session 并且生成一个与此session 相关联的session id,这个session id 在本次响应中被返回给appium 客户端并保存，当下次客户端访问就会携带这个session id 为唯一标识，代表所打开的设备，appium 服务端会按照此session id 把这个session 检索出来使用，客户端向服务端发送的请求是存在于创建的session 中的。当测试结束后，需关闭webdriver，driver.quit()会关闭所有关联窗口和session，并且也会把进程也关闭。</p>
+<p><strong>解析参数给PC端4724端口</strong><br>
+成功创建session 之前，就已经将bootstrap.jar 放入设备中，并开启了设备上基于bootstrap的socket服务，绑定本机和boostrap通信的端口号4724用于和Android设备通讯，默认监听4724端口，等待client的连接。<br>
+Appium 服务端将客户端的请求解析后给4724端口，通过设备的4724端口转发解析后的请求，此时，对于socket 服务来说，appium 服务端就充当了客户端的角色，appium 服务端通过4724端口主动去请求设备上的socket 服务，即向 socket 服务发送请求，即bootstrap.jar,bootstrap.jar 再把appium 命令转化成uiautomator 命令来让uiautomator 进行处理。有请求就有返回，socket 接收到请求后就会做出响应，原路返回给客户端，然后客户端在发动下一次请求。</p>
+<h3 id="相关问题">相关问题</h3>
+<h4 id="appium中的json-wire-protocol和elenium的webdriver-wire-protocol什么关系">appium中的Json wire protocol和elenium的webdriver wire protocol什么关系？</h4>
+<p>前面说Appium 客户端和Appium 服务端之间采用JSON wire protocol (JSONWP)协议通信，然后又说，以WebDriver Wire 协议规定的JSON格式的字符串告诉服务端我们希望设备接下来做什么，首先这是完全正确的。</p>
+<p>appium中的Json wire protocol继承自selenium的webdriver wire protocol，并进行了扩展，使得Json wire protocol能够控制不同的移动设备的行为。如果大家觉得对于webdriver这个名词觉得比较陌生的话，接下来说一个词肯定熟悉 Selenium。</p>
+<p>Selenium是一个浏览器自动化操作框架。Selenium主要由三种工具组成。第一个工具SeleniumIDE，是Firefox的扩展插件，支持用户录制和回访测试，录制/回访模式存在局限性，对许多用户来说并不适合，因此第二个工具——Selenium WebDriver提供了各种语言环境的API来支持更多控制权和编写符合标准软件开发实践的应用程序。最后一个工具——SeleniumGrid帮助工程师使用Selenium API控制分布在一系列机器上的浏览器实例，支持并发运行更多测试。在项目内部，它们分别被称为“IDE”、“WebDriver”和“Grid”。</p>
+<p>那么webdriver wire protocol又是什么呢：<br>
+在我们创建一个WebDriver的过程中，Selenium首先会确认浏览器的native component是否存在可用而且版本匹配。接着就在目标浏览器里启动一整套Web Service，这套Web Service使用了Selenium自己设计定义的协议，名字叫做The WebDriver Wire Protocol，只不过对应到我们这里的浏览器指的是Appium。</p>
+<p>WebDriver Wire协议是通用的，也就是说不管是FirefoxDriver还是ChromeDriver，启动之后都会在某一个端口启动基于这套协议的Web Service。对应到Appium，可以理解为是AppiumDriver。接下来，我们调用WebDriver的任何API，都需要借助一个ComandExecutor发送一个命令，实际上是一个HTTP request给端口上的Web Service。在我们的HTTP request的body中，会以WebDriver Wire协议规定的JSON格式的字符串来告诉Selenium我们希望浏览器（设备）接下来做什么事情。</p>
+<h4 id="socket-通信原理">Socket 通信原理</h4>
+<p>关于socket的通信原理，先从服务器端说起。服务器端先初始化Socket，然后与端口绑定(bind)，对端口进行监听(listen)，调用accept阻塞，等待客户端连接。在这时如果有个客户端初始化一个Socket，然后连接服务器(connect)，如果连接成功，这时客户端与服务器端的连接就建立了。客户端发送数据请求，服务器端接收请求并处理请求，然后把回应数据发送给客户端，客户端读取数据，最后关闭连接，一次交互结束。</p>
+<h4 id="在ios自动化测试中在测试用例执行前会在ios设备上安装并启动webdriveragent这个appwebdriveragent和xcuitest是什么关系是用来驱动ios上的xcuitest吗">在ios自动化测试中，在测试用例执行前会在ios设备上安装并启动WebDriverAgent这个app，WebDriverAgent和XCUITest是什么关系，是用来驱动ios上的XCUITest吗。</h4>
+<p>之前 Server 是和 bootstrap.jar 通信，这里 WebDriverAgent 提供了WebDriverAgentRunner （类似 bootstrap.jar 的功能），WebDriverAgent与之通信；<br>
+WebDriverAgentRunner 是一个应用，Client 和 server 运行了之后，WebDriverAgentRunner 会被装到手机上，这个应用会接收来自 Server 的指令，并连接底层的 XCTest.framwork，并告诉 XCTest.framwork 操作手机进行自动化。</p>
+<h3 id="参考">参考</h3>
+<blockquote>
+<p>https://www.jianshu.com/p/422741e37ece<br>
+https://www.jianshu.com/p/30b3b2d6b901</p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#appium-%E6%A1%86%E6%9E%B6%E5%8E%9F%E7%90%86">Appium 框架原理</a></li>
+<li><a href="#appium-%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B">Appium 加载流程</a></li>
+<li><a href="#%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98">相关问题</a>
+<ul>
+<li><a href="#appium%E4%B8%AD%E7%9A%84json-wire-protocol%E5%92%8Celenium%E7%9A%84webdriver-wire-protocol%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB">appium中的Json wire protocol和elenium的webdriver wire protocol什么关系？</a></li>
+<li><a href="#socket-%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86">Socket 通信原理</a></li>
+<li><a href="#%E5%9C%A8ios%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E4%B8%AD%E5%9C%A8%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B%E6%89%A7%E8%A1%8C%E5%89%8D%E4%BC%9A%E5%9C%A8ios%E8%AE%BE%E5%A4%87%E4%B8%8A%E5%AE%89%E8%A3%85%E5%B9%B6%E5%90%AF%E5%8A%A8webdriveragent%E8%BF%99%E4%B8%AAappwebdriveragent%E5%92%8Cxcuitest%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%E6%98%AF%E7%94%A8%E6%9D%A5%E9%A9%B1%E5%8A%A8ios%E4%B8%8A%E7%9A%84xcuitest%E5%90%97">在ios自动化测试中，在测试用例执行前会在ios设备上安装并启动WebDriverAgent这个app，WebDriverAgent和XCUITest是什么关系，是用来驱动ios上的XCUITest吗。</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/appiumpython-zi-dong-hua-ce-shi/">
+              <h3 class="post-title">
+                Appium+Python 自动化测试
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
