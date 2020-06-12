@@ -1,0 +1,371 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>（一）初识 unittest 框架 | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1591949501162">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="（一）初识 unittest 框架 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="什么是Unittest
+Unittest 是Python 内部自带的一个单元测试框架模块，类似于java 中的junit,Unittest 具备完整的测试结构，支持自动化测试的执行，对测试用例集进行组织，并且提供了丰富的断言方法，最后生成测..." />
+    <meta name="keywords" content="测试,Python" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1591949501162" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              （一）初识 unittest 框架
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-05-31
+              </span>
+              <span>
+                7 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/LV_L7i-is/" class="post-tag">
+                  # 测试
+                </a>
+              
+                <a href="https://jm0820.github.io/tag/-8kjyiVwA/" class="post-tag">
+                  # Python
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="什么是unittest">什么是Unittest</h3>
+<p>Unittest 是Python 内部自带的一个单元测试框架模块，类似于java 中的junit,Unittest 具备完整的测试结构，支持自动化测试的执行，对测试用例集进行组织，并且提供了丰富的断言方法，最后生成测试报告。Unittest 框架设计的初衷是为了单元测试，但在实际的工作中，由于塔请打的功能，提供完整的测试流程，我们往往将其用于自动化测试的各个方面。</p>
+<h3 id="unittest-的常见成员">Unittest 的常见成员</h3>
+<p>首先我们导入Unittest模块</p>
+<pre><code>import unittest
+</code></pre>
+<p>使用dir()函数获取Unittest 的所有成员</p>
+<pre><code>print(dir(unittest))
+</code></pre>
+<p>打印结果</p>
+<pre><code>['BaseTestSuite', 'FunctionTestCase', 'SkipTest', 'TestCase', 'TestLoader', 'TestProgram', 'TestResult', 'TestSuite', 'TextTestResult', 'TextTestRunner', '_TextTestResult', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__unittest', 'case', 'defaultTestLoader', 'expectedFailure', 'findTestCases', 'getTestCaseNames', 'installHandler', 'load_tests', 'loader', 'main', 'makeSuite', 'registerResult', 'removeHandler', 'removeResult', 'result', 'runner', 'signals', 'skip', 'skipIf', 'skipUnless', 'suite', 'util']
+</code></pre>
+<p>下面我们介绍主要的几个常见成员</p>
+<hr>
+<ul>
+<li>TestCase<br>
+可以说是unittest中最重要的一个类，也是测试用例类的父类，通过对其继承，使子类具备了执行测试的能力。下例中MainTest是需要执行的测试类。</li>
+</ul>
+<pre><code>Class MainTest(unittest.TestCase):
+</code></pre>
+<ul>
+<li>
+<p>TestSuite<br>
+TestSuite类用于创建测试套件。最常见的用法是，使用该类将多个测试用例添加到用例集，通过运行用例集，实现多个测试用例的执行。</p>
+</li>
+<li>
+<p>main<br>
+调用unittest.main()方法可以方便的将测试类里的以“test”命名开头的测试方法以脚本的形式自动执行。</p>
+</li>
+<li>
+<p>TextTestRunner<br>
+用来执行测试用例的，主要使用该类的run()方法来执行TestSuite/TestCase 中的测试用例，也就是run方法</p>
+</li>
+<li>
+<p>TestLoader<br>
+用来加载TestCase到TestSuite 中的，其中有几个loadTestsFrom__()方法，就是从各个地方寻找TestCase，创建它们的实例，然后add到TestSuite中，再返回一个TestSuite实例。</p>
+</li>
+<li>
+<p>SkipTest<br>
+装饰器，有时我们的测试只想运行其中的一部分用例，那么我们可以使用skip 装饰器来跳过执行。最常见的场景是:在不同的系统环境上运行时， 某些用例是不能通过的，但这并不是我们的产品或者用例导致的，而是环境不兼容等问题，此时我们可以使用skip 装饰器来处理</p>
+</li>
+</ul>
+<h3 id="unittest-的四个重要概念">unittest 的四个重要概念</h3>
+<p><strong>一、test case</strong><br>
+测试用例，一个TestCase 实例就是一个测试用例，测试用例就是一个完成的测试流程，包括测试前准备环境的搭建（setUp）,执行测试代码（run）,以及测试后环境的还原（tesrDown）,元测试（unit test）的本质也就在这里，一个测试用例是一个完整的测试单元，通过运行一个测试单元，可以对某一个问题进行验证。</p>
+<p><strong>二、test suite</strong><br>
+测试套件，也就是多个测试用例集合在一起，就是TestSuite,而且TestSuite也可以嵌套TestSuite。</p>
+<p><strong>三、test fixture</strong><br>
+对一个测试用例环境的搭建和销毁，是一个fixture,通过覆盖TestCase的setUp()和tearDown()方法来实现，比如说在这个测试用例中需要访问数据库，那么可以在setUp() 中建立数据库连接以及进行一些初始化，在tearDown()中清除在数据库中产生的数据，然后关闭连接。注意tearDown的过程很重要，要为以后的 TestCase留下一个干净的环境。关于fixture，还有一个专门的库函数叫做fixtures，功能更加强大。</p>
+<p><strong>四、Test runner</strong><br>
+是Unittest中的重要组成部分，主要职责为执行测试，通过图形、文本或者返回一些特殊值的方式来呈现最终的运行结果。例如执行的用例数、成功和失败的用例数。</p>
+<figure data-type="image" tabindex="1"><img src="https://img2018.cnblogs.com/blog/1206703/201905/1206703-20190531160127457-1264385896.png" alt="关系图" loading="lazy"></figure>
+<h3 id="实例">实例</h3>
+<p>新建一个包，写一个被测试的类，写一个测试类</p>
+<ol>
+<li>被测试的类Calculator,里面有一个divide()方法</li>
+</ol>
+<pre><code>class Calculator:
+    def divide(self,x,y):
+        return x/y
+</code></pre>
+<ol start="2">
+<li>测试类，继承TestCase,测试类中包含两个测试方法，都是add()方法的用例，最后调用unittest的main()方法来执行当前类中所有以test开头的方法来直接运行，不必专门对TestCalculator进行初始化</li>
+</ol>
+<pre><code>import unittest
+from .Calculator import Calculator
+
+class TestCalcualtor(unittest.TestCase):
+    def testdivide01(self):
+        cal = Calculator()
+        result = cal.divide(10, 2)
+        self.assertEqual(result, 5)
+
+    def testadd02(self):
+        cal = Calculator()
+        result = cal.divide(15, 3)
+        self.assertEqual(result, 5)
+
+if __name__ == '__main__':
+    unittest.main()
+
+</code></pre>
+<p>unittest.main()调用Testloader 加载这两个testcase到TestSuite中，再用TestRunner 运行TestSuite,生成TestResult</p>
+<p>执行结果,两个测试用例运行了0.006秒，用例全部通过</p>
+<pre><code>Ran 2 tests in 0.006s
+
+OK
+</code></pre>
+<p>测试不通过的例子，第一个用例正确，第二个断言中的预期结果故意和实际结果不一致，导致用例不通过，第三个除数为0，这样的操作会抛出异常。</p>
+<pre><code>import unittest
+from .Calculator import Calculator
+
+class TestCalcualtor2(unittest.TestCase):
+    def testdivide01(self):
+        cal = Calculator()
+        result = cal.divide(10,2)
+        self.assertEqual(result,5)
+
+    def testdivide02(self):
+        cal = Calculator()
+        result = cal.divide(15,3)
+        self.assertEqual(result, 10)
+
+    def testdivide03(self):
+        cal = Calculator()
+        result = cal.divide(15,0)
+        self.assertEqual(result, 10)
+
+if __name__ == '__main__':
+    unittest.main()
+</code></pre>
+<p>执行结果</p>
+<pre><code>
+Traceback (most recent call last):
+  File &quot;D:\software\python\python\lib\unittest\case.py&quot;, line 59, in testPartExecutor
+    yield
+  File &quot;D:\software\python\python\lib\unittest\case.py&quot;, line 628, in run
+    testMethod()
+  File &quot;E:\python_code\unittest\demo1\test2.py&quot;, line 13, in testdivide02
+    self.assertEqual(result, 10)
+
+
+Error
+Traceback (most recent call last):
+  File &quot;D:\software\python\python\lib\unittest\case.py&quot;, line 59, in testPartExecutor
+    yield
+  File &quot;D:\software\python\python\lib\unittest\case.py&quot;, line 628, in run
+    testMethod()
+  File &quot;E:\python_code\unittest\demo1\test2.py&quot;, line 17, in testdivide03
+    result = cal.divide(15,0)
+  File &quot;E:\python_code\unittest\demo1\Calculator.py&quot;, line 5, in divide
+    return x/y
+ZeroDivisionError: division by zero
+
+
+
+Ran 3 tests in 0.009s
+
+FAILED (failures=1, errors=1)
+</code></pre>
+<p>运行三个测试用例，花费0.009秒，测试用例不通过，一个失败，一个错误</p>
+<h3 id="总结">总结</h3>
+<p>unittest 是一个python 自带的单元测试框架，基本用法如下：</p>
+<ol>
+<li>导入unittest 模块</li>
+<li>定义一个测试用例类，继承unittest.TestCase</li>
+<li>定义setUp()和tearDown(),setUp()在每个测试case之前调用，tearDown 在每个测试case 之后调用</li>
+<li>每个测试用例类中的测试用例都以test开头，unittest 会自动将test 开头的方法放入测试用例集中</li>
+<li>一个测试用例应该只测试一个方面，测试目的和测试内容应该很明确。</li>
+<li>使用unittest.main()来启动测试</li>
+</ol>
+<h3 id="参考">参考</h3>
+<blockquote>
+<p>https://www.jianshu.com/p/3aad32ed83bf?from=timeline<br>
+https://www.cnblogs.com/daxiong2014/p/10449184.html</p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFunittest">什么是Unittest</a></li>
+<li><a href="#unittest-%E7%9A%84%E5%B8%B8%E8%A7%81%E6%88%90%E5%91%98">Unittest 的常见成员</a></li>
+<li><a href="#unittest-%E7%9A%84%E5%9B%9B%E4%B8%AA%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5">unittest 的四个重要概念</a></li>
+<li><a href="#%E5%AE%9E%E4%BE%8B">实例</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/appium-jia-gou-he-yuan-li/">
+              <h3 class="post-title">
+                Appium 架构和原理
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
