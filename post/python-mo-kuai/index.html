@@ -1,0 +1,391 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python——模块 | 小王同学</title>
+<link rel="shortcut icon" href="https://jm0820.github.io/favicon.ico?v=1592111798899">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://jm0820.github.io/styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="Python——模块 | 小王同学 - Atom Feed" href="https://jm0820.github.io/atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="什么是模块
+模块是一个python文件，包含了你定义变量和方法的文件，后缀名为.py,模块可以被其它程序引入，以使用该模块中函数的功能，可以通过这种办法使用python 的标准库。
+import 路径
+当解释器遇到import 语句，就会从..." />
+    <meta name="keywords" content="Python" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://jm0820.github.io">
+  <img class="avatar" src="https://jm0820.github.io/images/avatar.png?v=1592111798899" alt="">
+  </a>
+  <h1 class="site-title">
+    小王同学
+  </h1>
+  <p class="site-description">
+    永远废物，永远混吃等死
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              Python——模块
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-06-14
+              </span>
+              <span>
+                9 min read
+              </span>
+              
+                <a href="https://jm0820.github.io/tag/-8kjyiVwA/" class="post-tag">
+                  # Python
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h3 id="什么是模块">什么是模块</h3>
+<p>模块是一个python文件，包含了你定义变量和方法的文件，后缀名为.py,模块可以被其它程序引入，以使用该模块中函数的功能，可以通过这种办法使用python 的标准库。</p>
+<p><strong>import 路径</strong></p>
+<p>当解释器遇到import 语句，就会从当前搜索路径去寻找所需要得到模块，搜索路径就是一系列的目录名，python 根据这些目录名去所在目录依次寻找模块。有一些像环境变量，事实上也可以通过设置环境变量的方式去确定搜索路劲。搜索路径是在python 安装或者编译的时候确定的，当我们安装新的库时，也会去更新搜索路径，它存储在sys模块的path 变量中，通过打印这个变量可以看搜索路径。</p>
+<pre><code>&gt;&gt;&gt; sys.path
+['E:\\python_code\\day_01\\模块',    
+'E:\\python_code\\day_01',   
+'E:\\python_code\\Test', 'D:\\software\\python\\python\\python37.zip',   
+'D:\\software\\python\\python\\DLLs',   
+'D:\\software\\python\\python\\lib', 'D:\\software\\python\\python',   
+'D:\\software\\python\\python\\lib\\site-packages',   
+'D:\\software\\python\\python\\lib\\site-packages\\setuptools-40.8.0-py3.7.egg',   
+'D:\\software\\python\\python\\lib\\site-packages\\pip-19.0.3-py3.7.egg']   
+'E:\\python_code\\Test', 'E:/python_code/Test']
+</code></pre>
+<p><strong>注意</strong></p>
+<ul>
+<li>一个模块只会被导入一次，不管执行多少import 都只会被执行一次。</li>
+<li>如果在当前目录下存在与要引入的模块相同的模块，就会把要引入的模块屏蔽掉。（从path 中可以看到，当前目录优先级较高）</li>
+</ul>
+<h3 id="模块导入">模块导入</h3>
+<p>test1.py</p>
+<pre><code>def main():
+    print(&quot;name:&quot;,__name__)
+    print(&quot;package:&quot;, __package__)
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+<p>直接运行结果为：</p>
+<pre><code>name: __main__
+package: None
+</code></pre>
+<p>test2.py</p>
+<pre><code>from 模块 import test2
+test2.main()
+</code></pre>
+<p>运行结果为：</p>
+<pre><code>name: 模块.test2
+package: 模块
+</code></pre>
+<p>当运行test1.py的时候，<strong>name__为__main</strong>,将test1.py导入test2.py,在test2.py运行test1.py的main()方法打印__name__，结果为test1.py的名字，且不运行tesi1.py的入口函数</p>
+<p>__package__ 表示当前模块所属的包，当模块是包时，__package__应该和__name__值一样，当模块不是包时，__package__应该是所在包的名称，对于位于模块foo/bar/baz.py，__name__设置为foo.bar.baz，并__package__设置为foo.bar，而foo/bar/__init__.py将foo.bar两者的__name__和__package__属性。</p>
+<h4 id="import">import</h4>
+<p><strong>导入方式</strong></p>
+<pre><code>import module_Name
+</code></pre>
+<p>在当前目录里创建一个fibo.py 文件</p>
+<pre><code> def fib(n):  # 定义到 n 的斐波那契数列
+    a, b = 0, 1
+    while b &lt; n:
+        print(b, end=' ')
+        a, b = b, a + b
+    print()
+
+def fib2(n):  # 返回到 n 的斐波那契数列
+    result = []
+    a, b = 0, 1
+    while b &lt; n:
+        result.append(b)
+        a, b = b, a + b
+    return result
+</code></pre>
+<h4 id="from-import-语句">from .. import 语句</h4>
+<p>from 语句可以让你导入模块中的指定部分到当前命名空间中,用<code>,</code>分开</p>
+<pre><code>from moduleName import name1 …… nameN
+</code></pre>
+<p>fibo.py</p>
+<pre><code>def fib(n):  # 定义到 n 的斐波那契数列
+    a, b = 0, 1
+    while b &lt; n:
+        print(b, end=' ')
+        a, b = b, a + b
+    print()
+
+
+def fib2(n):  # 返回到 n 的斐波那契数列
+    result = []
+    a, b = 0, 1
+    while b &lt; n:
+        result.append(b)
+        a, b = b, a + b
+    return result
+</code></pre>
+<p>用from .. import .. 分别导入fib(n)和fib2(n)函数</p>
+<pre><code>from fibo import fib，fib2
+</code></pre>
+<h4 id="from-import-语句-2">from .. import * 语句</h4>
+<p>导入模块中所有的内容到当前的命名空间</p>
+<h3 id="模块导入原理">模块导入原理</h3>
+<p>每个模块都有各自的符号表，在模块内部当做全局符号来表示，模块作者可以在模块内部使用这些全局变量。</p>
+<ul>
+<li>当使用import moduleName 导入模块的时候，被导入的模块名会被放入当前模块的符号表中，可以通过moduleName.attribute 来调用属性或者过moduleName.methodName调用方法。</li>
+<li>使用from .. import .. 导入会将被导入的模块内的函数加入当前操作模块的符号表，不会将模块名放入操作表。</li>
+<li>使用from .. import * 进行导入，这种方式会把模块内的函数和变量一次性导入到当前操作空间，加入到当前字符表中</li>
+</ul>
+<h4 id="包">包</h4>
+<p>包可以管理python 的模块命名，采用“点模块名称”<br>
+A.B就表示A包里面包括了子模块B，B可以是包，也可以是.py文件，也就是模块。这样子不用担心模块之间全局变量互相影响，也不用担心不同库之间的模块重名<br>
+包是一个包含了一个__init__.py文件的目录，文件可以为空，也可以放入一些初始化的代码。</p>
+<p>比如我们我要入的模块目录结构像这样：<code>package1\package2\module.py</code><br>
+按照第一种方式导入</p>
+<pre><code>import package1.package2.module
+</code></pre>
+<p>这样导入的模块必须使用全名去访问属性或者方法</p>
+<pre><code>package1.package2.module.method()
+</code></pre>
+<p>还可以按照下面这样导入,package1和package2 分别是module 的爷爷目录和父目录。</p>
+<pre><code>from package1.package2 import module
+</code></pre>
+<p>这样可以直接使用module来访问属性和方法</p>
+<pre><code>module.method()
+</code></pre>
+<h4 id="导入从包中">导入*从包中</h4>
+<p>理论上来说，这样操作会导入包里面的所有子模块。<br>
+我们认识一下__all__这个变量，这个变量是存在于__init__文件中，值是一个列表，使用*进行导入的时候会把这个列表中的名字作为包的字模块导入，当我们写代码的时候，更新包的同时也要更新这个变量。<br>
+那么当__all__为空或者根本没有定义的时候，使用这种语法不会导入任何模块。</p>
+<h4 id="模块的__name__和__package__属性">模块的__name__和__package__属性</h4>
+<p>每一个模块都有一个__name__属性，是python的内置属性，表示当前模块.<br>
+python 模块可以自己运行也可以被导入，当被调用时__name__存储的是不带后缀模块名，当独立运行是存储的是__main__，它的作用主要就是区分模块是被调用还是独立运行。</p>
+<p>一般写代码都会有下面一个代码片段</p>
+<pre><code>if __name__ == '__main__':
+    ……
+</code></pre>
+<p>这是模块的入口，判断__name__是不是__main__,如果是__main__的话，就执行if 语句下的内容，不是__main__则是被调用，此代码段不执行。<br>
+python 代码块是按照缩进来维护的，不加if 语句块也可以直接运行，那为什么要使用if 语句进行判断呢。一般在开发时自己写了一个模块，里面包含了一些函数，可能被其它同事调用，if 语句块里自己可以进行测试，同事调用的时候此代码段不执行。</p>
+<h3 id="相对导入和绝对导入">相对导入和绝对导入</h3>
+<p>python import 的搜索路径</p>
+<ul>
+<li>在当前目录下搜索该模块</li>
+<li>在环境变量path 中指定的路径列表中依次搜索</li>
+<li>在python 安装路径的lib库中搜索</li>
+</ul>
+<p>绝对导入</p>
+<pre><code>import A.B 
+from A import B
+</code></pre>
+<p>相对导入</p>
+<pre><code>from . import B   
+from ..A import B
+</code></pre>
+<p><code>.</code> 代表当前模块，<code>..</code> 代表上层模块，<code>...</code> 代表上上层模块，以此类推</p>
+<p>python 是根据<code>__name__</code> 来确定模块在包中的结构，如果值为<code>__main__</code>则没有包结构，它本身就是顶层模块，如果是A.B.C结构，那么顶层模块是A。</p>
+<ul>
+<li>绝对导入，一个模块只能导入自身的子模块和它的顶层模块同级别的模块及其子模块。</li>
+<li>相对导入，模块必须有包结构才能使用相对导入，而且只能导入自己顶层模块的内部模块</li>
+</ul>
+<p>综上所述，__name__值若为__main__，则只能使用绝对导入</p>
+<p><strong>显式相对导入和隐式相对导入</strong><br>
+假设有一个包为A，A下面有模块B和C，我们要在C里面导入模块B，有以下三种导入方式：</p>
+<pre><code>import B
+from . import B
+from A import B
+</code></pre>
+<p>第一种为隐式相对导入，第二种为显式相对导入，第三种为绝对导入，第一种官方不推荐，在python3 中已经被废弃，智能用于导入path 中的模块。<br>
+隐式导入是没有告诉解释器是相对谁，但是默认相对于当前包模块，显式导入是明确告诉显式器是相对谁来导入。</p>
+<ul>
+<li>相对导入和绝对导入都是相对包内导入而言的，不然所有的讨论都是没有意义的</li>
+<li>相对导入可以避免硬编码，当我们要修改某一个顶级包的名称，对于相对导入是没有影响的，但是绝对导入我们则需要修改代码，所以相对导入有利于包的维护<br>
+如果同一目录下有a.py和b.py，那么可以直接在b.py中使用import a 进行导入，这是因为这两个文件所在的是目录不是包，那么每一个文件是相互独立的，可以直接被其它模块导入，像导入标准库一样，不存在绝对导入和相对导入，这两个概念是相对于包才有意义。</li>
+</ul>
+<h3 id="参考">参考</h3>
+<blockquote>
+<p>https://www.cnblogs.com/ygzy/p/10867648.html<br>
+https://www.pythonheidong.com/blog/article/65162/<br>
+https://www.jb51.net/article/102252.htm</p>
+</blockquote>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%A8%A1%E5%9D%97">什么是模块</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5">模块导入</a>
+<ul>
+<li><a href="#import">import</a></li>
+<li><a href="#from-import-%E8%AF%AD%E5%8F%A5">from .. import 语句</a></li>
+<li><a href="#from-import-%E8%AF%AD%E5%8F%A5-2">from .. import * 语句</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E5%AF%BC%E5%85%A5%E5%8E%9F%E7%90%86">模块导入原理</a>
+<ul>
+<li><a href="#%E5%8C%85">包</a></li>
+<li><a href="#%E5%AF%BC%E5%85%A5%E4%BB%8E%E5%8C%85%E4%B8%AD">导入*从包中</a></li>
+<li><a href="#%E6%A8%A1%E5%9D%97%E7%9A%84__name__%E5%92%8C__package__%E5%B1%9E%E6%80%A7">模块的__name__和__package__属性</a></li>
+</ul>
+</li>
+<li><a href="#%E7%9B%B8%E5%AF%B9%E5%AF%BC%E5%85%A5%E5%92%8C%E7%BB%9D%E5%AF%B9%E5%AF%BC%E5%85%A5">相对导入和绝对导入</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://jm0820.github.io/post/unittest-chang-yong-api/">
+              <h3 class="post-title">
+                （二）unittest 常用api
+              </h3>
+            </a>
+          </div>
+        
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '78c231bbde878b725832',
+    clientSecret: 'f84ba1a8636180bf745c1fe4b7242553439676f4',
+    repo: 'jm0820.github.io',
+    owner: 'jm0820',
+    admin: ['jm0820'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://jm0820.github.io/atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
